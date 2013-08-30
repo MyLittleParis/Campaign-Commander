@@ -238,7 +238,7 @@ class Client
         // loop parameters
         foreach ($parameters as $key => $value) {
             // strings should be UTF8
-            if(gettype($value) == 'string') $parameters[$key] = utf8_encode($value);
+            if(gettype($value) == 'string' && mb_detect_encoding($value)!="UTF-8") $parameters[$key] = utf8_encode($value);
         }
 
         // add token
