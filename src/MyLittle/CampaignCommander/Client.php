@@ -13,6 +13,12 @@ use Exception;
  * The class is documented in the file itself. If you find any bugs help me out and report them. Reporting can be done by sending an email to php-campaign-commander-member-bugs[at]verkoyen[dot]eu.
  * If you report a bug, make sure you give me enough information (include your code).
  *
+ * Changelog since 1.2
+ * - implemented reporting API
+ * - implemented getGlobalReportByCampaignId.
+ * - implemented getSnapshotReportUrl.
+ * - implemented getLinkReport.
+ * 
  * Changelog since 1.1.1
  * - implemented segmentationCreateSegment
  *
@@ -45,7 +51,8 @@ use Exception;
  *
  * @author          Tijs Verkoyen <php-campaign-commander-member@verkoyen.eu>
  * @author          Ludovic Fleury <ludovic.fleury@mylittleparis.com>
- * @version         1.1.2
+ * @author          Jocelyn Kerbourc'h <jocelyn@mylittleparis.com>
+ * @version         1.2
  *
  * @copyright       Copyright (c), Tijs Verkoyen. All rights reserved.
  * @license         BSD License
@@ -55,11 +62,8 @@ class Client
     // internal constant to enable/disable debugging
     const DEBUG = false;
 
-    // URL for the api
-    const WSDL_URL = 'apiccmd/services/CcmdService?wsdl';
-
     // current version
-    const VERSION = '1.1.2';
+    const VERSION = '1.2';
 
     /**
      * The API-key that will be used for authenticating
@@ -83,12 +87,26 @@ class Client
     private $password;
 
     /**
+     * The type of API
+     * 
+     * @var string
+     */
+    private $api;
+    
+    /**
      * The server to use
      *
      * @var string
      */
     private $server = 'http://emvapi.emv3.com';
 
+    /**
+     * list of url api
+     *
+     * @var string
+     */
+    private $url =array('ccmd'=>'apiccmd/services/CcmdService?wsdl', 'reporting'=>'apireporting/services/ReportingService?wsdl');
+    
     /**
      * The SOAP-client
      *
@@ -126,13 +144,15 @@ class Client
      * @param  string           $password The password.
      * @param  string           $key      Manager Key copied from the CCMD web application.
      * @param  string[optional] $server   The server to use. Ask your account-manager.
+     * @param  string[optional] $api      The type of the API
      */
-    public function __construct($login, $password, $key, $server = null)
+    public function __construct($login, $password, $key, $server = null, $api = 'ccmd')
     {
         $this->setLogin($login);
         $this->setPassword($password);
         $this->setKey($key);
         if($server !== null) $this->setServer($server);
+        $this->setApi($api);
     }
 
     /**
@@ -183,7 +203,8 @@ class Client
                         );
 
             // create client
-            $this->soapClient = new \SoapClient($this->getServer() . '/' . self::WSDL_URL, $options);
+            if(!key_exists($this->getApi(), $this->url)) throw new CampaignCommanderException('Invalid part (' . $this->getApi() . '), allowed values are: ' . implode(', ', $this->url) . '.');
+            $this->soapClient = new \SoapClient($this->getServer() . '/' . $this->url[$this->getApi()], $options);
 
             // build login parameters
             $loginParameters['login'] = $this->getLogin();
@@ -356,6 +377,16 @@ class Client
     {
         return $this->server;
     }
+    
+    /**
+     * Get the api type
+     *
+     * @return string
+     */
+    private function getApi()
+    {
+        return $this->api;
+    }    
 
     /**
      * Get the timeout that will be used
@@ -421,7 +452,19 @@ class Client
     {
         $this->server = (string) $server;
     }
-
+    
+    /**
+     * Set the api type that has to be used.
+     *
+     * @return void
+     * @param  string $api The api type to use.
+     */
+    private function setApi($api)
+    {
+        if(!key_exists($api, $this->url)) throw new CampaignCommanderException('Invalid part (' . $api . '), allowed values are: ' . implode(', ', $this->url) . '.');
+        $this->api = (string) $api;
+    }
+    
     /**
      * Set the timeout
      * After this time the request will stop. You should handle any errors triggered by this.
@@ -3039,5 +3082,45 @@ class Client
     {
         // make the call
         return (array) $this->doCall('getClientTestGroups');
+    }
+    
+    /**
+     * Retrieves a campaign Report.
+     *
+     * @return array Campaign Report.
+     */
+    public function getGlobalReportByCampaignId($campaignId)
+    {
+        $parameters = array();
+        $parameters['campaignId'] = (string) $campaignId;
+        // make the call
+        return (array) $this->doCall('getGlobalReportByCampaignId',$parameters);
+    }
+    
+    /**
+     * Retrieves the URL of a campaign's snapshot.
+     *
+     * @return array The link report.
+     */
+    public function getSnapshotReportUrl($campaignId)
+    {
+        $parameters = array();
+        $parameters['campaignId'] = (string) $campaignId;
+        // make the call
+        return (array) $this->doCall('getSnapshotReportUrl',$parameters);
+    }
+   
+    /**
+     * Retrieves a link report.
+     *
+     * @return array The link report.
+     */
+    public function getLinkReport($campaignId)
+    {
+        $parameters = array();
+        $parameters['campaignId'] = (string) $campaignId;
+        $parameters['page'] = (int) 1;
+        // make the call
+        return (array) $this->doCall('getLinkReport',$parameters);
     }
 }
