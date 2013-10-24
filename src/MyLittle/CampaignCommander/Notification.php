@@ -332,7 +332,7 @@ class Notification
 			$xml .= '	<dyn>' . "\n";
 
 			// loop pairs
-			foreach($dyn as $key => $value) $xml .= '		<entry><key>' . $key . '</key><value><![CDATA['. $value .']]></value></entry>' . "\n";
+			foreach($dyn as $key => $value) $xml .= '		<entry><key>' . $key . '</key><value><![CDATA[' . utf8_encode($value) . ']]></value></entry>' . "\n";
 
 			// end
 			$xml .= '	</dyn>' . "\n";
@@ -345,7 +345,7 @@ class Notification
 			$xml .='	<content>' . "\n";
 
 			// loop pairs
-			foreach($content as $key => $value) $xml .= '		<entry><key>' . $key . '</key><value><![CDATA[' . $value . ']]></value></entry>' . "\n";
+			foreach($content as $key => $value) $xml .= '		<entry><key>' . $key . '</key><value><![CDATA[' . utf8_encode($value) . ']]></value></entry>' . "\n";
 
 			// end
 			$xml .='	</content>' . "\n";
