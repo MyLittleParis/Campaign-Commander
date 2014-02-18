@@ -2,6 +2,8 @@
 
 namespace MyLittle\CampaignCommander\Tests;
 
+use MyLittle\CampaignCommander\Client;
+
 /**
  * CampaignCommander test case.
  */
@@ -20,7 +22,7 @@ class CampaignCommanderTest extends \PHPUnit_Framework_TestCase
     {
         parent::setUp();
 
-        $this->campaignCommander = new CampaignCommander(LOGIN, PASSWORD, KEY);
+        $this->campaignCommander = new Client(LOGIN, PASSWORD, KEY);
     }
 
     /**
@@ -59,7 +61,7 @@ class CampaignCommanderTest extends \PHPUnit_Framework_TestCase
         // create the message
         $var = $this->campaignCommander->createEmailMessage('TEST (remove me)', '', 'subject', 'from', 'email@mhg.ccmdemail.net', 'to', '[EMV TEXTPART]body', 'utf-8', 'replyTo', 'replyTo@mail.be');
 
-        $this->assertType('string', $var);
+        $this->assertInternalType('string', $var);
 
         // delete message
         $this->campaignCommander->deleteMessage($var);
@@ -87,7 +89,7 @@ class CampaignCommanderTest extends \PHPUnit_Framework_TestCase
             'hotmailUnsubFlg' => 0
         ));
 
-        $this->assertType('string', $var);
+        $this->assertInternalType('string', $var);
 
         // delete message
         $this->campaignCommander->deleteMessage($var);
@@ -100,7 +102,7 @@ class CampaignCommanderTest extends \PHPUnit_Framework_TestCase
     {
         // create the message
         $var = $this->campaignCommander->createSmsMessage('REMOVE ME', '', 'from', '[EMV SMSPART]body');
-        $this->assertType('string', $var);
+        $this->assertInternalType('string', $var);
 
         // delete message
         $this->campaignCommander->deleteMessage($var);
@@ -120,7 +122,7 @@ class CampaignCommanderTest extends \PHPUnit_Framework_TestCase
             'hotmailUnsubFlg' => false,
             'isBounceback' => false
         ));
-        $this->assertType('string', $var);
+        $this->assertInternalType('string', $var);
 
         // delete message
         $this->campaignCommander->deleteMessage($var);
@@ -189,7 +191,7 @@ class CampaignCommanderTest extends \PHPUnit_Framework_TestCase
         $var = $this->campaignCommander->createEmailMessage('TEST (remove me)', '', 'subject', 'from', 'email@mhg.ccmdemail.net', 'to', '[EMV TEXTPART]body', 'utf-8', 'replyTo', 'replyTo@mail.be');
         $var2 = $this->campaignCommander->cloneMessage($var, 'CLONE');
 
-        $this->assertType('string', $var2);
+        $this->assertInternalType('string', $var2);
 
         // delete message
         $this->campaignCommander->deleteMessage($var);
@@ -225,7 +227,7 @@ class CampaignCommanderTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetEmailMessagesByField()
     {
-        $this->assertType('array', $this->campaignCommander->getEmailMessagesByField('from', 'Capitole Gent', 10));
+        $this->assertInternalType('array', $this->campaignCommander->getEmailMessagesByField('from', 'Capitole Gent', 10));
     }
 
     /**
@@ -233,7 +235,7 @@ class CampaignCommanderTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetSmsMessagesByField()
     {
-        $this->assertType('array', $this->campaignCommander->getSmsMessagesByField('name', 'remove', 10));
+        $this->assertInternalType('array', $this->campaignCommander->getSmsMessagesByField('name', 'remove', 10));
     }
 
     /**
@@ -241,7 +243,7 @@ class CampaignCommanderTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetMessagesByPeriod()
     {
-        $this->assertType('array', $this->campaignCommander->getMessagesByPeriod(1262300400, 1325372399));
+        $this->assertInternalType('array', $this->campaignCommander->getMessagesByPeriod(1262300400, 1325372399));
     }
 
     /**
@@ -249,7 +251,7 @@ class CampaignCommanderTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetEmailMessagePreview()
     {
-        $this->assertType('string', $this->campaignCommander->getEmailMessagePreview('1104992528'));
+        $this->assertInternalType('string', $this->campaignCommander->getEmailMessagePreview('1104992528'));
     }
 
     /**
@@ -301,7 +303,7 @@ class CampaignCommanderTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetAllTrackedLinks()
     {
-        $this->assertType('array', $this->campaignCommander->getAllTrackedLinks('1104992528'));
+        $this->assertInternalType('array', $this->campaignCommander->getAllTrackedLinks('1104992528'));
     }
 
     /**
@@ -317,7 +319,7 @@ class CampaignCommanderTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetAllTrackableLinks()
     {
-        $this->assertType('array', $this->campaignCommander->getAllTrackableLinks('1104992528'));
+        $this->assertInternalType('array', $this->campaignCommander->getAllTrackableLinks('1104992528'));
     }
 
 //  /**
@@ -363,7 +365,7 @@ class CampaignCommanderTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetValidatedAltSenders()
     {
-        $this->assertType('array', $this->campaignCommander->getValidatedAltSenders());
+        $this->assertInternalType('array', $this->campaignCommander->getValidatedAltSenders());
     }
 
     /**
@@ -539,7 +541,7 @@ class CampaignCommanderTest extends \PHPUnit_Framework_TestCase
         // create the segment
         $var = $this->campaignCommander->segmentationCreateSegment('REMOVE ME', 'ALL');
 
-        $this->assertType('string', $var);
+        $this->assertInternalType('string', $var);
 
         // delete message
         $this->campaignCommander->segmentationDeleteSegment($var);
@@ -668,7 +670,7 @@ class CampaignCommanderTest extends \PHPUnit_Framework_TestCase
      */
     public function testSegmentationGetSegmentList()
     {
-        $this->assertType('array', $this->campaignCommander->segmentationGetSegmentList(1, 10));
+        $this->assertInternalType('array', $this->campaignCommander->segmentationGetSegmentList(1, 10));
     }
 
     /**
@@ -676,7 +678,7 @@ class CampaignCommanderTest extends \PHPUnit_Framework_TestCase
      */
     public function testSegmentationGetSegmentCriterias()
     {
-        $this->assertType('array', $this->campaignCommander->segmentationGetSegmentCriterias('1104998848'));
+        $this->assertInternalType('array', $this->campaignCommander->segmentationGetSegmentCriterias('1104998848'));
     }
 
     /**
@@ -812,7 +814,7 @@ class CampaignCommanderTest extends \PHPUnit_Framework_TestCase
      */
     public function testSegmentationCount()
     {
-        $this->assertType('integer', $this->campaignCommander->segmentationCount('1104998848'));
+        $this->assertInternalType('integer', $this->campaignCommander->segmentationCount('1104998848'));
     }
 
     /**
@@ -820,7 +822,7 @@ class CampaignCommanderTest extends \PHPUnit_Framework_TestCase
      */
     public function testSegmentationDistinctCount()
     {
-        $this->assertType('integer', $this->campaignCommander->segmentationDistinctCount('1104998848'));
+        $this->assertInternalType('integer', $this->campaignCommander->segmentationDistinctCount('1104998848'));
     }
 
     /**
@@ -831,7 +833,7 @@ class CampaignCommanderTest extends \PHPUnit_Framework_TestCase
         $messageId = $this->campaignCommander->createEmailMessage('TEST (remove me)', '', 'subject', 'from', 'email@mhg.ccmdemail.net', 'to', '[EMV TEXTPART]body', 'utf-8', 'replyTo', 'replyTo@mail.be');
         $var = $this->campaignCommander->createCampaign('REMOVE ME', time(), $messageId, '1105024728');
 
-        $this->assertType('string', $var);
+        $this->assertInternalType('string', $var);
 
         // cleanup
         $this->campaignCommander->deleteCampaign($var);
@@ -846,7 +848,7 @@ class CampaignCommanderTest extends \PHPUnit_Framework_TestCase
         $messageId = $this->campaignCommander->createEmailMessage('TEST (remove me)', '', 'subject', 'from', 'email@mhg.ccmdemail.net', 'to', '[EMV TEXTPART]body', 'utf-8', 'replyTo', 'replyTo@mail.be');
         $var = $this->campaignCommander->createCampaignWithAnalytics('REMOVE ME', time(), $messageId, '1105024728');
 
-        $this->assertType('string', $var);
+        $this->assertInternalType('string', $var);
 
         // cleanup
         $this->campaignCommander->deleteCampaign($var);
@@ -871,7 +873,7 @@ class CampaignCommanderTest extends \PHPUnit_Framework_TestCase
             'messageId' => $messageId
         ));
 
-        $this->assertType('string', $var);
+        $this->assertInternalType('string', $var);
 
         // cleanup
         $this->campaignCommander->deleteCampaign($var);
@@ -964,7 +966,7 @@ class CampaignCommanderTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetCampaignsByField()
     {
-        $this->assertType('array', $this->campaignCommander->getCampaignsByField('name', 'DC', 10));
+        $this->assertInternalType('array', $this->campaignCommander->getCampaignsByField('name', 'DC', 10));
     }
 
     /**
@@ -972,7 +974,7 @@ class CampaignCommanderTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetCampaignsByStatus()
     {
-        $this->assertType('array', $this->campaignCommander->getCampaignsByStatus('COMPLETED'));
+        $this->assertInternalType('array', $this->campaignCommander->getCampaignsByStatus('COMPLETED'));
     }
 
     /**
@@ -980,7 +982,7 @@ class CampaignCommanderTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetCampaignsByPeriod()
     {
-        $this->assertType('array', $this->campaignCommander->getCampaignsByPeriod(1262300400, 1325372399));
+        $this->assertInternalType('array', $this->campaignCommander->getCampaignsByPeriod(1262300400, 1325372399));
     }
 
     /**
@@ -996,7 +998,7 @@ class CampaignCommanderTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetLastCampaigns()
     {
-        $this->assertType('array', $this->campaignCommander->getLastCampaigns(10));
+        $this->assertInternalType('array', $this->campaignCommander->getLastCampaigns(10));
     }
 
 //  /**
@@ -1055,7 +1057,7 @@ class CampaignCommanderTest extends \PHPUnit_Framework_TestCase
     public function testCreateBanner()
     {
         $var = $this->campaignCommander->createBanner('REMOVE ME', 'TEXT', null, 'BODY');
-        $this->assertType('string', $var);
+        $this->assertInternalType('string', $var);
 
         // cleanup
         $this->campaignCommander->deleteBanner($var);
@@ -1072,7 +1074,7 @@ class CampaignCommanderTest extends \PHPUnit_Framework_TestCase
             'contentType' => 'TEXT',
             'name' => 'REMOVE ME'
         ));
-        $this->assertType('string', $var);
+        $this->assertInternalType('string', $var);
 
         // cleanup
         $this->campaignCommander->deleteBanner($var);
@@ -1117,7 +1119,7 @@ class CampaignCommanderTest extends \PHPUnit_Framework_TestCase
         $var = $this->campaignCommander->createBanner('REMOVE ME', 'TEXT', null, 'BODY');
         $var2 = $this->campaignCommander->cloneBanner($var, 'NEW');
 
-        $this->assertType('string', $var2);
+        $this->assertInternalType('string', $var2);
 
         // cleanup
         $this->campaignCommander->deleteBanner($var);
@@ -1129,7 +1131,7 @@ class CampaignCommanderTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetBannerPreview()
     {
-        $this->assertType('string', $this->campaignCommander->getBannerPreview('1018382'));
+        $this->assertInternalType('string', $this->campaignCommander->getBannerPreview('1018382'));
     }
 
     /**
@@ -1145,7 +1147,7 @@ class CampaignCommanderTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetBannersByField()
     {
-        $this->assertType('array', $this->campaignCommander->getBannersByField('name', 'KAL', 10));
+        $this->assertInternalType('array', $this->campaignCommander->getBannersByField('name', 'KAL', 10));
     }
 
     /**
@@ -1153,7 +1155,7 @@ class CampaignCommanderTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetBannersByPeriod()
     {
-        $this->assertType('array', $this->campaignCommander->getBannersByPeriod(1262300400, 1325372399));
+        $this->assertInternalType('array', $this->campaignCommander->getBannersByPeriod(1262300400, 1325372399));
     }
 
     /**
@@ -1161,7 +1163,7 @@ class CampaignCommanderTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetLastBanners()
     {
-        $this->assertType('array', $this->campaignCommander->getLastBanners(10));
+        $this->assertInternalType('array', $this->campaignCommander->getLastBanners(10));
     }
 
 //  /**
@@ -1209,7 +1211,7 @@ class CampaignCommanderTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetAllBannerTrackedLinks()
     {
-        $this->assertType('array', $this->campaignCommander->getAllBannerTrackedLinks('1018382'));
+        $this->assertInternalType('array', $this->campaignCommander->getAllBannerTrackedLinks('1018382'));
     }
 
 //  /**
@@ -1217,7 +1219,7 @@ class CampaignCommanderTest extends \PHPUnit_Framework_TestCase
 //   */
 //  public function testGetAllUnusedBannerTrackedLinks()
 //  {
-//      $this->assertType('array', $this->campaignCommander->getAllUnusedBannerTrackedLinks('1018382'));
+//      $this->assertInternalType('array', $this->campaignCommander->getAllUnusedBannerTrackedLinks('1018382'));
 //  }
 
 //  /**
@@ -1225,7 +1227,7 @@ class CampaignCommanderTest extends \PHPUnit_Framework_TestCase
 //   */
 //  public function testGetAllBannerTrackableLinks()
 //  {
-//      $this->assertType('array', $this->campaignCommander->getAllBannerTrackableLinks('1018382'));
+//      $this->assertInternalType('array', $this->campaignCommander->getAllBannerTrackableLinks('1018382'));
 //  }
 
 //  /**
@@ -1374,7 +1376,7 @@ class CampaignCommanderTest extends \PHPUnit_Framework_TestCase
     public function testCreateTestGroup()
     {
         $var = $this->campaignCommander->createTestGroup('REMOVE ME');
-        $this->assertType('string', $var);
+        $this->assertInternalType('string', $var);
 
         // cleanup
         $this->campaignCommander->deleteTestGroup($var);
@@ -1454,6 +1456,6 @@ class CampaignCommanderTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetClientTestGroups()
     {
-        $this->assertType('array', $this->campaignCommander->getClientTestGroups());
+        $this->assertInternalType('array', $this->campaignCommander->getClientTestGroups());
     }
 }
