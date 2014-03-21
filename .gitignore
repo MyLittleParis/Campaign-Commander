@@ -24,7 +24,7 @@ Desktop.ini
 $RECYCLE.BIN/
 
 # Netbeans
-nbproject/private/
+nbproject
 build/
 nbbuild/
 dist/

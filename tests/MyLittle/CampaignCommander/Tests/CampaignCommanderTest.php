@@ -50,7 +50,7 @@ class CampaignCommanderTest extends \PHPUnit_Framework_TestCase
     public function testGetUserAgent()
     {
         $this->campaignCommander->setUserAgent('testing/1.0.0');
-        $this->assertEquals('PHP Campaign Commander/' . CampaignCommander::VERSION . ' testing/1.0.0', $this->campaignCommander->getUserAgent());
+        $this->assertEquals('PHP Campaign Commander/' . Client::VERSION . ' testing/1.0.0', $this->campaignCommander->getUserAgent());
     }
 
     /**
