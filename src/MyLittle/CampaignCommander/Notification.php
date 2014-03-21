@@ -108,6 +108,7 @@ class Notification
 		$options[CURLOPT_RETURNTRANSFER] = true;
 		$options[CURLOPT_TIMEOUT] = (int) $this->getTimeOut();
 		$options[CURLOPT_POST] = 1;
+		$options[CURLOPT_HTTPHEADER] = ['Content-type: application/xml'];
 		$options[CURLOPT_POSTFIELDS] = $xml;
 
 		// init
