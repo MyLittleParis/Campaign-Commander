@@ -2,6 +2,8 @@
 
 namespace MyLittle\CampaignCommander\Client;
 
+use MyLittle\CampaignCommander\Exception\CampaignCommanderMemberException;
+
 /**
  * Description of Member
  *

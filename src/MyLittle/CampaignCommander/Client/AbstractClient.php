@@ -61,6 +61,7 @@
 namespace MyLittle\CampaignCommander\Client;
 
 use MyLittle\CampaignCommander\Client\Model\ClientInterface;
+use MyLittle\CampaignCommander\Exception\CampaignCommanderException;
 
 /**
  * Abstract client class
