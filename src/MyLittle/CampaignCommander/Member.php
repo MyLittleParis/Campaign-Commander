@@ -3,6 +3,7 @@
 namespace MyLittle\CampaignCommander;
 
 use MyLittle\CampaignCommander\CampaignCommanderMemberException;
+use \SoapClient;
 
 /**
  * Campaign Commander Member class

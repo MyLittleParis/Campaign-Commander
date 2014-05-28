@@ -2,6 +2,8 @@
 
 namespace MyLittle\CampaignCommander\Tests;
 
+use MyLittle\CampaignCommander\Member;
+
 /**
  * CampaignCommanderMember test case.
  */
@@ -21,7 +23,7 @@ class CampaignCommanderMemberTest extends \PHPUnit_Framework_TestCase
 	{
 		parent::setUp();
 
-		$this->campaignCommanderMember = new CampaignCommanderMember(LOGIN, PASSWORD, KEY);
+		$this->campaignCommanderMember = new Member(LOGIN, PASSWORD, KEY);
 	}
 
 
@@ -52,7 +54,7 @@ class CampaignCommanderMemberTest extends \PHPUnit_Framework_TestCase
 	public function testGetUserAgent()
 	{
 		$this->campaignCommanderMember->setUserAgent('testing/1.0.0');
-		$this->assertEquals('PHP Campaign Commander Member/' . CampaignCommanderMember::VERSION . ' testing/1.0.0', $this->campaignCommanderMember->getUserAgent());
+		$this->assertEquals('PHP Campaign Commander Member/' . Member::VERSION . ' testing/1.0.0', $this->campaignCommanderMember->getUserAgent());
 	}
 
 
@@ -61,7 +63,7 @@ class CampaignCommanderMemberTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testDescMemberTable()
 	{
-		$this->assertType('array', $this->campaignCommanderMember->descMemberTable());
+		$this->assertInternalType('array', $this->campaignCommanderMember->descMemberTable());
 	}
 
 
@@ -100,7 +102,7 @@ class CampaignCommanderMemberTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetListMembersByObj()
 	{
-		$this->assertType('array', $this->campaignCommanderMember->getListMembersByObj(array('dynContent' => array(), 'memberUID' => 'FIRSTNAME:jan')));
+		$this->assertInternalType('array', $this->campaignCommanderMember->getListMembersByObj(array('dynContent' => array(), 'memberUID' => 'FIRSTNAME:jan')));
 	}
 
 
@@ -109,7 +111,7 @@ class CampaignCommanderMemberTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testGetListMembersByPage()
 	{
-		$this->assertType('array', $this->campaignCommanderMember->getListMembersByPage(1));
+		$this->assertInternalType('array', $this->campaignCommanderMember->getListMembersByPage(1));
 	}
 
 
@@ -118,7 +120,7 @@ class CampaignCommanderMemberTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testInsertMember()
 	{
-		$this->assertType('string', $this->campaignCommanderMember->insertMember('spam@verkoyen.eu'));
+		$this->assertInternalType('string', $this->campaignCommanderMember->insertMember('spam@verkoyen.eu'));
 	}
 
 
@@ -127,7 +129,7 @@ class CampaignCommanderMemberTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testUpdateMember()
 	{
-		$this->assertType('string', $this->campaignCommanderMember->updateMember('spam@verkoyen.eu', 'FIRSTNAME', 'spam'));
+		$this->assertInternalType('string', $this->campaignCommanderMember->updateMember('spam@verkoyen.eu', 'FIRSTNAME', 'spam'));
 	}
 
 
@@ -136,7 +138,7 @@ class CampaignCommanderMemberTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testInsertOrUpdateMemberByObj()
 	{
-		$this->assertType('string', $this->campaignCommanderMember->insertOrUpdateMemberByObj(array('FIRSTNAME' => 'MARK'), 'spam@verkoyen.eu'));
+		$this->assertInternalType('string', $this->campaignCommanderMember->insertOrUpdateMemberByObj(array('FIRSTNAME' => 'MARK'), 'spam@verkoyen.eu'));
 	}
 
 
@@ -145,7 +147,7 @@ class CampaignCommanderMemberTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testUpdateMemberByObj()
 	{
-		$this->assertType('string', $this->campaignCommanderMember->updateMemberByObj(array('FIRSTNAME' => 'MARK'), 'spam@verkoyen.eu'));
+		$this->assertInternalType('string', $this->campaignCommanderMember->updateMemberByObj(array('FIRSTNAME' => 'MARK'), 'spam@verkoyen.eu'));
 	}
 
 
@@ -156,7 +158,7 @@ class CampaignCommanderMemberTest extends \PHPUnit_Framework_TestCase
 	{
 		$var = $this->campaignCommanderMember->updateMember('spam@verkoyen.eu', 'FIRSTNAME', time());
 		$var = $this->campaignCommanderMember->getMemberJobStatus($var);
-		$this->assertType('string', $var);
+		$this->assertInternalType('string', $var);
 		$this->assertEquals('Insert', $var);
 	}
 
@@ -166,7 +168,7 @@ class CampaignCommanderMemberTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testUnjoinMemberByEmail()
 	{
-		$this->assertType('string', $this->campaignCommanderMember->unjoinMemberByEmail('spam@verkoyen.eu'));
+		$this->assertInternalType('string', $this->campaignCommanderMember->unjoinMemberByEmail('spam@verkoyen.eu'));
 	}
 
 
@@ -175,8 +177,8 @@ class CampaignCommanderMemberTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testUnjoinMemberById()
 	{
-		$this->assertType('string', $this->campaignCommanderMember->unjoinMemberById('1048473894275'));
-		$this->assertType('string', $this->campaignCommanderMember->rejoinMemberById('1048473894275'));
+		$this->assertInternalType('string', $this->campaignCommanderMember->unjoinMemberById('1048473894275'));
+		$this->assertInternalType('string', $this->campaignCommanderMember->rejoinMemberById('1048473894275'));
 	}
 
 
@@ -185,8 +187,8 @@ class CampaignCommanderMemberTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testUnjoinMemberByObj()
 	{
-		$this->assertType('string', $this->campaignCommanderMember->unjoinMemberByObj(array('dynContent' => array(), 'memberUID' => 'email:spam@verkoyen.eu')));
-		$this->assertType('string', $this->campaignCommanderMember->rejoinMemberByEmail('spam@verkoyen.eu'));
+		$this->assertInternalType('string', $this->campaignCommanderMember->unjoinMemberByObj(array('dynContent' => array(), 'memberUID' => 'email:spam@verkoyen.eu')));
+		$this->assertInternalType('string', $this->campaignCommanderMember->rejoinMemberByEmail('spam@verkoyen.eu'));
 	}
 }
 
