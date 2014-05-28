@@ -19,15 +19,19 @@
         }
     ],
     "support": {
-        "email": "ludovic.fleury@mylittleparis.com",
+        "email": "jocelyn@mylittleparis.com",
         "issues": "https://github.com/MyLittleParis/Campaign-Commander"
     },
     "autoload": {
         "psr-0": { "MyLittle\\CampaignCommander": "src/" }
     },
     "minimum-stability": "dev",
+    "prefer-stable": true,
     "require": {
         "php": ">=5.4.4",
         "ext-soap": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*"
     }
 }
