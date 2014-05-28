@@ -70,6 +70,13 @@ use MyLittle\CampaignCommander\Client\Model\ClientInterface;
  */
 abstract class AbstractClient implements ClientInterface
 {
+    /**
+     * list of url api
+     */
+    const WSDL_URL_CCMD = 'apiccmd/services/CcmdService?wsdl';
+    const WSDL_URL_REPORTING = 'apireporting/services/ReportingService?wsdl';
+    const WSDL_URL_MEMBER = 'apimember/services/MemberService?wsdl';
+
     // internal constant to enable/disable debugging
     const DEBUG = false;
 
@@ -112,14 +119,11 @@ abstract class AbstractClient implements ClientInterface
     protected $server = 'http://emvapi.emv3.com';
 
     /**
-     * list of url api
+     * Url api
      *
      * @var string
      */
-    protected $url = [
-        'ccmd'=>'apiccmd/services/CcmdService?wsdl',
-        'reporting'=>'apireporting/services/ReportingService?wsdl'
-    ];
+    protected $wsdl;
 
     /**
      * The SOAP-client
@@ -155,20 +159,20 @@ abstract class AbstractClient implements ClientInterface
      * @param  string           $login    Login provided for API access.
      * @param  string           $password The password.
      * @param  string           $key      Manager Key copied from the CCMD web application.
+     * @param  string           $wsdl     the wsdl link for api
      * @param  string[optional] $server   The server to use. Ask your account-manager.
-     * @param  string[optional] $api      The type of the API
      */
-    public function __construct($login, $password, $key, $server = null, $api = 'ccmd')
+    public function __construct($login, $password, $key, $wsdl = self::WSDL_URL_CCMD, $server = null)
     {
-        $this->setLogin($login);
-        $this->setPassword($password);
-        $this->setKey($key);
+        $this->login($login);
+        $this->password($password);
+        $this->key($key);
 
         if($server !== null) {
             $this->setServer($server);
         }
 
-        $this->setApi($api);
+        $this->wsdl = $wsdl;
     }
 
     /**
@@ -213,7 +217,6 @@ abstract class AbstractClient implements ClientInterface
      */
     protected function openApiConnection()
     {
-        // build options
         $options = [
             'soap_version' => SOAP_1_1,
             'trace' => self::DEBUG,
@@ -228,25 +231,17 @@ abstract class AbstractClient implements ClientInterface
                 ] // map long to string, because a long can cause an integer overflow
         ];
 
-        // create client
-        if(!key_exists($this->getApi(), $this->url)) {
-            $message = fprintf('Invalid part (%s), allowed values are: %s.', [$this->getApi(), implode(', ', $this->url)]);
-            throw new CampaignCommanderException($message);
-        }
-        $wsdl = $this->server . '/' . $this->url[$this->getApi()];
+        $wsdl = $this->server . '/' . $this->wsdl;
         $this->soapClient = new \SoapClient($wsdl, $options);
 
-        // build login parameters
         $loginParameters['login'] = $this->getLogin();
         $loginParameters['pwd'] = $this->getPassword();
         $loginParameters['key'] = $this->getKey();
 
-        // make the call
         $response = $this->soapClient->openApiConnection($loginParameters);
 
         // validate
         if (is_soap_fault($response)) {
-            // init var
             $message = 'Internal Error';
 
             // more detailed message available
@@ -254,22 +249,18 @@ abstract class AbstractClient implements ClientInterface
                 $message = (string) $response->detail->ConnectionServiceException->description;
             }
 
-            // invalid token?
+            // invalid token
             if ($message == 'Please enter a valid token to validate your connection.') {
-                // reset token
                 $this->token = null;
             }
 
-            // throw exception
             throw new CampaignCommanderException($message);
         }
 
-        // validate response
+        // if response is not valid
         if(!isset($response->return)) {
             throw new CampaignCommanderException('Invalid response');
         }
-
-        // set token
         $this->token = (string) $response->return;
     }
 
