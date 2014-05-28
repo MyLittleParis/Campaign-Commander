@@ -2,7 +2,7 @@
 
 namespace MyLittle\CampaignCommander;
 
-use MyLittle\CampaignCommander\CampaignCommanderException;
+use MyLittle\CampaignCommander\Exception\CampaignCommanderException;
 use Exception;
 
 /**
@@ -18,7 +18,7 @@ use Exception;
  * - implemented getGlobalReportByCampaignId.
  * - implemented getSnapshotReportUrl.
  * - implemented getLinkReport.
- * 
+ *
  * Changelog since 1.1.1
  * - implemented segmentationCreateSegment
  *
@@ -88,11 +88,11 @@ class Client
 
     /**
      * The type of API
-     * 
+     *
      * @var string
      */
     private $api;
-    
+
     /**
      * The server to use
      *
@@ -106,7 +106,7 @@ class Client
      * @var string
      */
     private $url =array('ccmd'=>'apiccmd/services/CcmdService?wsdl', 'reporting'=>'apireporting/services/ReportingService?wsdl');
-    
+
     /**
      * The SOAP-client
      *
@@ -377,7 +377,7 @@ class Client
     {
         return $this->server;
     }
-    
+
     /**
      * Get the api type
      *
@@ -386,7 +386,7 @@ class Client
     private function getApi()
     {
         return $this->api;
-    }    
+    }
 
     /**
      * Get the timeout that will be used
@@ -452,7 +452,7 @@ class Client
     {
         $this->server = (string) $server;
     }
-    
+
     /**
      * Set the api type that has to be used.
      *
@@ -464,7 +464,7 @@ class Client
         if(!key_exists($api, $this->url)) throw new CampaignCommanderException('Invalid part (' . $api . '), allowed values are: ' . implode(', ', $this->url) . '.');
         $this->api = (string) $api;
     }
-    
+
     /**
      * Set the timeout
      * After this time the request will stop. You should handle any errors triggered by this.
@@ -3083,7 +3083,7 @@ class Client
         // make the call
         return (array) $this->doCall('getClientTestGroups');
     }
-    
+
     /**
      * Retrieves a campaign Report.
      *
@@ -3096,7 +3096,7 @@ class Client
         // make the call
         return (array) $this->doCall('getGlobalReportByCampaignId',$parameters);
     }
-    
+
     /**
      * Retrieves the URL of a campaign's snapshot.
      *
@@ -3109,7 +3109,7 @@ class Client
         // make the call
         return (array) $this->doCall('getSnapshotReportUrl',$parameters);
     }
-   
+
     /**
      * Retrieves a link report.
      *

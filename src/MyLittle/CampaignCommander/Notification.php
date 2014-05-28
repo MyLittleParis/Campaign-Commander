@@ -2,7 +2,7 @@
 
 namespace MyLittle\CampaignCommander;
 
-use MyLittle\CampaignCommander\CampaignCommanderNotificationMessagingException;
+use MyLittle\CampaignCommander\Exception\CampaignCommanderNotificationMessagingException;
 
 /**
  * Campaign Commander Notification Messaging class

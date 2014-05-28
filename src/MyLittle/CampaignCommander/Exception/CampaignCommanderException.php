@@ -1,6 +1,6 @@
 <?php
 
-namespace MyLittle\CampaignCommander;
+namespace MyLittle\CampaignCommander\Exception;
 
 use Exception;
 
