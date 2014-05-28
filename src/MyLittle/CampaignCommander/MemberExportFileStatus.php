@@ -10,25 +10,25 @@ namespace MyLittle\CampaignCommander;
  *
  * @author Mathieu Ferment <mathieu.ferment@mylittleparis.com>
  */
-class MemberExportFileStatus
+final class MemberExportFileStatus
 {
+    const STATUS_VALIDATED = 'VALIDATED';
+    const STATUS_RUNNING = 'RUNNING';
+    const STATUS_SUCCESS = 'SUCCESS';
+    const STATUS_ERROR = 'ERROR';
+    const STATUS_DELETED = 'DELETED';
 
-	const STATUS_VALIDATED = 'VALIDATED';
-	const STATUS_RUNNING = 'RUNNING';
-	const STATUS_SUCCESS = 'SUCCESS';
-	const STATUS_ERROR = 'ERROR';
-	const STATUS_DELETED = 'DELETED';
+    static public function getMemberExportFileStatusList()
+    {
+        $result = [
+            self::STATUS_VALIDATED,
+            self::STATUS_RUNNING,
+            self::STATUS_SUCCESS,
+            self::STATUS_ERROR,
+            self::STATUS_DELETED
 
-	static public function getMemberExportFileStatusList()
-	{
-		$result = array(
-			self::STATUS_VALIDATED,
-			self::STATUS_RUNNING,
-			self::STATUS_SUCCESS,
-			self::STATUS_ERROR,
-			self::STATUS_DELETED
-		);
+        ];
 
-		return $result;
-	}
+        return $result;
+    }
 }
