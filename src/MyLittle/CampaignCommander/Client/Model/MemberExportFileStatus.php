@@ -1,6 +1,6 @@
 <?php
 
-namespace MyLittle\CampaignCommander;
+namespace MyLittle\CampaignCommander\Client\Model;
 
 /**
  * Campaign Commander MemberExport File status

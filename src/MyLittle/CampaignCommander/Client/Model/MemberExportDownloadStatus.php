@@ -1,6 +1,6 @@
 <?php
 
-namespace MyLittle\CampaignCommander;
+namespace MyLittle\CampaignCommander\Client\Model;
 
 /**
  * Campaign Commander MemberExport Download status
@@ -10,7 +10,7 @@ namespace MyLittle\CampaignCommander;
  *
  * @author Mathieu Ferment <mathieu.ferment@mylittleparis.com>
  */
-class MemberExportDownloadStatus
+final class MemberExportDownloadStatus
 {
     const STATUS_SUCCESS = 'OK';
     const STATUS_EMPTY = 'NO_DATA';
