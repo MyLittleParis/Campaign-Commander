@@ -1,22 +1,24 @@
 <?php
 
-namespace MyLittle\CampaignCommander\Client;
+namespace MyLittle\CampaignCommander\Service;
+
+use MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface;
 
 /**
  * Export Service
  *
  * @author mylittleparis
  */
-class ExportService extends AbstractClient
+class ExportService extends AbstractService
 {
     /**
      * Constructor
      *
-     * {@inheritDoc}
+     * @param \MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface $client
      */
-    public function __construct($login, $password, $key, $wsdl = self::WSDL_URL_EXPORT, $server = null)
+    public function __construct(ClientInterface $client)
     {
-        parent::__construct($login, $password, $key, $wsdl, $server);
+        parent::__construct($client, ClientInterface::WSDL_URL_EXPORT);
     }
 
     /**
@@ -51,9 +53,7 @@ class ExportService extends AbstractClient
             'keepFirst' => (string) $keepFirst,
         ];
 
-        $fileID = (int) $this->doCall('createDownloadByMailinglist', $parameters);
-
-        return $fileID;
+        return (int) $this->soapClient->doCall('createDownloadByMailinglist', $parameters);
     }
 
     /**
@@ -65,11 +65,9 @@ class ExportService extends AbstractClient
      */
     public function getDownloadStatus($fileID)
     {
-        $parameters = ['id' => (string) $fileID,];
+        $parameters = ['id' => (string) $fileID];
 
-        $status = $this->doCall('getDownloadStatus', $parameters);
-
-        return $status;
+        return (string) $this->soapClient->doCall('getDownloadStatus', $parameters);
     }
 
     /**
@@ -81,10 +79,8 @@ class ExportService extends AbstractClient
      */
     public function getDownloadFile($fileID)
     {
-        $parameters = ['id' => (string) $fileID,];
+        $parameters = ['id' => (string) $fileID];
 
-        $response = $this->doCall('getDownloadFile', $parameters);
-
-        return $response;
+        return (string) $this->soapClient->doCall('getDownloadFile', $parameters);
     }
 }

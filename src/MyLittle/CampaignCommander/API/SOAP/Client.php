@@ -58,7 +58,7 @@
  * @license         BSD License
  */
 
-namespace MyLittle\CampaignCommander\Client;
+namespace MyLittle\CampaignCommander\API\SOAP;
 
 use MyLittle\CampaignCommander\Client\Model\ClientInterface;
 use MyLittle\CampaignCommander\Exception\CampaignCommanderException;
@@ -69,16 +69,8 @@ use MyLittle\CampaignCommander\Exception\CampaignCommanderException;
  * @author Tijs     Verkoyen <php-campaign-commander-member@verkoyen.eu>
  * @author Jocelyn Kerbourc'h <jocelyn@mylittleparis.com>
  */
-abstract class AbstractClient implements ClientInterface
+class Client implements ClientInterface
 {
-    /**
-     * list of url api
-     */
-    const WSDL_URL_CCMD = 'apiccmd/services/CcmdService?wsdl';
-    const WSDL_URL_REPORTING = 'apireporting/services/ReportingService?wsdl';
-    const WSDL_URL_MEMBER = 'apimember/services/MemberService?wsdl';
-    const WSDL_URL_EXPORT = 'apiexport/services/ExportService?wsdl';
-
     // internal constant to enable/disable debugging
     const DEBUG = false;
 
@@ -166,15 +158,14 @@ abstract class AbstractClient implements ClientInterface
      */
     public function __construct($login, $password, $key, $wsdl = self::WSDL_URL_CCMD, $server = null)
     {
-        $this->login($login);
-        $this->password($password);
-        $this->key($key);
+        $this->login = $login;
+        $this->password =$password;
+        $this->key= $key;
+        $this->wsdl = $wsdl;
 
         if($server !== null) {
-            $this->setServer($server);
+            $this->server = $server;
         }
-
-        $this->wsdl = $wsdl;
     }
 
     /**
@@ -196,7 +187,7 @@ abstract class AbstractClient implements ClientInterface
     /**
      * {@inheritDoc}
      */
-    protected function closeApiConnection()
+    public function closeApiConnection()
     {
         // make the call
         $response = $this->doCall('closeApiConnection');
@@ -217,7 +208,7 @@ abstract class AbstractClient implements ClientInterface
     /**
      * {@inheritDoc}
      */
-    protected function openApiConnection()
+    public function openApiConnection()
     {
         $options = [
             'soap_version' => SOAP_1_1,
@@ -265,7 +256,6 @@ abstract class AbstractClient implements ClientInterface
         }
         $this->token = (string) $response->return;
     }
-
 
     /**
      * {@inheritDoc}
@@ -327,17 +317,25 @@ abstract class AbstractClient implements ClientInterface
     }
 
     /**
-     * {@inheritDoc}
+     * Convert a long into a string
+     *
+     * @param string $value	The value to convert.
+     *
+     * @return string
      */
-    public static function fromLongXML($value)
+    protected static function fromLongXML($value)
     {
         return (string) strip_tags($value);
     }
 
     /**
-     * {@inheritDoc}
+     * Convert a variable into a long
+     *
+     * @param string $value	The value to convert.
+     *
+     * @return string
      */
-    public static function toLongXML($value)
+    protected static function toLongXML($value)
     {
         return '<long>' . $value . '</long>';
     }
@@ -351,18 +349,39 @@ abstract class AbstractClient implements ClientInterface
     }
 
     /**
-     * {@inheritDoc}
+     * Set the user-agent for you application
+     * It will be appended to ours, the result will look like: "PHP Campaign Commander Member/<version> <your-user-agent>"
+     *
+     * @param string $userAgent	The user-agent, it should look like <app-name>/<app-version>.
      */
     public function setUserAgent($userAgent)
     {
         $this->userAgent = (string) $userAgent;
+
+        return $this;
     }
 
     /**
-     * {@inheritDoc}
+     * Set the server that has to be used.
+     *
+     * @param string $server
      */
     public function setServer($server)
     {
         $this->server = (string) $server;
+
+        return $this;
+    }
+
+    /**
+     * Set the wsdl url
+     *
+     * @param string $wsdl
+     */
+    public function setWsdl($wsdl)
+    {
+        $this->wsdl = $wsdl;
+
+        return $this;
     }
 }
