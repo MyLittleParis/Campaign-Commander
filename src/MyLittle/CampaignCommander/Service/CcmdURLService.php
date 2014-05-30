@@ -380,7 +380,7 @@ class CcmdURLService extends AbstractService
             $parameters['buttonUrl'] = (string) $buttonUrl;
         }
 
-        // @todo check the validation of language
+        // Check if language is valid
         if (null !== $language) {
             // List of valid parts
             $allowedLanguage = [
@@ -402,8 +402,7 @@ class CcmdURLService extends AbstractService
                 16 => 'Korean'
             ];
 
-            // Check if language is valid
-            if (!in_array($language, $allowedLanguage)) {
+            if ($language <= 0 || $language > 16) {
                 throw new CampaignCommanderException('Invalid language (' . $language . '), allowed values are: ' . implode(', ', $allowedLanguage) . '.');
             }
 
