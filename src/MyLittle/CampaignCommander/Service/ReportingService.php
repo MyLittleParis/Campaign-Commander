@@ -18,7 +18,9 @@ class ReportingService extends AbstractService
      */
     public function __construct(ClientInterface $client)
     {
-        parent::__construct($client, ClientInterface::WSDL_URL_REPORTING);
+        $this->soapClient = $client;
+        $this->soapClient->setWsdl(ClientInterface::WSDL_URL_REPORTING);
+        $this->soapClient->setServer('http://emvapi.emv3.com');
     }
 
     /**

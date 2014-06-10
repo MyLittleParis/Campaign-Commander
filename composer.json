@@ -29,8 +29,7 @@
     "prefer-stable": true,
     "require": {
         "php": ">=5.4.4",
-        "ext-soap": "*",
-        "guzzlehttp/guzzle": "~4.0"
+        "ext-soap": "*"
     },
     "require-dev": {
         "phpunit/phpunit": "3.7.*"

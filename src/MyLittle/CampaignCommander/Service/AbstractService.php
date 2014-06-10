@@ -17,18 +17,6 @@ abstract class AbstractService
     protected $soapClient;
 
     /**
-     * Constructor
-     *
-     * @param \MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface $client
-     * @param type $wsdl
-     */
-    public function __construct(ClientInterface $client, $wsdl)
-    {
-        $this->soapClient = $client;
-        $this->soapClient->setWsdl($wsdl);
-    }
-
-    /**
      * Get the attributes entry of the response
      *
      * @param mixed $response

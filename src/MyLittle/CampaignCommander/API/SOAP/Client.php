@@ -60,7 +60,7 @@
 
 namespace MyLittle\CampaignCommander\API\SOAP;
 
-use MyLittle\CampaignCommander\Client\Model\ClientInterface;
+use MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface;
 use MyLittle\CampaignCommander\Exception\CampaignCommanderException;
 
 /**
@@ -110,7 +110,7 @@ class Client implements ClientInterface
      *
      * @var string
      */
-    protected $server = 'http://emvapi.emv3.com';
+    protected $server;
 
     /**
      * Url api
@@ -150,22 +150,19 @@ class Client implements ClientInterface
     /**
      * Default constructor
      *
-     * @param  string           $login    Login provided for API access.
-     * @param  string           $password The password.
-     * @param  string           $key      Manager Key copied from the CCMD web application.
-     * @param  string           $wsdl     the wsdl link for api
-     * @param  string[optional] $server   The server to use. Ask your account-manager.
+     * @param  string   $login    Login provided for API access.
+     * @param  string   $password The password.
+     * @param  string   $key      Manager Key copied from the CCMD web application.
+     * @param  string   $wsdl     the wsdl link for api
+     * @param  string   $server   The server to use. Ask your account-manager.
      */
-    public function __construct($login, $password, $key, $wsdl = self::WSDL_URL_CCMD, $server = null)
+    public function __construct($login, $password, $key, $wsdl, $server)
     {
         $this->login = $login;
         $this->password =$password;
         $this->key= $key;
         $this->wsdl = $wsdl;
-
-        if($server !== null) {
-            $this->server = $server;
-        }
+        $this->server = $server;
     }
 
     /**

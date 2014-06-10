@@ -18,7 +18,9 @@ class CcmdDynamicContentBlockLinkService
      */
     public function __construct(ClientInterface $client)
     {
-        parent::__construct($client, ClientInterface::WSDL_URL_CCMD);
+        $this->soapClient = $client;
+        $this->soapClient->setWsdl(ClientInterface::WSDL_URL_CCMD);
+        $this->soapClient->setServer('http://emvapi.emv3.com');
     }
 
     /**
