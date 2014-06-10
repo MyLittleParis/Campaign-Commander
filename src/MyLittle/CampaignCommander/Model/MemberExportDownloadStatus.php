@@ -17,7 +17,7 @@ final class MemberExportDownloadStatus
     const STATUS_NOT_READY = 'NOT_YET_READY';
     const STATUS_ERROR = 'ERROR';
 
-    static public function getMemberExportDownloadStatusList()
+    static public function getDownloadStatusList()
     {
         $result = [
             self::STATUS_EMPTY,

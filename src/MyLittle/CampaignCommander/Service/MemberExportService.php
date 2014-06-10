@@ -9,7 +9,7 @@ use MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface;
  *
  * @author mylittleparis
  */
-class ExportService extends AbstractService
+class MemberExportService extends AbstractService
 {
     /**
      * Constructor

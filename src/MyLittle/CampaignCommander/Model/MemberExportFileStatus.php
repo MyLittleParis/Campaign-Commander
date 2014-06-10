@@ -18,7 +18,7 @@ final class MemberExportFileStatus
     const STATUS_ERROR = 'ERROR';
     const STATUS_DELETED = 'DELETED';
 
-    static public function getMemberExportFileStatusList()
+    static public function getExportFileStatusList()
     {
         $result = [
             self::STATUS_VALIDATED,
