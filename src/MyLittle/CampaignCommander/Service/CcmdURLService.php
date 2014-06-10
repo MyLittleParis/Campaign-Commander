@@ -370,6 +370,8 @@ class CcmdURLService extends AbstractService
      * @param  int[optional] $language  The language, possible values are: us, en, fr, de, nl, es, ru, sv, it, cn, tw, pt, br, da, ja, ko.
      *
      * @return bool
+     *
+     * @throws \Exception
      */
     public function addShareLink($messageId, $linkType, $buttonUrl = null, $language = 1)
     {
@@ -405,7 +407,7 @@ class CcmdURLService extends AbstractService
             ];
 
             if ($language <= 0 || $language > 16) {
-                throw new CampaignCommanderException('Invalid language (' . $language . '), allowed values are: ' . implode(', ', $allowedLanguage) . '.');
+                throw new \Exception('Invalid language (' . $language . '), allowed values are: ' . implode(', ', $allowedLanguage) . '.');
             }
 
             $parameters['language'] = (string) $language;

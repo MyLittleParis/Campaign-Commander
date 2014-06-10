@@ -3,7 +3,6 @@
 namespace MyLittle\CampaignCommander\Service;
 
 use MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface;
-use MyLittle\CampaignCommander\Exception\CampaignCommanderException;
 
 /**
  * CcmdDynamicContentService
@@ -33,6 +32,8 @@ class CcmdDynamicContentService extends AbstractService
      * @param  string[optional] $description The description.
      *
      * @return string           The ID of the Dynamic Content Block.
+     *
+     * @throws \Exception
      */
     public function createBanner($name, $contentType, $content, $description = null)
     {
@@ -41,7 +42,7 @@ class CcmdDynamicContentService extends AbstractService
 
         // Check if status is valid
         if (!in_array($contentType, $allowedContentType)) {
-            throw new CampaignCommanderException('Invalid content type (' . $contentType . '), allowed values are: ' . implode(', ', $allowedContentType) . '.');
+            throw new \Exception('Invalid content type (' . $contentType . '), allowed values are: ' . implode(', ', $allowedContentType) . '.');
         }
 
         $parameters = [
@@ -179,11 +180,13 @@ class CcmdDynamicContentService extends AbstractService
      * @param  int             $limit The size of the list (between 1 and 1000).
      *
      * @return array           The IDs of the Dynamic Content Block.
+     *
+     * @throws \Exception
      */
     public function getBannersByField($field, $value, $limit)
     {
         if ($limit <= 0 || $limit > 1000) {
-            throw new CampaignCommanderException('Invalid limit, the size of the list must be between 1 and 1000');
+            throw new \Exception('Invalid limit, the size of the list must be between 1 and 1000');
         }
 
         $parameters = [
@@ -219,11 +222,13 @@ class CcmdDynamicContentService extends AbstractService
      * @param  int   $limit The size of the list (between 1 and 1000).
      *
      * @return array The IDs of the Dynamic Content Block.
+     *
+     * @throws \Exception
      */
     public function getLastBanners($limit)
     {
         if ($limit <= 0 || $limit > 1000) {
-            throw new CampaignCommanderException('Invalid limit, the size of the list must be between 1 and 1000');
+            throw new \Exception('Invalid limit, the size of the list must be between 1 and 1000');
         }
 
         $parameters = ['limit' => (int) $limit];

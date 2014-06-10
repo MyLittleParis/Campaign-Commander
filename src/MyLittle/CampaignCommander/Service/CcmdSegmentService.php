@@ -3,7 +3,6 @@
 namespace MyLittle\CampaignCommander\Service;
 
 use MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface;
-use MyLittle\CampaignCommander\Exception\CampaignCommanderException;
 
 /**
  * Description of CcmdSegmentService
@@ -33,6 +32,8 @@ class CcmdSegmentService extends AbstractService
      * @param  string[optional] $description The description of the segment.
      *
      * @return string           The ID of the created segment.
+     *
+     * @throws \Exception
      */
     public function segmentationCreateSegment($name, $sampleType, $sampleRate = null, $description = null)
     {
@@ -41,11 +42,11 @@ class CcmdSegmentService extends AbstractService
 
         // Check if sample type is valid
         if (!in_array($sampleType, $allowedSampleType)) {
-            throw new CampaignCommanderException('Invalid sample type (' . $sampleType . '), allowed values are: ' . implode(', ', $allowedSampleType) . '.');
+            throw new \Exception('Invalid sample type (' . $sampleType . '), allowed values are: ' . implode(', ', $allowedSampleType) . '.');
         }
 
         if ('ALL' !== $sampleType && null === $sampleRate) {
-            throw new CampaignCommanderException("You have specified '$sampleType' for sample type, but you must give a $sampleType number of members from the segment.");
+            throw new \Exception("You have specified '$sampleType' for sample type, but you must give a $sampleType number of members from the segment.");
         }
 
         // @todo check if it work without id parameter (i.e. @remark)
@@ -87,24 +88,26 @@ class CcmdSegmentService extends AbstractService
      * Updates a segment.
      *
      * @param  string          $id         The ID of the segment.
-     * @param  string          $name       The name of the segment.
      * @param  string          $sampleType The portion of the segment uses, possible values are: ALL, PERCENT, FIX.
+     * @param  string          $name       The name of the segment.
      * @param  float[optional] $sampleRate The percentage/number of members from the segment.
      *
      * @return bool            true on success, false otherwise
+     *
+     * @throws \Exception
      */
-    public function segmentationUpdateSegment($id, $name = null, $sampleType, $sampleRate = null)
+    public function segmentationUpdateSegment($id, $sampleType, $name = null, $sampleRate = null)
     {
         // List of valid sample type
         $allowedSampleType = ['ALL', 'PERCENT', 'FIX'];
 
         // Check if sample type is valid
         if (!in_array($sampleType, $allowedSampleType)) {
-            throw new CampaignCommanderException('Invalid sample type (' . $sampleType . '), allowed values are: ' . implode(', ', $allowedSampleType) . '.');
+            throw new \Exception('Invalid sample type (' . $sampleType . '), allowed values are: ' . implode(', ', $allowedSampleType) . '.');
         }
 
         if ('ALL' !== $sampleType && null === $sampleRate) {
-            throw new CampaignCommanderException("You have specified '$sampleType' for sample type, but you must give a $sampleType number of members from the segment.");
+            throw new \Exception("You have specified '$sampleType' for sample type, but you must give a $sampleType number of members from the segment.");
         }
 
         $parameters = [

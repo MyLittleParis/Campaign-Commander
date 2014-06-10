@@ -3,7 +3,6 @@
 namespace MyLittle\CampaignCommander\Service;
 
 use MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface;
-use MyLittle\CampaignCommander\Exception\CampaignCommanderException;
 
 /**
  * CcmdMessageService
@@ -305,6 +304,8 @@ class CcmdMessageService extends AbstractService
      * @param  string[optional] $part      Part of the message to preview (HTML or text).
      *
      * @return string           Preview of the message.
+     *
+     * @throws \Exception
      */
     public function getEmailMessagePreview($messageId, $part = 'HTML')
     {
@@ -313,7 +314,7 @@ class CcmdMessageService extends AbstractService
 
         // Check if parts is valid
         if (!in_array($part, $allowedParts)) {
-            throw new CampaignCommanderException('Invalid part (' . $part . '), allowed values are: ' . implode(', ', $allowedParts) . '.');
+            throw new \Exception('Invalid part (' . $part . '), allowed values are: ' . implode(', ', $allowedParts) . '.');
         }
 
         $parameters = [
@@ -374,6 +375,8 @@ class CcmdMessageService extends AbstractService
      * @param  string[optional] $part     HTML or text.
      *
      * @return array            The order number of the URL.
+     *
+     * @throws \Exception
      */
     public function trackLinkByPosition($id, $position, $part = 'HTML')
     {
@@ -382,7 +385,7 @@ class CcmdMessageService extends AbstractService
 
         // Check if parts is valid
         if (!in_array($part, $allowedParts)) {
-            throw new CampaignCommanderException('Invalid part (' . $part . '), allowed values are: ' . implode(', ', $allowedParts) . '.');
+            throw new \Exception('Invalid part (' . $part . '), allowed values are: ' . implode(', ', $allowedParts) . '.');
         }
 
         $parameters = [
@@ -446,6 +449,8 @@ class CcmdMessageService extends AbstractService
      * @param  string[optional] $part         The part of the message to send, allowed values are: HTML, TEXT, MULTIPART.
      *
      * @return bool            true if successfull, false otherwise.
+     *
+     * @throws \Exception
      */
     public function testEmailMessageByGroup($id, $groupId, $campaignName, $subject, $part = 'MULTIPART')
     {
@@ -454,7 +459,7 @@ class CcmdMessageService extends AbstractService
 
         // Check if parts is valid
         if (!in_array($part, $allowedParts)) {
-            throw new CampaignCommanderException('Invalid part (' . $part . '), allowed values are: ' . implode(', ', $allowedParts) . '.');
+            throw new \Exception('Invalid part (' . $part . '), allowed values are: ' . implode(', ', $allowedParts) . '.');
         }
 
         $parameters = [
@@ -478,6 +483,8 @@ class CcmdMessageService extends AbstractService
      * @param  string[optional] $part         The part of the message to send, allowed values are: HTML, TXT, MULTIPART.
      *
      * @return bool             true if successfull, false otherwise.
+     *
+     * @throws \Exception
      */
     public function testEmailMessageByMember($id, $memberId, $campaignName, $subject, $part = 'MULTIPART')
     {
@@ -486,7 +493,7 @@ class CcmdMessageService extends AbstractService
 
         // Check if parts is valid
         if (!in_array($part, $allowedParts)) {
-            throw new CampaignCommanderException('Invalid part (' . $part . '), allowed values are: ' . implode(', ', $allowedParts) . '.');
+            throw new \Exception('Invalid part (' . $part . '), allowed values are: ' . implode(', ', $allowedParts) . '.');
         }
 
         $parameters = [

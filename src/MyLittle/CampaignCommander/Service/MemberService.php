@@ -3,7 +3,6 @@
 namespace MyLittle\CampaignCommander\Service;
 
 use MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface;
-use MyLittle\CampaignCommander\Exception\CampaignCommanderMemberException;
 
 /**
  * MemberService
@@ -29,6 +28,8 @@ class MemberService extends AbstractService
      * database column names) available in the Member table.
      *
      * @return array	An array containing all the fields in your member-table
+     *
+     * @throws \Exception
      */
     public function descMemberTable()
     {
@@ -36,7 +37,7 @@ class MemberService extends AbstractService
 
         // if response is not valid
         if(!isset($response->fields)) {
-            throw new CampaignCommanderMemberException('Invalid response');
+            throw new \Exception('Invalid response');
         }
 
         $fields = array();
@@ -56,6 +57,8 @@ class MemberService extends AbstractService
      * @param string $email     The email address of the member to retrieve.
      *
      * @return array
+     *
+     * @throws \Exception
      */
     public function getMemberByEmail($email)
     {
@@ -69,7 +72,7 @@ class MemberService extends AbstractService
 
         // if response is not valid
         if(!isset($response->attributes->entry)) {
-            throw new CampaignCommanderMemberException('Invalid response');
+            throw new \Exception('Invalid response');
         }
 
         return $this->getAttributesEntry($response);
@@ -81,6 +84,8 @@ class MemberService extends AbstractService
      * @param string $id    The ID of the member whose details you want to retrieve..
      *
      * @return array
+     *
+     * @throws \Exception
      */
     public function getMemberById($id)
     {
@@ -89,7 +94,7 @@ class MemberService extends AbstractService
 
         // if response is not valid
         if(!isset($response->attributes->entry)) {
-            throw new CampaignCommanderMemberException('Invalid response');
+            throw new \Exception('Invalid response');
         }
 
         return $this->getAttributesEntry($response);
@@ -101,6 +106,8 @@ class MemberService extends AbstractService
      * @param array $member     A member object containing the criteria.
      *
      * @return array
+     *
+     * @throws \Exception
      */
     public function getListMembersByObj(array $member)
     {
@@ -114,7 +121,7 @@ class MemberService extends AbstractService
 
         // if response is not valid
         if(!is_array($response)) {
-            throw new CampaignCommanderMemberException('Invalid response');
+            throw new \Exception('Invalid response');
         }
 
         $members = [];
@@ -138,6 +145,8 @@ class MemberService extends AbstractService
      * @param int $page     The page number to retrieve.
      *
      * @return array
+     *
+     * @throws \Exception
      */
     public function getListMembersByPage($page)
     {
@@ -150,7 +159,7 @@ class MemberService extends AbstractService
 
         // if response is not valid
         if(!isset($response->list)) {
-            throw new CampaignCommanderMemberException('Invalid response');
+            throw new \Exception('Invalid response');
         }
 
         $members = [];
@@ -173,6 +182,8 @@ class MemberService extends AbstractService
      * @param string $email     The email addres of the new member.
      *
      * @return string 		The job ID of the update, see getJobStatus().
+     *
+     * @throws \Exception
      */
     public function insertMember($email)
     {
@@ -181,7 +192,7 @@ class MemberService extends AbstractService
 
         // if response is not valid
         if($response == 0) {
-            throw new CampaignCommanderMemberException('Invalid response');
+            throw new \Exception('Invalid response');
         }
 
         // return the job ID
@@ -196,6 +207,8 @@ class MemberService extends AbstractService
      * @param mixed  $value	The value with which to update the field.
      *
      * @return string 		The job ID of the update, see getJobStatus().
+     *
+     * @throws \Exception
      */
     public function updateMember($email, $field, $value)
     {
@@ -209,7 +222,7 @@ class MemberService extends AbstractService
 
         // if response is not valid
         if($response == 0) {
-            throw new CampaignCommanderMemberException('Invalid response');
+            throw new \Exception('Invalid response');
         }
 
         // return the job ID
@@ -224,11 +237,13 @@ class MemberService extends AbstractService
      * @param string[optional] $id          The id of the member to update/insert.
      *
      * @return string                       The job ID of the update/insertion, see getJobStatus().
+     *
+     * @throws \Exception
      */
     public function insertOrUpdateMemberByObj($fields, $email = null, $id = null)
     {
         if(null === $email && null === $id) {
-            throw new CampaignCommanderMemberException('Email or id has to be specified');
+            throw new \Exception('Email or id has to be specified');
         }
 
         $parameters['member'] = [];
@@ -253,7 +268,7 @@ class MemberService extends AbstractService
 
         // if response is not valid
         if($response == 0) {
-            throw new CampaignCommanderMemberException('Invalid response');
+            throw new \Exception('Invalid response');
         }
 
         return (string) $response;
@@ -267,11 +282,13 @@ class MemberService extends AbstractService
      * @param string[optional] $id          The id of the member to update/insert.
      *
      * @return string                       The job ID of the update/insertion, see getJobStatus().
+     *
+     * @throws \Exception
      */
     public function updateMemberByObj($fields, $email = null, $id = null)
     {
         if($email === null && $id == null) {
-            throw new CampaignCommanderMemberException('Email or id has to be specified');
+            throw new \Exception('Email or id has to be specified');
         }
 
         $parameters ['member'] = [];
@@ -296,7 +313,7 @@ class MemberService extends AbstractService
 
         // if response is not valid
         if($response == 0) {
-            throw new CampaignCommanderMemberException('Invalid response');
+            throw new \Exception('Invalid response');
         }
 
         return (string) $response;
@@ -314,6 +331,8 @@ class MemberService extends AbstractService
      * @param string $id    The job ID.
      *
      * @return string       The status of the job.
+     *
+     * @throws \Exception
      */
     public function getMemberJobStatus($id)
     {
@@ -330,10 +349,10 @@ class MemberService extends AbstractService
 
         // if response is not valid
         if(!isset($response->status)) {
-            throw new CampaignCommanderMemberException('Invalid response');
+            throw new \Exception('Invalid response');
         }
         if(!in_array($response->status, $possibleResponses)) {
-            throw new CampaignCommanderMemberException('Invalid response');
+            throw new \Exception('Invalid response');
         }
 
         return (string) $response->status;
@@ -345,6 +364,8 @@ class MemberService extends AbstractService
      * @param string $email     The email address.
      *
      * @return string		The job ID of the unjoin, see getJobStatus().
+     *
+     * @throws \Exception
      */
     public function unjoinMemberByEmail($email)
     {
@@ -353,7 +374,7 @@ class MemberService extends AbstractService
 
         // if response is not valid
         if($response == 0) {
-            throw new CampaignCommanderMemberException('Invalid response');
+            throw new \Exception('Invalid response');
         }
 
         return (string) $response;
@@ -365,6 +386,8 @@ class MemberService extends AbstractService
      * @param string $id 	The ID of the member.
      *
      * @return string 		The job ID of the unjoin, see getJobStatus().
+     *
+     * @throws \Exception
      */
     public function unjoinMemberById($id)
     {
@@ -373,7 +396,7 @@ class MemberService extends AbstractService
 
         // if response is not valid
         if($response == 0) {
-            throw new CampaignCommanderMemberException('Invalid response');
+            throw new \Exception('Invalid response');
         }
 
         return (string) $response;
@@ -385,6 +408,8 @@ class MemberService extends AbstractService
      * @param array $member	The member.
      *
      * @return string 		The job ID of the unjoin, see getJobStatus().
+     *
+     * @throws \Exception
      */
     public function unjoinMemberByObj(array $member)
     {
@@ -393,7 +418,7 @@ class MemberService extends AbstractService
 
         // if response is not valid
         if($response == 0) {
-            throw new CampaignCommanderMemberException('Invalid response');
+            throw new \Exception('Invalid response');
         }
 
         return (string) $response;
@@ -407,6 +432,8 @@ class MemberService extends AbstractService
      * @param string $email	The email address of the member.
      *
      * @return string 		The job ID of the unjoin, see getJobStatus().
+     *
+     * @throws \Exception
      */
     public function rejoinMemberByEmail($email)
     {
@@ -415,7 +442,7 @@ class MemberService extends AbstractService
 
         // if response is not valid
         if($response == 0) {
-            throw new CampaignCommanderMemberException('Invalid response');
+            throw new \Exception('Invalid response');
         }
 
         return (string) $response;
@@ -428,6 +455,8 @@ class MemberService extends AbstractService
      * @param string $id 	The ID of the member.
      *
      * @return string 		The job ID of the unjoin, see getJobStatus().
+     *
+     * @throws \Exception
      */
     public function rejoinMemberById($id)
     {
@@ -436,7 +465,7 @@ class MemberService extends AbstractService
 
         // if response is not valid
         if($response == 0) {
-            throw new CampaignCommanderMemberException('Invalid response');
+            throw new \Exception('Invalid response');
         }
 
         return (string) $response;

@@ -3,7 +3,6 @@
 namespace MyLittle\CampaignCommander\Service;
 
 use MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface;
-use MyLittle\CampaignCommander\Exception\CampaignCommanderException;
 
 /**
  * CcmdCampaignService
@@ -234,6 +233,8 @@ class CcmdCampaignService extends AbstractService
      * @param  string $status Status to match, possible values: EDITABLE, QUEUED, RUNNING, PAUSES, COMPLETED, FAILED, KILLED.
      *
      * @return array  The list of campaign IDs matching the status.
+     * 
+     * @throws \Exception
      */
     public function getCampaignsByStatus($status)
     {
@@ -250,7 +251,7 @@ class CcmdCampaignService extends AbstractService
 
         // Check if status is valid
         if (!in_array($status, $allowedStatus)) {
-            throw new CampaignCommanderException('Invalid status (' . $status . '), allowed values are: ' . implode(', ', $allowedStatus) . '.');
+            throw new \Exception('Invalid status (' . $status . '), allowed values are: ' . implode(', ', $allowedStatus) . '.');
         }
 
         $parameters = ['status' => (string) $status];
