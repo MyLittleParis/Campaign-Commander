@@ -58,21 +58,19 @@ class NotificationService extends AbstractService
             throw new \Exception('Invalid type (' . $type . '), allowed values are: ' . implode(', ', $allowedTypes) . '.');
         }
 
-        $parameters = [
-            'sendrequest' => [
-                'email' => (string) $email,
-                'encrypt' => (string) $securityTag,
-                'random' => (string) $uniqueIdentifier,
-                'senddate' => (null !== $sendDate) ? (int) $sendDate : time(),
-                'synchrotype' => (string) $type,
-                'uidkey' => (string) $uidKey,
-            ]
+        $parameters['sendrequest'] = [
+            'email' => (string) $email,
+            'encrypt' => (string) $securityTag,
+            'random' => (string) $uniqueIdentifier,
+            'senddate' => (null !== $sendDate) ? (int) $sendDate : time(),
+            'synchrotype' => (string) $type,
+            'uidkey' => (string) $uidKey,
         ];
 
         // Dynamic Personalization Parameters
         if (null !== $dyn) {
             foreach($dyn as $key => $value) {
-                $parameters['dyn'] = [
+                $parameters['sendrequest']['dyn'] = [
                     'entry' => [
                         'key' => $key,
                         'value' => "<![CDATA[$value]]",
@@ -84,7 +82,7 @@ class NotificationService extends AbstractService
         // Content Parameters
         if (null !== $content) {
             foreach($content as $key => $value) {
-                $parameters['content'] = [
+                $parameters['sendrequest']['content'] = [
                     'entry' => [
                         'key' => $key,
                         'value' => "<![CDATA[$value]]",
