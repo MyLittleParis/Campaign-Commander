@@ -34,7 +34,7 @@ interface ClientInterface
      *
      * @return mixed
      */
-    public function doCall($method, array $parameters = array());
+    public function doCall($method, array $parameters = []);
 
     /**
      * Get the useragent that will be used. Our version will be prepended to yours.

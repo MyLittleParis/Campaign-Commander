@@ -66,7 +66,6 @@ use MyLittle\CampaignCommander\Exception\CampaignCommanderException;
 /**
  * Abstract client class
  *
- * @author Tijs     Verkoyen <php-campaign-commander-member@verkoyen.eu>
  * @author Jocelyn Kerbourc'h <jocelyn@mylittleparis.com>
  */
 class Client implements ClientInterface
@@ -75,7 +74,7 @@ class Client implements ClientInterface
     const DEBUG = false;
 
     // current version
-    const VERSION = '1.2';
+    const VERSION = '1.0';
 
     /**
      * The API-key that will be used for authenticating
@@ -156,13 +155,11 @@ class Client implements ClientInterface
      * @param  string   $wsdl     the wsdl link for api
      * @param  string   $server   The server to use. Ask your account-manager.
      */
-    public function __construct($login, $password, $key, $wsdl, $server)
+    public function __construct($login, $password, $key)
     {
         $this->login = $login;
         $this->password =$password;
         $this->key= $key;
-        $this->wsdl = $wsdl;
-        $this->server = $server;
     }
 
     /**
@@ -257,7 +254,7 @@ class Client implements ClientInterface
     /**
      * {@inheritDoc}
      */
-    protected function doCall($method, array $parameters)
+    public function doCall($method, array $parameters = [])
     {
         // open connection if needed
         if ($this->soapClient === null || $this->token === null) {
