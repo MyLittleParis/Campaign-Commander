@@ -27,13 +27,13 @@ class MemberExportService extends AbstractService
      * Create download by mailing list
      * Retrieves a list of members from a segment given.
      *
-     * @param type $segmentID
-     * @param type $operationType
-     * @param type $fieldSelection
-     * @param type $fileFormat
-     * @param type $dedupFlag
-     * @param type $dedupCriteria
-     * @param type $keepFirst
+     * @param string $segmentID
+     * @param string $operationType
+     * @param string $fieldSelection
+     * @param string $fileFormat
+     * @param string $dedupFlag
+     * @param string $dedupCriteria
+     * @param string $keepFirst
      *
      * @return int                      The ID of the export request
      */

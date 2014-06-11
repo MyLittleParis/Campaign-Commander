@@ -2,6 +2,8 @@
 
 namespace MyLittle\CampaignCommander\Service;
 
+use MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface;
+
 /**
  * BatchMemberService
  *

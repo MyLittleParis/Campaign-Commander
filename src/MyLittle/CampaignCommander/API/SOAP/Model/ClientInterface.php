@@ -43,4 +43,26 @@ interface ClientInterface
      * @return string
      */
     public function getUserAgent();
+
+    /**
+     * Set the user-agent for you application
+     * It will be appended to ours, the result will look like: "PHP Campaign Commander Member/<version> <your-user-agent>"
+     *
+     * @param string $userAgent	The user-agent, it should look like <app-name>/<app-version>.
+     */
+    public function setUserAgent($userAgent);
+
+    /**
+     * Set the server that has to be used.
+     *
+     * @param string $server
+     */
+    public function setServer($server);
+
+    /**
+     * Set the wsdl url
+     *
+     * @param string $wsdl
+     */
+    public function setWsdl($wsdl);
 }

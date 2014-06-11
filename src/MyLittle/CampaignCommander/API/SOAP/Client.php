@@ -61,7 +61,6 @@
 namespace MyLittle\CampaignCommander\API\SOAP;
 
 use MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface;
-use MyLittle\CampaignCommander\Exception\CampaignCommanderException;
 
 /**
  * Abstract client class
@@ -96,13 +95,6 @@ class Client implements ClientInterface
      * @var string
      */
     protected $password;
-
-    /**
-     * The type of API
-     *
-     * @var string
-     */
-    protected $api;
 
     /**
      * The server to use
@@ -152,8 +144,6 @@ class Client implements ClientInterface
      * @param  string   $login    Login provided for API access.
      * @param  string   $password The password.
      * @param  string   $key      Manager Key copied from the CCMD web application.
-     * @param  string   $wsdl     the wsdl link for api
-     * @param  string   $server   The server to use. Ask your account-manager.
      */
     public function __construct($login, $password, $key)
     {
@@ -183,19 +173,15 @@ class Client implements ClientInterface
      */
     public function closeApiConnection()
     {
-        // make the call
         $response = $this->doCall('closeApiConnection');
 
-        // validate response
         if ($response == 'connection closed') {
-            // reset vars
             $this->soapClient = null;
             $this->token = null;
 
             return true;
         }
 
-        // fallback
         return false;
     }
 
@@ -221,9 +207,9 @@ class Client implements ClientInterface
         $wsdl = $this->server . '/' . $this->wsdl;
         $this->soapClient = new \SoapClient($wsdl, $options);
 
-        $loginParameters['login'] = $this->getLogin();
-        $loginParameters['pwd'] = $this->getPassword();
-        $loginParameters['key'] = $this->getKey();
+        $loginParameters['login'] = $this->login();
+        $loginParameters['pwd'] = $this->password();
+        $loginParameters['key'] = $this->key();
 
         $response = $this->soapClient->openApiConnection($loginParameters);
 
@@ -241,12 +227,12 @@ class Client implements ClientInterface
                 $this->token = null;
             }
 
-            throw new CampaignCommanderException($message);
+            throw new \Exception($message);
         }
 
         // if response is not valid
         if(!isset($response->return)) {
-            throw new CampaignCommanderException('Invalid response');
+            throw new \Exception('Invalid response');
         }
         $this->token = (string) $response->return;
     }
@@ -275,7 +261,7 @@ class Client implements ClientInterface
         } catch (Exception $e) {
             $message = $e->getMessage();
 
-            throw new CampaignCommanderException($message);
+            throw new \Exception($message);
         }
 
         // validate response
@@ -300,7 +286,7 @@ class Client implements ClientInterface
                 }
             }
 
-            throw new CampaignCommanderException($message);
+            throw new \Exception($message);
         }
 
         if(!isset($response->return)) {
