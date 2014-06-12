@@ -11,16 +11,57 @@ use MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface;
  */
 class MemberExportService extends AbstractService
 {
+    const DOWNLOAD_SUCCESS = 'OK';
+    const DOWNLOAD_EMPTY = 'NO_DATA';
+    const DOWNLOAD_NOT_READY = 'NOT_YET_READY';
+    const DOWNLOAD_ERROR = 'ERROR';
+
+    const EXPORT_VALIDATED = 'VALIDATED';
+    const EXPORT_RUNNING = 'RUNNING';
+    const EXPORT_SUCCESS = 'SUCCESS';
+    const EXPORT_ERROR = 'ERROR';
+    const EXPORT_DELETED = 'DELETED';
+
     /**
      * Constructor
      *
-     * @param \MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface $client
+     * @param ClientInterface $client
      */
     public function __construct(ClientInterface $client)
     {
         $this->soapClient = $client;
         $this->soapClient->setWsdl(ClientInterface::WSDL_URL_EXPORT);
         $this->soapClient->setServer('http://emvapi.emv3.com');
+    }
+
+    /**
+     * Get download file status list
+     * @return array
+     */
+    public function getDownloadStatusList()
+    {
+        return [
+            self::DOWNLOAD_EMPTY,
+            self::DOWNLOAD_NOT_READY,
+            self::DOWNLOAD_SUCCESS,
+            self::DOWNLOAD_ERROR
+        ];
+    }
+
+    /**
+     * Get export file status list
+     *
+     * @return array
+     */
+    public function getExportFileStatusList()
+    {
+        return [
+            self::EXPORT_VALIDATED,
+            self::EXPORT_RUNNING,
+            self::EXPORT_SUCCESS,
+            self::EXPORT_ERROR,
+            self::EXPORT_DELETED
+        ];
     }
 
     /**
