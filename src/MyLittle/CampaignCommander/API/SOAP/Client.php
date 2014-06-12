@@ -61,6 +61,8 @@
 namespace MyLittle\CampaignCommander\API\SOAP;
 
 use MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface;
+use BeSimple\SoapClient;
+use BeSimple\SoapCommon\Helper;
 
 /**
  * Abstract client class
@@ -69,9 +71,6 @@ use MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface;
  */
 class Client implements ClientInterface
 {
-    // internal constant to enable/disable debugging
-    const DEBUG = false;
-
     // current version
     const VERSION = '1.0';
 
@@ -160,12 +159,27 @@ class Client implements ClientInterface
      */
     public function __destruct()
     {
-        if ($this->soapClient !== null) {
-            if (!$this->closeApiConnection()) {
-                $this->soapClient = null;
-                $this->token = null;
-            }
+        if ($this->soapClient !== null && !$this->closeApiConnection()) {
+            $this->soapClient = null;
+            $this->token = null;
         }
+    }
+
+    /**
+     * Build the soap client
+     */
+    private function buildSoapClient()
+    {
+        $builder = SoapClient\SoapClientBuilder::createWithDefaults();
+        $builder
+                ->withSoapVersion11()
+                ->withTrace()
+                ->withExceptions()
+                ->withWsdlCacheNone()
+                ->withWsdl($this->wsdl)
+        ;
+
+        $this->soapClient = $builder->build();
     }
 
     /**
@@ -190,50 +204,20 @@ class Client implements ClientInterface
      */
     public function openApiConnection()
     {
-        $options = [
-            'soap_version' => SOAP_1_1,
-            'trace' => self::DEBUG,
-            'exceptions' => true,
-            'connection_timeout' => $this->timeOut,
-            'user_agent' => $this->userAgent,
-            'typemap' => [
-                'type_ns' => 'http://www.w3.org/2001/XMLSchema',
-                'type_name' => 'long',
-                'to_xml' => [__CLASS__, 'toLongXML'],
-                'from_xml' => [__CLASS__, 'fromLongXML']
-                ] // map long to string, because a long can cause an integer overflow
-        ];
-
-        $wsdl = $this->server . '/' . $this->wsdl;
-        $this->soapClient = new \SoapClient($wsdl, $options);
+        $this->buildSoapClient();
 
         $loginParameters['login'] = $this->login();
         $loginParameters['pwd'] = $this->password();
         $loginParameters['key'] = $this->key();
 
-        $response = $this->soapClient->openApiConnection($loginParameters);
-
-        // validate
-        if (is_soap_fault($response)) {
-            $message = 'Internal Error';
-
-            // more detailed message available
-            if(isset($response->detail->ConnectionServiceException->description)) {
-                $message = (string) $response->detail->ConnectionServiceException->description;
-            }
-
-            // invalid token
-            if ($message == 'Please enter a valid token to validate your connection.') {
-                $this->token = null;
-            }
-
-            throw new \Exception($message);
+        try {
+            $response = $this->soapClient->openApiConnection($loginParameters);
+        } catch (\SoapFault $fault) {
+            trigger_error("SOAP Fault: (faultcode: {$fault->faultcode}, faultstring: {$fault->faultstring})", E_USER_ERROR);
+        } catch (Exception $e) {
+            throw new \Exception($e->getMessage());
         }
 
-        // if response is not valid
-        if(!isset($response->return)) {
-            throw new \Exception('Invalid response');
-        }
         $this->token = (string) $response->return;
     }
 
@@ -258,35 +242,10 @@ class Client implements ClientInterface
 
         try {
             $response = $this->soapClient->__soapCall($method, array($parameters));
+        } catch (\SoapFault $fault) {
+            trigger_error("SOAP Fault: (faultcode: {$fault->faultcode}, faultstring: {$fault->faultstring})", E_USER_ERROR);
         } catch (Exception $e) {
-            $message = $e->getMessage();
-
-            throw new \Exception($message);
-        }
-
-        // validate response
-        if (is_soap_fault($response)) {
-            $message = 'Internal Error';
-
-            if(isset($response->detail->ConnectionServiceException->description)) {
-                $message = (string) $response->detail->ConnectionServiceException->description;
-            }
-
-            if(isset($response->detail->MemberServiceException->description)) {
-                $message = (string) $response->detail->MemberServiceException->description;
-            }
-
-            if (isset($response->detail->CcmdServiceException->description)) {
-                $message = (string) $response->detail->CcmdServiceException->description;
-                if(isset($response->detail->CcmdServiceException->fields)) {
-                    $message .= ' fields: ' . $response->detail->CcmdServiceException->fields;
-                }
-                if(isset($response->detail->CcmdServiceException->status)) {
-                    $message .= ' status: ' . $response->detail->CcmdServiceException->status;
-                }
-            }
-
-            throw new \Exception($message);
+            throw new \Exception($e->getMessage());
         }
 
         if(!isset($response->return)) {
@@ -294,30 +253,6 @@ class Client implements ClientInterface
         }
 
         return $response->return;
-    }
-
-    /**
-     * Convert a long into a string
-     *
-     * @param string $value	The value to convert.
-     *
-     * @return string
-     */
-    protected static function fromLongXML($value)
-    {
-        return (string) strip_tags($value);
-    }
-
-    /**
-     * Convert a variable into a long
-     *
-     * @param string $value	The value to convert.
-     *
-     * @return string
-     */
-    protected static function toLongXML($value)
-    {
-        return '<long>' . $value . '</long>';
     }
 
     /**

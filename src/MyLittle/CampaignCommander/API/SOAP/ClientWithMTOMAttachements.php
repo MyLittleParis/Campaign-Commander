@@ -95,6 +95,20 @@ class ClientWithMTOMAttachements implements ClientInterface
     }
 
     /**
+     * Destructor
+     *
+     * if the connection is open then
+     *  close it and reset variables.
+     */
+    public function __destruct()
+    {
+        if ($this->soapClient !== null && !$this->closeApiConnection()) {
+            $this->soapClient = null;
+            $this->token = null;
+        }
+    }
+
+    /**
      * Build the soap client
      */
     private function buildSoapClient()
