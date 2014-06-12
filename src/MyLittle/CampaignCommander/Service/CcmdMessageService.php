@@ -91,7 +91,7 @@ class CcmdMessageService extends AbstractService
     {
         $parameters = ['message' => $message ];
 
-        return $this->soapClient->doCall('createEmailMessageByObj', $parameters);
+        return (string) $this->soapClient->doCall('createEmailMessageByObj', $parameters);
     }
 
     /**
@@ -128,7 +128,7 @@ class CcmdMessageService extends AbstractService
     {
         $parameters = ['message' => $message ];
 
-        return $this->soapClient->doCall('createSmsMessageByObj', $parameters);
+        return (string) $this->soapClient->doCall('createSmsMessageByObj', $parameters);
     }
 
     /**
@@ -176,7 +176,7 @@ class CcmdMessageService extends AbstractService
     {
         $parameters = ['message' => $message];
 
-        return $this->soapClient->doCall('updateMessageByObj', $parameters);
+        return (bool) $this->soapClient->doCall('updateMessageByObj', $parameters);
     }
 
     /**
@@ -344,13 +344,13 @@ class CcmdMessageService extends AbstractService
      *
      * @param  string $id ID of the message.
      *
-     * @return array
+     * @return string The ID of the last tracked URL
      */
     public function trackAllLinks($id)
     {
         $parameters = ['id' => (string) $id];
 
-        return $this->soapClient->doCall('trackAllLinks', $parameters);
+        return (string) $this->soapClient->doCall('trackAllLinks', $parameters);
     }
 
     /**
@@ -364,7 +364,7 @@ class CcmdMessageService extends AbstractService
     {
         $parameters = ['id' => (string) $id];
 
-        return $this->soapClient->doCall('untrackAllLinks', $parameters);
+        return (bool) $this->soapClient->doCall('untrackAllLinks', $parameters);
     }
 
     /**
@@ -374,7 +374,7 @@ class CcmdMessageService extends AbstractService
      * @param  string           $position Position of the link to update in the message.
      * @param  string[optional] $part     HTML or text.
      *
-     * @return array            The order number of the URL.
+     * @return string            The order number of the URL.
      *
      * @throws \Exception
      */
@@ -394,7 +394,7 @@ class CcmdMessageService extends AbstractService
             'part' => (string) $part
         ];
 
-        return $this->soapClient->doCall('trackLinkByPosition', $parameters);
+        return (string) $this->soapClient->doCall('trackLinkByPosition', $parameters);
     }
 
     /**
