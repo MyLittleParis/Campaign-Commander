@@ -54,7 +54,7 @@ class BatchMemberService extends AbstractService
             'skipFirstLine' => $skipFirsLine,
             'dateFormat' => (string) $dateFormat,
             'criteria' => (string) $criteria,
-            'mapping' => new \SoapVar("<mapping>$mapping</mapping>", XSD_ANYXML),
+            'mapping' => $mapping,
             'file' => $fileContent,
         ];
 
