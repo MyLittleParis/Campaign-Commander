@@ -51,4 +51,11 @@ interface ClientInterface
      * @param string $userAgent	The user-agent, it should look like <app-name>/<app-version>.
      */
     public function setUserAgent($userAgent);
+
+    /**
+     * Set the wsdl url
+     *
+     * @param string $wsdl
+     */
+    public function setWsdl($wsdl);
 }

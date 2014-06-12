@@ -136,15 +136,13 @@ class Client implements ClientInterface
      * @param string    $password The password.
      * @param string    $key      Manager Key copied from the CCMD web application.
      * @param string    $server   The server to use. Ask your account-manager.
-     * @param string    $wsdl     url api to use.
      */
-    public function __construct($login, $password, $key, $server, $wsdl)
+    public function __construct($login, $password, $key, $server)
     {
         $this->login    = $login;
         $this->password = $password;
         $this->key      = $key;
         $this->server   = $server;
-        $this->wsdl     = $wsdl;
     }
 
     /**
@@ -268,6 +266,18 @@ class Client implements ClientInterface
     public function setUserAgent($userAgent)
     {
         $this->userAgent = (string) $userAgent;
+
+        return $this;
+    }
+
+    /**
+     * Set the wsdl url
+     *
+     * @param string $wsdl
+     */
+    public function setWsdl($wsdl)
+    {
+        $this->wsdl = $wsdl;
 
         return $this;
     }

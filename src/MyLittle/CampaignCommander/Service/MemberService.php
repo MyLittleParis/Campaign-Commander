@@ -20,7 +20,6 @@ class MemberService extends AbstractService
     {
         $this->soapClient = $client;
         $this->soapClient->setWsdl(ClientInterface::WSDL_URL_MEMBER);
-        $this->soapClient->setServer('http://emvapi.emv3.com');
     }
 
     /**

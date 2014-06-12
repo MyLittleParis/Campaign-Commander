@@ -31,7 +31,6 @@ class MemberExportService extends AbstractService
     {
         $this->soapClient = $client;
         $this->soapClient->setWsdl(ClientInterface::WSDL_URL_EXPORT);
-        $this->soapClient->setServer('http://emvapi.emv3.com');
     }
 
     /**

@@ -20,7 +20,6 @@ class NotificationService extends AbstractService
     {
         $this->soapClient = $client;
         $this->soapClient->setWsdl(ClientInterface::WSDL_URL_NOTIFICATION);
-        $this->soapClient->setServer('http://api.notificationmessaging.com');
     }
 
     /**

@@ -20,7 +20,6 @@ class CcmdCampaignService extends AbstractService
     {
         $this->soapClient = $client;
         $this->soapClient->setWsdl(ClientInterface::WSDL_URL_CCMD);
-        $this->soapClient->setServer('http://emvapi.emv3.com');
     }
 
     /**
@@ -233,7 +232,7 @@ class CcmdCampaignService extends AbstractService
      * @param  string $status Status to match, possible values: EDITABLE, QUEUED, RUNNING, PAUSES, COMPLETED, FAILED, KILLED.
      *
      * @return array  The list of campaign IDs matching the status.
-     * 
+     *
      * @throws \Exception
      */
     public function getCampaignsByStatus($status)
