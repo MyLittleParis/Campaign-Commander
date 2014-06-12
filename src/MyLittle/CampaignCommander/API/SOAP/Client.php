@@ -62,12 +62,11 @@ namespace MyLittle\CampaignCommander\API\SOAP;
 
 use MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface;
 use BeSimple\SoapClient;
-use BeSimple\SoapCommon\Helper;
 
 /**
  * Abstract client class
  *
- * @author Jocelyn Kerbourc'h <jocelyn@mylittleparis.com>
+ * @author mylittleparis
  */
 class Client implements ClientInterface
 {
@@ -124,13 +123,6 @@ class Client implements ClientInterface
     protected $token = null;
 
     /**
-     * The timeout
-     *
-     * @var int
-     */
-    protected $timeOut = 60;
-
-    /**
      * The user agent
      *
      * @var string
@@ -140,15 +132,19 @@ class Client implements ClientInterface
     /**
      * Default constructor
      *
-     * @param  string   $login    Login provided for API access.
-     * @param  string   $password The password.
-     * @param  string   $key      Manager Key copied from the CCMD web application.
+     * @param string    $login    Login provided for API access.
+     * @param string    $password The password.
+     * @param string    $key      Manager Key copied from the CCMD web application.
+     * @param string    $server   The server to use. Ask your account-manager.
+     * @param string    $wsdl     url api to use.
      */
-    public function __construct($login, $password, $key)
+    public function __construct($login, $password, $key, $server, $wsdl)
     {
-        $this->login = $login;
-        $this->password =$password;
-        $this->key= $key;
+        $this->login    = $login;
+        $this->password = $password;
+        $this->key      = $key;
+        $this->server   = $server;
+        $this->wsdl     = $wsdl;
     }
 
     /**
@@ -168,7 +164,7 @@ class Client implements ClientInterface
     /**
      * Build the soap client
      */
-    private function buildSoapClient()
+    protected function buildSoapClient()
     {
         $builder = SoapClient\SoapClientBuilder::createWithDefaults();
         $builder
@@ -206,9 +202,9 @@ class Client implements ClientInterface
     {
         $this->buildSoapClient();
 
-        $loginParameters['login'] = $this->login();
-        $loginParameters['pwd'] = $this->password();
-        $loginParameters['key'] = $this->key();
+        $loginParameters['login'] = $this->login;
+        $loginParameters['pwd'] = $this->password;
+        $loginParameters['key'] = $this->key;
 
         try {
             $response = $this->soapClient->openApiConnection($loginParameters);
@@ -233,7 +229,7 @@ class Client implements ClientInterface
 
         // parameters strings should be UTF8
         foreach ($parameters as $key => $value) {
-            if (gettype($value) == 'string' && mb_detect_encoding($value)!="UTF-8") {
+            if ('string' === gettype($value) && 'UTF-8' !== mb_detect_encoding($value)) {
                 $parameters[$key] = utf8_encode($value);
             }
         }
@@ -272,30 +268,6 @@ class Client implements ClientInterface
     public function setUserAgent($userAgent)
     {
         $this->userAgent = (string) $userAgent;
-
-        return $this;
-    }
-
-    /**
-     * Set the server that has to be used.
-     *
-     * @param string $server
-     */
-    public function setServer($server)
-    {
-        $this->server = (string) $server;
-
-        return $this;
-    }
-
-    /**
-     * Set the wsdl url
-     *
-     * @param string $wsdl
-     */
-    public function setWsdl($wsdl)
-    {
-        $this->wsdl = $wsdl;
 
         return $this;
     }
