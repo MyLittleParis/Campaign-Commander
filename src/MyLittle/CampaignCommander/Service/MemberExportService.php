@@ -75,7 +75,7 @@ class MemberExportService extends AbstractService
      * @param string $dedupCriteria
      * @param string $keepFirst
      *
-     * @return int                      The ID of the export request
+     * @return string                      The ID of the export request
      */
     public function createDownloadByMailinglist($segmentID,
                                                 $operationType,
@@ -95,7 +95,7 @@ class MemberExportService extends AbstractService
             'keepFirst' => (string) $keepFirst,
         ];
 
-        return (int) $this->soapClient->doCall('createDownloadByMailinglist', $parameters);
+        return (string) $this->soapClient->doCall('createDownloadByMailinglist', $parameters);
     }
 
     /**

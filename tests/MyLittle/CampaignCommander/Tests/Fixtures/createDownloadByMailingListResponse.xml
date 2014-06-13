@@ -1,0 +1,7 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+    <soap:Body>
+        <ns2:createDownloadByMailinglistResponse xmlns:ns2="http://api.service.apiexport.emailvision.com/">
+            <return>13579</return> 
+        </ns2:createDownloadByMailinglistResponse>
+    </soap:Body> 
+</soap:Envelope>

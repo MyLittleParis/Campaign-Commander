@@ -222,7 +222,7 @@ class Client implements ClientInterface
     {
         // open connection if needed
         if ($this->soapClient === null || $this->token === null) {
-            $this->openApiConnection();
+            throw new \LogicException('The Api connection is not open.');
         }
 
         // parameters strings should be UTF8
