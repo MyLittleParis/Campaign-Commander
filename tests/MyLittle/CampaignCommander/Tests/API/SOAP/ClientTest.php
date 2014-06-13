@@ -1,8 +1,6 @@
 <?php
 
-namespace MyLittle\CampaignCommander\Tests;
-
-use MyLittle\CampaignCommander\API\SOAP\Client;
+namespace MyLittle\CampaignCommander\Tests\API\SOAP;
 
 /**
  * ApiSoapClientTest
@@ -23,7 +21,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         parent::setUp();
 
-        $this->client = new Client(LOGIN, PASSWORD, KEY);
+        $this->client = new \MyLittle\CampaignCommander\API\SOAP\Client(LOGIN, PASSWORD, KEY, SERVER);
     }
 
     /**
@@ -36,13 +34,31 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         parent::tearDown();
     }
 
-    public function testCloseApiConnection()
+    protected function getSoapClient(array $methods)
     {
-        $response = $this->client->closeApiConnection();
+        $soapClient = $this->getMockBuilder('MyLittle\CampaignCommander\API\SOAP\Client')
+                ->setMethods(array_merge($methods, ['openApiCOnnection']))
+                ->setConstructorArgs([__DIR__.'../../Fixtures/batch_member_service.wsdl.xml'])
+                ->getMock()
+        ;
+
+        $soapClient
+            ->expects($this->any())
+            ->method('openApiConnection')
+            ->will($this->returnValue(__DIR__.'../../Fixtures/openApiConnectionResponse.xml'))
+        ;
+
+        return $soapClient;
     }
 
-    public function testOpenApiConnection()
+    public function testCloseApiConnection()
     {
-        $response = $this->client->openApiConnection();
+        $soapClientMock = $this->getSoapClient(['closeApiConnection']);
+
+        $soapClientMock
+            ->expects($this->any())
+            ->method('closeApiConnection')
+            ->will($this->returnValue(__DIR__.'../../Fixtures/closeApiConnectionResponse.xml'))
+        ;
     }
 }

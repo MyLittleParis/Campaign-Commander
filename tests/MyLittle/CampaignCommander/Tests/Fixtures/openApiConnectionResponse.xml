@@ -1,0 +1,7 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+    <soap:Body>
+        <ns2:openApiConnectionResponse xmlns:ns2="http://api.service.apiexport.emailvision.com/">
+            <return>TOKEN12345</return>
+        </ns2:openApiConnectionResponse>
+    </soap:Body>
+</soap:Envelope>
