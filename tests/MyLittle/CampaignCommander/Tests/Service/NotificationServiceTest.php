@@ -91,13 +91,13 @@ class NotificationServiceTest
         $this->assertEquals(
             $response,
             $service->sendObject( $uniqueIdentifier,
-                                                   $securityTag,
-                                                   $email,
-                                                   $dyn,
-                                                   $content,
-                                                   $type,
-                                                   $sendDate,
-                                                   $uidKey)
+                                  $securityTag,
+                                  $email,
+                                  $dyn,
+                                  $content,
+                                  $type,
+                                  $sendDate,
+                                  $uidKey)
         );
     }
 }
