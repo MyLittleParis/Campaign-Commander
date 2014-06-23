@@ -124,8 +124,7 @@ class MemberService extends AbstractService
         }
 
         $members = [];
-        foreach($response as $row)
-        {
+        foreach($response as $row) {
             // if entry exist
             if(!isset($row->attributes->entry)) {
                 continue;
@@ -246,8 +245,7 @@ class MemberService extends AbstractService
         }
 
         $parameters['member'] = [];
-        foreach($fields as $key => $value)
-        {
+        foreach($fields as $key => $value) {
             $parameters['member']['dynContent']['entry'][] = [
                 'key' => $key,
                 'value' => $value

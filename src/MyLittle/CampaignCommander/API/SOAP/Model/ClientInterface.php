@@ -48,7 +48,8 @@ interface ClientInterface
 
     /**
      * Set the user-agent for you application
-     * It will be appended to ours, the result will look like: "PHP Campaign Commander Member/<version> <your-user-agent>"
+     * It will be appended to ours, the result will look like:
+     * "PHP Campaign Commander Member/<version> <your-user-agent>"
      *
      * @param string $userAgent	The user-agent, it should look like <app-name>/<app-version>.
      */

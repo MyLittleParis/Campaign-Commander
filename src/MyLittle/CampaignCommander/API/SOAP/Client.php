@@ -207,7 +207,10 @@ class Client implements ClientInterface
         try {
             $response = $this->soapClient->openApiConnection($loginParameters);
         } catch (\SoapFault $fault) {
-            trigger_error("SOAP Fault: (faultcode: {$fault->faultcode}, faultstring: {$fault->faultstring})", E_USER_ERROR);
+            trigger_error(
+                "SOAP Fault: (faultcode: {$fault->faultcode}, faultstring: {$fault->faultstring})",
+                E_USER_ERROR
+            );
         } catch (Exception $e) {
             throw new \Exception($e->getMessage());
         }
@@ -237,7 +240,10 @@ class Client implements ClientInterface
         try {
             $response = $this->soapClient->__soapCall($method, array($parameters));
         } catch (\SoapFault $fault) {
-            trigger_error("SOAP Fault: (faultcode: {$fault->faultcode}, faultstring: {$fault->faultstring})", E_USER_ERROR);
+            trigger_error(
+                "SOAP Fault: (faultcode: {$fault->faultcode}, faultstring: {$fault->faultstring})",
+                E_USER_ERROR
+            );
         } catch (Exception $e) {
             throw new \Exception($e->getMessage());
         }
@@ -259,7 +265,8 @@ class Client implements ClientInterface
 
     /**
      * Set the user-agent for you application
-     * It will be appended to ours, the result will look like: "PHP Campaign Commander Member/<version> <your-user-agent>"
+     * It will be appended to ours, the result will look like:
+     * "PHP Campaign Commander Member/<version> <your-user-agent>"
      *
      * @param string $userAgent	The user-agent, it should look like <app-name>/<app-version>.
      */

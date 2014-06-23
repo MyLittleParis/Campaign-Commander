@@ -42,20 +42,21 @@ class CcmdMessageService extends AbstractService
      *
      * @return string           The message ID.
      */
-    public function createEmailMessage( $name,
-                                        $description,
-                                        $subject,
-                                        $from,
-                                        $fromEmail,
-                                        $to,
-                                        $body,
-                                        $encoding,
-                                        $replyTo,
-                                        $replyToEmail,
-                                        $bounceback = false,
-                                        $unsubscribe = false,
-                                        $unsublinkpage = null)
-    {
+    public function createEmailMessage(
+        $name,
+        $description,
+        $subject,
+        $from,
+        $fromEmail,
+        $to,
+        $body,
+        $encoding,
+        $replyTo,
+        $replyToEmail,
+        $bounceback = false,
+        $unsubscribe = false,
+        $unsublinkpage = null
+    ) {
         $parameters =[
             'name' => (string) $name,
             'description' => (string) $description,
@@ -313,7 +314,7 @@ class CcmdMessageService extends AbstractService
 
         // Check if parts is valid
         if (!in_array($part, $allowedParts)) {
-            throw new \Exception('Invalid part (' . $part . '), allowed values are: ' . implode(', ', $allowedParts) . '.');
+            throw new \Exception('Invalid part ('. $part .'), allowed values are: '.implode(', ', $allowedParts).'.');
         }
 
         $parameters = [
@@ -384,7 +385,7 @@ class CcmdMessageService extends AbstractService
 
         // Check if parts is valid
         if (!in_array($part, $allowedParts)) {
-            throw new \Exception('Invalid part (' . $part . '), allowed values are: ' . implode(', ', $allowedParts) . '.');
+            throw new \Exception('Invalid part ('. $part .'), allowed values are: '.implode(', ', $allowedParts).'.');
         }
 
         $parameters = [
@@ -458,7 +459,7 @@ class CcmdMessageService extends AbstractService
 
         // Check if parts is valid
         if (!in_array($part, $allowedParts)) {
-            throw new \Exception('Invalid part (' . $part . '), allowed values are: ' . implode(', ', $allowedParts) . '.');
+            throw new \Exception('Invalid part ('. $part .'), allowed values are: '.implode(', ', $allowedParts).'.');
         }
 
         $parameters = [
@@ -492,7 +493,7 @@ class CcmdMessageService extends AbstractService
 
         // Check if parts is valid
         if (!in_array($part, $allowedParts)) {
-            throw new \Exception('Invalid part (' . $part . '), allowed values are: ' . implode(', ', $allowedParts) . '.');
+            throw new \Exception('Invalid part ('. $part .'), allowed values are: '.implode(', ', $allowedParts).'.');
         }
 
         $parameters = [

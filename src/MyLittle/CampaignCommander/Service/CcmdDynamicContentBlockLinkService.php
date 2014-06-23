@@ -74,13 +74,14 @@ class CcmdDynamicContentBlockLinkService
      *
      * @return int           Order number of the URL.
      */
-    public function createUnsubscribeBannerLink($id,
-                                                $name,
-                                                $pageOk = null,
-                                                $messageOk = null,
-                                                $pageError = null,
-                                                $messageError = null)
-    {
+    public function createUnsubscribeBannerLink(
+        $id,
+        $name,
+        $pageOk = null,
+        $messageOk = null,
+        $pageError = null,
+        $messageError = null
+    ) {
         $parameters = [
             'bannerId' => (string) $id,
             'name' => (string) $name
@@ -117,13 +118,14 @@ class CcmdDynamicContentBlockLinkService
      *
      * @return int           Order number of the URL.
      */
-    public function createAndAddUnsubscribeBannerLink($id,
-                                                      $name,
-                                                      $pageOk = null,
-                                                      $messageOk = null,
-                                                      $pageError = null,
-                                                      $messageError = null)
-    {
+    public function createAndAddUnsubscribeBannerLink(
+        $id,
+        $name,
+        $pageOk = null,
+        $messageOk = null,
+        $pageError = null,
+        $messageError = null
+    ) {
         $parameters = [
             'bannerId' => (string) $id,
             'name' => (string) $name
@@ -201,14 +203,15 @@ class CcmdDynamicContentBlockLinkService
      *
      * @return int           Order number of the URL.
      */
-    public function createUpdateBannerLink( $id,
-                                            $name,
-                                            $parameters,
-                                            $pageOk = null,
-                                            $messageOk = null,
-                                            $pageError = null,
-                                            $messageError = null)
-    {
+    public function createUpdateBannerLink(
+        $id,
+        $name,
+        $parameters,
+        $pageOk = null,
+        $messageOk = null,
+        $pageError = null,
+        $messageError = null
+    ) {
         $parameters = [
             'bannerId' => (string) $id,
             'name' => (string) $name,
@@ -247,14 +250,15 @@ class CcmdDynamicContentBlockLinkService
      *
      * @return int           Order number of the URL.
      */
-    public function createAndAddUpdateBannerLink($id,
-                                                 $name,
-                                                 $parameters,
-                                                 $pageOk = null,
-                                                 $messageOk = null,
-                                                 $pageError = null,
-                                                 $messageError = null)
-    {
+    public function createAndAddUpdateBannerLink(
+        $id,
+        $name,
+        $parameters,
+        $pageOk = null,
+        $messageOk = null,
+        $pageError = null,
+        $messageError = null
+    ) {
         $parameters = [
             'bannerId' => (string) $id,
             'name' => (string) $name,
@@ -293,14 +297,15 @@ class CcmdDynamicContentBlockLinkService
      *
      * @return int           Order number of the URL.
      */
-    public function createActionBannerLink($id,
-                                           $name,
-                                           $action,
-                                           $pageOk = null,
-                                           $messageOk = null,
-                                           $pageError = null,
-                                           $messageError = null)
-    {
+    public function createActionBannerLink(
+        $id,
+        $name,
+        $action,
+        $pageOk = null,
+        $messageOk = null,
+        $pageError = null,
+        $messageError = null
+    ) {
         $parameters = [
             'bannerId' => (string) $id,
             'name' => (string) $name,
@@ -339,14 +344,15 @@ class CcmdDynamicContentBlockLinkService
      *
      * @return int           Order number of the URL.
      */
-    public function createAndAddActionBannerLink($id,
-                                                 $name,
-                                                 $action,
-                                                 $pageOk = null,
-                                                 $messageOk = null,
-                                                 $pageError = null,
-                                                 $messageError = null)
-    {
+    public function createAndAddActionBannerLink(
+        $id,
+        $name,
+        $action,
+        $pageOk = null,
+        $messageOk = null,
+        $pageError = null,
+        $messageError = null
+    ) {
         $parameters = [
             'bannerId' => (string) $id,
             'name' => (string) $name,

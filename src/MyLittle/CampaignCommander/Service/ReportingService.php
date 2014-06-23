@@ -33,7 +33,7 @@ class ReportingService extends AbstractService
     {
         $parameters = ['campaignId' => (string) $campaignId];
 
-        return (array) $this->soapClient->doCall('getGlobalReportByCampaignId',$parameters);
+        return (array) $this->soapClient->doCall('getGlobalReportByCampaignId', $parameters);
     }
 
     /**
@@ -47,7 +47,7 @@ class ReportingService extends AbstractService
     {
         $parameters = ['campaignId' => (string) $campaignId];
 
-        return (array) $this->soapClient->doCall('getSnapshotReportUrl',$parameters);
+        return (array) $this->soapClient->doCall('getSnapshotReportUrl', $parameters);
     }
 
     /**
@@ -65,6 +65,6 @@ class ReportingService extends AbstractService
             'page' => (int) $page
         ];
 
-        return (array) $this->soapClient->doCall('getLinkReport',$parameters);
+        return (array) $this->soapClient->doCall('getLinkReport', $parameters);
     }
 }

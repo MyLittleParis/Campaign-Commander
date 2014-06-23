@@ -36,15 +36,16 @@ class CcmdCampaignService extends AbstractService
      *
      * @return string           The ID of the campaign.
      */
-    public function createCampaign( $name,
-                                    $sendDate,
-                                    $messageId,
-                                    $mailingListId,
-                                    $description = null,
-                                    $notifProgress = false,
-                                    $postClickTracking = false,
-                                    $emaildedupfig = false)
-    {
+    public function createCampaign(
+        $name,
+        $sendDate,
+        $messageId,
+        $mailingListId,
+        $description = null,
+        $notifProgress = false,
+        $postClickTracking = false,
+        $emaildedupfig = false
+    ) {
         $parameters = [
             'name' => (string) $name,
             'sendDate' => date('Y-m-d H:i:s', (int) $sendDate),
@@ -76,15 +77,16 @@ class CcmdCampaignService extends AbstractService
      *
      * @return string           The ID of the campaign.
      */
-    public function createCampaignWithAnalytics($name,
-                                                $sendDate,
-                                                $messageId,
-                                                $mailingListId,
-                                                $description = null,
-                                                $notifProgress = false,
-                                                $postClickTracking = false,
-                                                $emaildedupfig = false)
-    {
+    public function createCampaignWithAnalytics(
+        $name,
+        $sendDate,
+        $messageId,
+        $mailingListId,
+        $description = null,
+        $notifProgress = false,
+        $postClickTracking = false,
+        $emaildedupfig = false
+    ) {
         $parameters = [
             'name' => (string) $name,
             'sendDate' => date('Y-m-d H:i:s', (int) $sendDate),
@@ -229,7 +231,8 @@ class CcmdCampaignService extends AbstractService
     /**
      * Retrieves a list of campaign having a specified status
      *
-     * @param  string $status Status to match, possible values: EDITABLE, QUEUED, RUNNING, PAUSES, COMPLETED, FAILED, KILLED.
+     * @param  string $status Status to match, possible values:
+     *      EDITABLE, QUEUED, RUNNING, PAUSES, COMPLETED, FAILED, KILLED.
      *
      * @return array  The list of campaign IDs matching the status.
      *
@@ -250,7 +253,9 @@ class CcmdCampaignService extends AbstractService
 
         // Check if status is valid
         if (!in_array($status, $allowedStatus)) {
-            throw new \Exception('Invalid status (' . $status . '), allowed values are: ' . implode(', ', $allowedStatus) . '.');
+            throw new \Exception(
+                'Invalid status ('. $status .'), allowed values are: '. implode(', ', $allowedStatus) .'.'
+            );
         }
 
         $parameters = ['status' => (string) $status];

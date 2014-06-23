@@ -40,21 +40,22 @@ class NotificationService extends AbstractService
      *
      * @throws Exception
      */
-    public function sendObject($uniqueIdentifier,
-                                $securityTag,
-                                $email,
-                                array $dyn = null,
-                                array $content = null,
-                                $type = 'INSERT_UPDATE',
-                                $sendDate = null,
-                                $uidKey = 'email')
-    {
+    public function sendObject(
+        $uniqueIdentifier,
+        $securityTag,
+        $email,
+        array $dyn = null,
+        array $content = null,
+        $type = 'INSERT_UPDATE',
+        $sendDate = null,
+        $uidKey = 'email'
+    ) {
         // List of valid type
         $allowedTypes = ['INSERT', 'UPDATE', 'INSERT_UPDATE', 'NOTHING'];
 
         // Check if type is valid
         if (!in_array($type, $allowedTypes)) {
-            throw new \Exception('Invalid type (' . $type . '), allowed values are: ' . implode(', ', $allowedTypes) . '.');
+            throw new \Exception('Invalid type ('. $type .'), allowed values are: '.implode(', ', $allowedTypes).'.');
         }
 
         $parameters['sendrequest'] = [

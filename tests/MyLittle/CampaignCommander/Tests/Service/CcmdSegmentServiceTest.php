@@ -63,8 +63,7 @@ class CcmdSegmentServiceTest extends \PHPUnit_Framework_TestCase
         $this->client
                 ->expects($this->once())
                 ->method('doCall')
-                ->with( 'segmentationCount',
-                        ['id' => '1234'])
+                ->with('segmentationCount', ['id' => '1234'])
                 ->will($this->returnValue($response))
         ;
 
@@ -83,8 +82,7 @@ class CcmdSegmentServiceTest extends \PHPUnit_Framework_TestCase
         $this->client
                 ->expects($this->once())
                 ->method('doCall')
-                ->with( 'segmentationDistinctCount',
-                        ['id' => '1234'])
+                ->with('segmentationDistinctCount', ['id' => '1234'])
                 ->will($this->returnValue($response))
         ;
 

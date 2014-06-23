@@ -81,8 +81,7 @@ class MemberExportServiceTest extends \PHPUnit_Framework_TestCase
         $this->client
                 ->expects($this->once())
                 ->method('doCall')
-                ->with( 'createDownloadByMailinglist',
-                        $parameters)
+                ->with('createDownloadByMailinglist', $parameters)
                 ->will($this->returnValue($response))
         ;
 
@@ -90,13 +89,15 @@ class MemberExportServiceTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             $response,
-            $service->createDownloadByMailingList( $mailinglistId,
-                                                   $operationType,
-                                                   $fieldSelection,
-                                                   $fileFormat,
-                                                   $dedupFlag,
-                                                   $dedupCriteria,
-                                                   $keepFirst)
+            $service->createDownloadByMailingList(
+                $mailinglistId,
+                $operationType,
+                $fieldSelection,
+                $fileFormat,
+                $dedupFlag,
+                $dedupCriteria,
+                $keepFirst
+        )
         );
     }
 
@@ -107,8 +108,7 @@ class MemberExportServiceTest extends \PHPUnit_Framework_TestCase
         $this->client
                 ->expects($this->once())
                 ->method('doCall')
-                ->with( 'getDownloadStatus',
-                        ['id' => '1234'])
+                ->with('getDownloadStatus', ['id' => '1234'])
                 ->will($this->returnValue($response))
         ;
 
@@ -127,8 +127,7 @@ class MemberExportServiceTest extends \PHPUnit_Framework_TestCase
         $this->client
                 ->expects($this->once())
                 ->method('doCall')
-                ->with( 'getDownloadFile',
-                        ['id' => '1234'])
+                ->with('getDownloadFile', ['id' => '1234'])
                 ->will($this->returnValue($response))
         ;
 

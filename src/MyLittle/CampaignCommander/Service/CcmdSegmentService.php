@@ -41,11 +41,15 @@ class CcmdSegmentService extends AbstractService
 
         // Check if sample type is valid
         if (!in_array($sampleType, $allowedSampleType)) {
-            throw new \Exception('Invalid sample type (' . $sampleType . '), allowed values are: ' . implode(', ', $allowedSampleType) . '.');
+            throw new \Exception(
+                'Invalid sample type ('. $sampleType .'), allowed values are: '.implode(', ', $allowedSampleType).'.'
+            );
         }
 
         if ('ALL' !== $sampleType && null === $sampleRate) {
-            throw new \Exception("You have specified '$sampleType' for sample type, but you must give a $sampleType number of members from the segment.");
+            throw new \Exception(
+                "You have specified '$sampleType' for sample type, but you must give a $sampleType number of members from the segment."
+            );
         }
 
         $parameters = [
@@ -99,11 +103,15 @@ class CcmdSegmentService extends AbstractService
 
         // Check if sample type is valid
         if (!in_array($sampleType, $allowedSampleType)) {
-            throw new \Exception('Invalid sample type (' . $sampleType . '), allowed values are: ' . implode(', ', $allowedSampleType) . '.');
+            throw new \Exception(
+                'Invalid sample type ('. $sampleType .'), allowed values are: '.implode(', ', $allowedSampleType).'.'
+            );
         }
 
         if ('ALL' !== $sampleType && null === $sampleRate) {
-            throw new \Exception("You have specified '$sampleType' for sample type, but you must give a $sampleType number of members from the segment.");
+            throw new \Exception(
+                "You have specified '$sampleType' for sample type, but you must give a $sampleType number of members from the segment."
+            );
         }
 
         $parameters = [

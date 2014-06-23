@@ -77,14 +77,15 @@ class MemberExportService extends AbstractService
      *
      * @return string                      The ID of the export request
      */
-    public function createDownloadByMailinglist($segmentID,
-                                                $operationType,
-                                                $fieldSelection,
-                                                $fileFormat,
-                                                $dedupFlag,
-                                                $dedupCriteria,
-                                                $keepFirst)
-    {
+    public function createDownloadByMailinglist(
+        $segmentID,
+        $operationType,
+        $fieldSelection,
+        $fileFormat,
+        $dedupFlag,
+        $dedupCriteria,
+        $keepFirst
+    ) {
         $parameters = [
             'mailinglistId' => (string) $segmentID,
             'operationType' => (string) $operationType,

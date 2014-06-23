@@ -41,7 +41,9 @@ class CcmdDynamicContentService extends AbstractService
 
         // Check if status is valid
         if (!in_array($contentType, $allowedContentType)) {
-            throw new \Exception('Invalid content type (' . $contentType . '), allowed values are: ' . implode(', ', $allowedContentType) . '.');
+            throw new \Exception(
+                'Invalid content type ('.$contentType.'), allowed values are: '.implode(', ', $allowedContentType).'.'
+            );
         }
 
         $parameters = [

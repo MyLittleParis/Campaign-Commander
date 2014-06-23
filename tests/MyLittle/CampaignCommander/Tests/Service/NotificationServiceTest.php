@@ -81,8 +81,7 @@ class NotificationServiceTest
         $this->client
                 ->expects($this->once())
                 ->method('doCall')
-                ->with( 'sendObject',
-                        $parameters)
+                ->with('sendObject', $parameters)
                 ->will($this->returnValue($response))
         ;
 
@@ -90,14 +89,16 @@ class NotificationServiceTest
 
         $this->assertEquals(
             $response,
-            $service->sendObject( $uniqueIdentifier,
-                                  $securityTag,
-                                  $email,
-                                  $dyn,
-                                  $content,
-                                  $type,
-                                  $sendDate,
-                                  $uidKey)
+            $service->sendObject(
+                $uniqueIdentifier,
+                $securityTag,
+                $email,
+                $dyn,
+                $content,
+                $type,
+                $sendDate,
+                $uidKey
+            )
         );
     }
 }

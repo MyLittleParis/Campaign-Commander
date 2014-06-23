@@ -93,8 +93,7 @@ class BatchMemberServiceTest extends \PHPUnit_Framework_TestCase
         $this->client
                 ->expects($this->once())
                 ->method('doCall')
-                ->with( 'uploadFileMerge',
-                        $parameters)
+                ->with('uploadFileMerge', $parameters)
                 ->will($this->returnValue($response))
         ;
 
@@ -102,14 +101,16 @@ class BatchMemberServiceTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             $response,
-            $service->uploadFileMerge( $fileContent,
-                                       $filename,
-                                       $criteria,
-                                       $mapping,
-                                       $fileEncoding,
-                                       $separator,
-                                       $skipFirsLine,
-                                       $dateFormat)
+            $service->uploadFileMerge(
+                $fileContent,
+                $filename,
+                $criteria,
+                $mapping,
+                $fileEncoding,
+                $separator,
+                $skipFirsLine,
+                $dateFormat
+            )
         );
     }
 }

@@ -43,7 +43,9 @@ class CcmdURLService extends AbstractService
     }
 
     /**
-     * Scans your message from top to bottom and replaces first occurrence of &&& with [EMV LINK]ORDER[EMV /LINK] (where ORDER is the standard link order number).
+     * Scans your message from top to bottom
+     * and replaces first occurrence of &&& with [EMV LINK]ORDER[EMV /LINK]
+     * (where ORDER is the standard link order number).
      *
      * @param  string $messageId The ID for the message.
      * @param  string $name      The name of the URL.
@@ -74,13 +76,14 @@ class CcmdURLService extends AbstractService
      *
      * @return int           The order number of the URL.
      */
-    public function createUnsubscribeUrl($messageId,
-                                         $name,
-                                         $pageOk = null,
-                                         $messageOk = null,
-                                         $pageError = null,
-                                         $messageError = null)
-    {
+    public function createUnsubscribeUrl(
+        $messageId,
+        $name,
+        $pageOk = null,
+        $messageOk = null,
+        $pageError = null,
+        $messageError = null
+    ) {
         $parameters = [
             'messageId' => (string) $messageId,
             'name' => (string) $name
@@ -103,7 +106,9 @@ class CcmdURLService extends AbstractService
     }
 
     /**
-     * Scans your message from top to bottom and replaces the first occurrence of &&& with [EMV LINK]ORDER[EMV /LINK] (where ORDER is the unsubscribe link order number).
+     * Scans your message from top to bottom
+     * and replaces the first occurrence of &&& with [EMV LINK]ORDER[EMV /LINK]
+     * (where ORDER is the unsubscribe link order number).
      *
      * @param  string           $messageId    ID of the message.
      * @param  string           $name         Name of the URL.
@@ -114,13 +119,14 @@ class CcmdURLService extends AbstractService
      *
      * @return int           The order number of the url.
      */
-    public function createAndAddUnsubscribeUrl( $messageId,
-                                                $name,
-                                                $pageOk = null,
-                                                $messageOk = null,
-                                                $pageError = null,
-                                                $messageError = null)
-    {
+    public function createAndAddUnsubscribeUrl(
+        $messageId,
+        $name,
+        $pageOk = null,
+        $messageOk = null,
+        $pageError = null,
+        $messageError = null
+    ) {
         $parameters = [
             'messageId' => (string) $messageId,
             'name' => (string) $name
@@ -163,7 +169,9 @@ class CcmdURLService extends AbstractService
     }
 
     /**
-     * Scans your message from top to bottom and replaces the first occirrence of &&& with [EMV LINK]ORDER[EMV /LINK] (where ORDER is the personalized link order number).
+     * Scans your message from top to bottom
+     * and replaces the first occirrence of &&& with [EMV LINK]ORDER[EMV /LINK]
+     * (where ORDER is the personalized link order number).
      *
      * @param  string $messageId ID of the message.
      * @param  string $name      Name of the URL.
@@ -211,7 +219,9 @@ class CcmdURLService extends AbstractService
     }
 
     /**
-     * Scans your message from top to bottom and replaces the first occirrence of &&& with [EMV LINK]ORDER[EMV /LINK] (where ORDER is the update link order number).
+     * Scans your message from top to bottom
+     * and replaces the first occirrence of &&& with [EMV LINK]ORDER[EMV /LINK]
+     * (where ORDER is the update link order number).
      *
      * @param  string $messageId    ID of the message.
      * @param  string $name         Name of the URL.
@@ -251,14 +261,15 @@ class CcmdURLService extends AbstractService
      *
      * @return int          The order number of the URL.
      */
-    public function createActionUrl($messageId,
-                                    $name,
-                                    $action,
-                                    $pageOk = null,
-                                    $messageOk = null,
-                                    $pageError = null,
-                                    $messageError = null)
-    {
+    public function createActionUrl(
+        $messageId,
+        $name,
+        $action,
+        $pageOk = null,
+        $messageOk = null,
+        $pageError = null,
+        $messageError = null
+    ) {
         $parameters = [
             'messageId' => (string) $messageId,
             'name' => (string) $name,
@@ -282,7 +293,9 @@ class CcmdURLService extends AbstractService
     }
 
     /**
-     * Scans your message from top to bottom and replaces the first occirrence of &&& with [EMV LINK]ORDER[EMV /LINK] (where ORDER is the action link order number).
+     * Scans your message from top to bottom
+     * and replaces the first occirrence of &&& with [EMV LINK]ORDER[EMV /LINK]
+     * (where ORDER is the action link order number).
      *
      * @param  string           $messageId    The ID of the message to which to add a URL.
      * @param  string           $name         The name of the URL.
@@ -294,14 +307,15 @@ class CcmdURLService extends AbstractService
      *
      * @return int          The order number of the URL.
      */
-    public function createdAndAddActionUrl( $messageId,
-                                            $name,
-                                            $action,
-                                            $pageOk = null,
-                                            $messageOk = null,
-                                            $pageError = null,
-                                            $messageError = null)
-    {
+    public function createdAndAddActionUrl(
+        $messageId,
+        $name,
+        $action,
+        $pageOk = null,
+        $messageOk = null,
+        $pageError = null,
+        $messageError = null
+    ) {
         $parameters = [
             'messageId' => (string) $messageId,
             'name' => (string) $name,
@@ -343,7 +357,9 @@ class CcmdURLService extends AbstractService
     }
 
     /**
-     * Scans your message from top to bottom and automatically replaces the first occurrence of &&& with [EMV LINK]ORDER[EMV /LINK] (where ORDER is the mirror link order number).
+     * Scans your message from top to bottom
+     * and automatically replaces the first occurrence of &&& with [EMV LINK]ORDER[EMV /LINK]
+     * (where ORDER is the mirror link order number).
      *
      * @param  string $messageId ID of the message.
      * @param  string $name      Name of the URL.
@@ -361,12 +377,15 @@ class CcmdURLService extends AbstractService
     }
 
     /**
-     * Scans your message from top to bottom and automatically replaces the first occurrence of &&& with [EMV SHARE lang=xx] (where xx is the language identifier).
+     * Scans your message from top to bottom
+     * and automatically replaces the first occurrence of &&& with [EMV SHARE lang=xx]
+     * (where xx is the language identifier).
      *
      * @param  string           $messageId The ID of the message.
      * @param  bool             $linkType  The link type, true for link, false for button.
      * @param  string[optional] $buttonUrl The URL of the sharebutton.
-     * @param  int[optional] $language  The language, possible values are: us, en, fr, de, nl, es, ru, sv, it, cn, tw, pt, br, da, ja, ko.
+     * @param  int[optional] $language  The language, possible values are:
+     *         us, en, fr, de, nl, es, ru, sv, it, cn, tw, pt, br, da, ja, ko.
      *
      * @return bool
      *
@@ -406,7 +425,9 @@ class CcmdURLService extends AbstractService
             ];
 
             if ($language <= 0 || $language > 16) {
-                throw new \Exception('Invalid language (' . $language . '), allowed values are: ' . implode(', ', $allowedLanguage) . '.');
+                throw new \Exception(
+                    'Invalid language ('. $language .'), allowed values are: '.implode(', ', $allowedLanguage).'.'
+                );
             }
 
             $parameters['language'] = (string) $language;

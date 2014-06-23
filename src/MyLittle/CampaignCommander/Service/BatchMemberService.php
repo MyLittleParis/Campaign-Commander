@@ -37,15 +37,16 @@ class BatchMemberService extends AbstractService
      *
      * @return string The ID of the upload job
      */
-    public function uploadFileMerge($fileContent,
-                                    $filename,
-                                    $criteria,
-                                    $mapping,
-                                    $fileEncoding = 'UTF-8',
-                                    $separator = '|',
-                                    $skipFirsLine = false,
-                                    $dateFormat = 'mm/dd/yyyy')
-    {
+    public function uploadFileMerge(
+        $fileContent,
+        $filename,
+        $criteria,
+        $mapping,
+        $fileEncoding = 'UTF-8',
+        $separator = '|',
+        $skipFirsLine = false,
+        $dateFormat = 'mm/dd/yyyy'
+    ) {
         $parameters['mergeUpload'] = [
             'fileName' => (string) $filename,
             'fileEncoding' => (string) $fileEncoding,
