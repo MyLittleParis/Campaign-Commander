@@ -4,9 +4,7 @@
 composer.lock
 
 # Test
-.atoum.php
 phpunit.xml
-behat.yml
 
 # OSX
 .DS_Store

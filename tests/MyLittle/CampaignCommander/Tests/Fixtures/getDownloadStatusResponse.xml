@@ -1,0 +1,7 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+    <soap:Body>
+        <ns2:getDownloadStatusResponse xmlns:ns2="http://api.service.apiexport.emailvision.com/">
+            <return>VALIDATED</return> 
+        </ns2:getDownloadStatusResponse>
+    </soap:Body>
+</soap:Envelope>

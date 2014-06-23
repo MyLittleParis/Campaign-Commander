@@ -1,0 +1,7 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+    <soap:Body>
+        <ns2:closeApiConnectionResponse xmlns:ns2="http://api.service.apiexport.emailvision.com/">
+            <return>connection closed</return>
+        </ns2:closeApiConnectionResponse>
+    </soap:Body>
+</soap:Envelope>
