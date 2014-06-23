@@ -69,7 +69,7 @@ class NotificationService extends AbstractService
 
         // Dynamic Personalization Parameters
         if (null !== $dyn) {
-            foreach($dyn as $key => $value) {
+            foreach ($dyn as $key => $value) {
                 $parameters['sendrequest']['dyn'] = [
                     'entry' => [
                         'key' => $key,
@@ -81,7 +81,7 @@ class NotificationService extends AbstractService
 
         // Content Parameters
         if (null !== $content) {
-            foreach($content as $key => $value) {
+            foreach ($content as $key => $value) {
                 $parameters['sendrequest']['content'] = [
                     'entry' => [
                         'key' => $key,

@@ -442,11 +442,11 @@ class CcmdMessageService extends AbstractService
     /**
      * Sends a test email campaign to a group of recipients.
      *
-     * @param  string           $id           The ID of the message to test.
-     * @param  string           $groupId      The ID of the group to use for the test.
-     * @param  string           $campaignName The name of the test campaign.
-     * @param  string           $subject      The subject of the message to test.
-     * @param  string[optional] $part         The part of the message to send, allowed values are: HTML, TEXT, MULTIPART.
+     * @param  string   $id           The ID of the message to test.
+     * @param  string   $groupId      The ID of the group to use for the test.
+     * @param  string   $campaignName The name of the test campaign.
+     * @param  string   $subject      The subject of the message to test.
+     * @param  string   $part         The part of the message to send, allowed values are: HTML, TEXT, MULTIPART.
      *
      * @return bool            true if successfull, false otherwise.
      *
@@ -476,11 +476,11 @@ class CcmdMessageService extends AbstractService
     /**
      * Sends a test email campaign to a member.
      *
-     * @param  string           $id           The ID of the message to test.
-     * @param  string           $memberId     The ID of the member to use for the test.
-     * @param  string           $campaignName The name of the test campaign.
-     * @param  string           $subject      The subject of the message to test.
-     * @param  string[optional] $part         The part of the message to send, allowed values are: HTML, TXT, MULTIPART.
+     * @param  string   $id           The ID of the message to test.
+     * @param  string   $memberId     The ID of the member to use for the test.
+     * @param  string   $campaignName The name of the test campaign.
+     * @param  string   $subject      The subject of the message to test.
+     * @param  string   $part         The part of the message to send, allowed values are: HTML, TXT, MULTIPART.
      *
      * @return bool             true if successfull, false otherwise.
      *

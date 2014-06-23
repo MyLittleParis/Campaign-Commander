@@ -248,7 +248,7 @@ class Client implements ClientInterface
             throw new \Exception($e->getMessage());
         }
 
-        if(!isset($response->return)) {
+        if (!isset($response->return)) {
             return null;
         }
 

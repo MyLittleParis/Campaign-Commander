@@ -35,12 +35,12 @@ class MemberService extends AbstractService
         $response = $this->soapClient->doCall('descMemberTable');
 
         // if response is not valid
-        if(!isset($response->fields)) {
+        if (!isset($response->fields)) {
             throw new \Exception('Invalid response');
         }
 
         $fields = array();
-        foreach($response->fields as $row) {
+        foreach ($response->fields as $row) {
             $fields[] = [
                 'name' => $row->name,
                 'type' => strtolower($row->type)
@@ -65,12 +65,12 @@ class MemberService extends AbstractService
         $response = $this->soapClient->doCall('getMemberByEmail', $parameters);
 
         // sometimes this will return a hash, so grab the first one
-        if(is_array($response)) {
+        if (is_array($response)) {
             $response = $response[0];
         }
 
         // if response is not valid
-        if(!isset($response->attributes->entry)) {
+        if (!isset($response->attributes->entry)) {
             throw new \Exception('Invalid response');
         }
 
@@ -92,7 +92,7 @@ class MemberService extends AbstractService
         $response = $this->soapClient->doCall('getMemberById', $parameters);
 
         // if response is not valid
-        if(!isset($response->attributes->entry)) {
+        if (!isset($response->attributes->entry)) {
             throw new \Exception('Invalid response');
         }
 
@@ -114,19 +114,19 @@ class MemberService extends AbstractService
         $response = $this->soapClient->doCall('getListMembersByObj', $parameters);
 
         // no results
-        if(null === $response) {
+        if (null === $response) {
             return array();
         }
 
         // if response is not valid
-        if(!is_array($response)) {
+        if (!is_array($response)) {
             throw new \Exception('Invalid response');
         }
 
         $members = [];
-        foreach($response as $row) {
+        foreach ($response as $row) {
             // if entry exist
-            if(!isset($row->attributes->entry)) {
+            if (!isset($row->attributes->entry)) {
                 continue;
             }
 
@@ -151,20 +151,20 @@ class MemberService extends AbstractService
         $parameters = ['page' => (int) $page];
         $response = $this->soapClient->doCall('getListMembersByPage', $parameters);
 
-        if($response === null) {
+        if ($response === null) {
             return array();
         }
 
         // if response is not valid
-        if(!isset($response->list)) {
+        if (!isset($response->list)) {
             throw new \Exception('Invalid response');
         }
 
         $members = [];
-        foreach($response->list as $row)
+        foreach ($response->list as $row)
         {
             // if entry exist
-            if(!isset($row->attributes->entry)) {
+            if (!isset($row->attributes->entry)) {
                 continue;
             }
 
@@ -189,7 +189,7 @@ class MemberService extends AbstractService
         $response = (int) $this->soapClient->doCall('insertMember', $parameters);
 
         // if response is not valid
-        if($response == 0) {
+        if ($response == 0) {
             throw new \Exception('Invalid response');
         }
 
@@ -219,7 +219,7 @@ class MemberService extends AbstractService
         $response = $this->soapClient->doCall('updateMember', $parameters);
 
         // if response is not valid
-        if($response == 0) {
+        if ($response == 0) {
             throw new \Exception('Invalid response');
         }
 
@@ -240,12 +240,12 @@ class MemberService extends AbstractService
      */
     public function insertOrUpdateMemberByObj($fields, $email = null, $id = null)
     {
-        if(null === $email && null === $id) {
+        if (null === $email && null === $id) {
             throw new \Exception('Email or id has to be specified');
         }
 
         $parameters['member'] = [];
-        foreach($fields as $key => $value) {
+        foreach ($fields as $key => $value) {
             $parameters['member']['dynContent']['entry'][] = [
                 'key' => $key,
                 'value' => $value
@@ -253,18 +253,18 @@ class MemberService extends AbstractService
         }
 
         // memberUID
-        if(null !== $email) {
+        if (null !== $email) {
             $parameters['member']['memberUID'] = 'email:' . (string) $email;
         }
 
-        if(null !== $id) {
+        if (null !== $id) {
             $parameters['member']['memberUID'] = (string) $id;
         }
 
         $response = $this->soapClient->doCall('insertOrUpdateMemberByObj', $parameters);
 
         // if response is not valid
-        if($response == 0) {
+        if ($response == 0) {
             throw new \Exception('Invalid response');
         }
 
@@ -284,12 +284,12 @@ class MemberService extends AbstractService
      */
     public function updateMemberByObj($fields, $email = null, $id = null)
     {
-        if($email === null && $id == null) {
+        if ($email === null && $id == null) {
             throw new \Exception('Email or id has to be specified');
         }
 
         $parameters ['member'] = [];
-        foreach($fields as $key => $value)
+        foreach ($fields as $key => $value)
         {
             $parameters['member']['dynContent']['entry'][] = [
                 'key' => $key,
@@ -298,18 +298,18 @@ class MemberService extends AbstractService
         }
 
         // memberUID
-        if($email !== null) {
+        if ($email !== null) {
             $parameters['member']['memberUID'] = 'email:' . (string) $email;
         }
 
-        if($id !== null) {
+        if ($id !== null) {
             $parameters['member']['memberUID'] = (string) $id;
         }
 
         $response = $this->soapClient->doCall('updateMemberByObj', $parameters);
 
         // if response is not valid
-        if($response == 0) {
+        if ($response == 0) {
             throw new \Exception('Invalid response');
         }
 
@@ -345,10 +345,10 @@ class MemberService extends AbstractService
         $response = $this->soapClient->doCall('getMemberJobStatus', $parameters);
 
         // if response is not valid
-        if(!isset($response->status)) {
+        if (!isset($response->status)) {
             throw new \Exception('Invalid response');
         }
-        if(!in_array($response->status, $possibleResponses)) {
+        if (!in_array($response->status, $possibleResponses)) {
             throw new \Exception('Invalid response');
         }
 
@@ -370,7 +370,7 @@ class MemberService extends AbstractService
         $response = $this->soapClient->doCall('unjoinMemberByEmail', $parameters);
 
         // if response is not valid
-        if($response == 0) {
+        if ($response == 0) {
             throw new \Exception('Invalid response');
         }
 
@@ -392,7 +392,7 @@ class MemberService extends AbstractService
         $response = $this->soapClient->doCall('unjoinMemberById', $parameters);
 
         // if response is not valid
-        if($response == 0) {
+        if ($response == 0) {
             throw new \Exception('Invalid response');
         }
 
@@ -414,7 +414,7 @@ class MemberService extends AbstractService
         $response = $this->soapClient->doCall('unjoinMemberByObj', $parameters);
 
         // if response is not valid
-        if($response == 0) {
+        if ($response == 0) {
             throw new \Exception('Invalid response');
         }
 
@@ -438,7 +438,7 @@ class MemberService extends AbstractService
         $response = $this->soapClient->doCall('rejoinMemberByEmail', $parameters);
 
         // if response is not valid
-        if($response == 0) {
+        if ($response == 0) {
             throw new \Exception('Invalid response');
         }
 
@@ -461,7 +461,7 @@ class MemberService extends AbstractService
         $response = $this->soapClient->doCall('rejoinMemberById', $parameters);
 
         // if response is not valid
-        if($response == 0) {
+        if ($response == 0) {
             throw new \Exception('Invalid response');
         }
 

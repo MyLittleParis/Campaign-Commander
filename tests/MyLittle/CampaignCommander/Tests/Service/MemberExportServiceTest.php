@@ -97,7 +97,7 @@ class MemberExportServiceTest extends \PHPUnit_Framework_TestCase
                 $dedupFlag,
                 $dedupCriteria,
                 $keepFirst
-        )
+            )
         );
     }
 

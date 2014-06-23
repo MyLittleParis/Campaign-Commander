@@ -233,8 +233,15 @@ class CcmdURLService extends AbstractService
      *
      * @return int The order number of the URL.
      */
-    public function createAndAddUpdateUrl($messageId, $name, $parameters, $pageOk, $messageOk, $pageError, $messageError)
-    {
+    public function createAndAddUpdateUrl(
+        $messageId,
+        $name,
+        $parameters,
+        $pageOk,
+        $messageOk,
+        $pageError,
+        $messageError
+    ) {
         $parameters = [
             'messageId' => (string) $messageId,
             'name' => (string) $name,

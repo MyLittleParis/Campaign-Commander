@@ -26,12 +26,12 @@ abstract class AbstractService
     protected function getAttributesEntry($response)
     {
         $AttributesEntry = [];
-        foreach($response->attributes->entry as $entry) {
+        foreach ($response->attributes->entry as $entry) {
             $key = (string) $entry->key;
             $value = (isset($entry->value)) ? $entry->value : null;
 
             // convert the DATEJOIN key to timestamp UNIX
-            if($key == 'DATEJOIN' && $value !== null) {
+            if ($key == 'DATEJOIN' && $value !== null) {
                 $value = (int) strtotime($value);
             }
 

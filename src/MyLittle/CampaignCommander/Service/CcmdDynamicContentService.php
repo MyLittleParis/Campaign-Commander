@@ -106,7 +106,7 @@ class CcmdDynamicContentService extends AbstractService
             'field' => (string) $field
         ];
 
-        if(null !== $value) {
+        if (null !== $value) {
             $parameters['value'] = $value;
         }
 
