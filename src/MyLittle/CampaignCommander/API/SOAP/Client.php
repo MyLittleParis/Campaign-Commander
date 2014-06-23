@@ -8,27 +8,6 @@
  * php-campaign-commander-member-bugs[at]verkoyen[dot]eu.
  * If you report a bug, make sure you give me enough information (include your code).
  *
- * Changelog since 1.1.2
- * - made the setServer-method public
- *
- * Changelog since 1.1.1
- * - Applied new coding standards.
- *
- * Changelog since 1.1.0
- * - Better handling for errormessages.
- *
- * Changelog since 1.0.2
- * - Added method to set the server.
- * - Renamed methods to reflect to current API
- *
- * Changelog since 1.0.1
- * - Typemapping for really long longs.
- * - No more casting to integers (because of the really long longs).
- *
- * Changelog since 1.0.0
- * - debug is off by default.
- * - wrapped the close-call in a try-catch block in the destructor.
- *
  * License
  * Copyright (c), Tijs Verkoyen. All rights reserved.
  *
@@ -53,7 +32,6 @@
  * strict liability, or tort (including negligence or otherwise) arising in any way
  * out of the use of this software, even if advised of the possibility of such damage.
  *
- * @version         1.1.2
  * @copyright       Copyright (c), Tijs Verkoyen. All rights reserved.
  * @license         BSD License
  */
