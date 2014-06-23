@@ -4,6 +4,8 @@ namespace MyLittle\CampaignCommander\API\SOAP\Model;
 
 /**
  * Client interface
+ *
+ * @author mylittleparis
  */
 interface ClientInterface
 {
