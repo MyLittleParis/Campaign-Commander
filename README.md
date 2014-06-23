@@ -49,7 +49,7 @@ $response = $memberService->getMemberById($id);
 var_dump($response);
 ```
 
-If you want to sent a file at the API, it is advisable to use Mtom attachment.
+If you want to sent a file at the API, it would be preferable to use Mtom attachment.
 This library provides a client for it with the namespace following : 
 
 ```php
