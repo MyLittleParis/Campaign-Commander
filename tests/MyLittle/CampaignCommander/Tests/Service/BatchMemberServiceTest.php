@@ -102,14 +102,14 @@ class BatchMemberServiceTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             $response,
-            $service->uploadFileMerge( $filename,
+            $service->uploadFileMerge( $fileContent,
+                                       $filename,
+                                       $criteria,
+                                       $mapping,
                                        $fileEncoding,
                                        $separator,
                                        $skipFirsLine,
-                                       $dateFormat,
-                                       $criteria,
-                                       $mapping,
-                                       $fileContent)
+                                       $dateFormat)
         );
     }
 }

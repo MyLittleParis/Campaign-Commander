@@ -1,3 +1,7 @@
-/**
- * @todo put here the soap response for segmentation distinct count
- */
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"> 
+    <soap:Body>
+        <ns2:segmentationDistinctCountResponse xmlns:ns2="http://api.service.apiccmd.emailvision.com/">
+            <return>6850</return> 
+        </ns2:segmentationDistinctCountResponse>
+    </soap:Body> 
+</soap:Envelope>

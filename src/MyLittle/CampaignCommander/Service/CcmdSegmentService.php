@@ -48,11 +48,8 @@ class CcmdSegmentService extends AbstractService
             throw new \Exception("You have specified '$sampleType' for sample type, but you must give a $sampleType number of members from the segment.");
         }
 
-        // @todo check if it work without id parameter (i.e. @remark)
-        // @remark  don't ask me why. If I provide null or an empty string a get an Internal error.
         $parameters = [
             'apiSegmentation' => [
-//                'id' => 0,
                 'name' => (string) $name,
                 'sampleType' => (string) $sampleType
             ]
@@ -494,13 +491,13 @@ class CcmdSegmentService extends AbstractService
      *
      * @param  string $id The ID of the segment.
      *
-     * @return int    The number of members.
+     * @return string     The number of members.
      */
     public function segmentationCount($id)
     {
         $parameters = ['id' => (string) $id];
 
-        return (int) $this->soapClient->doCall('segmentationCount', $parameters);
+        return (string) $this->soapClient->doCall('segmentationCount', $parameters);
     }
 
     /**
@@ -508,12 +505,12 @@ class CcmdSegmentService extends AbstractService
      *
      * @param  string $id The ID of the segment.
      *
-     * @return int    The number of members.
+     * @return string     The number of members.
      */
     public function segmentationDistinctCount($id)
     {
         $parameters = ['id' => (string) $id];
 
-        return (int) $this->soapClient->doCall('segmentationDistinctCount', $parameters);
+        return (string) $this->soapClient->doCall('segmentationDistinctCount', $parameters);
     }
 }
