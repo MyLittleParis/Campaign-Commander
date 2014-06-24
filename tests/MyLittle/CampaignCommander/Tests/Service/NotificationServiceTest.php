@@ -2,12 +2,15 @@
 
 namespace MyLittle\CampaignCommander\Tests\Service;
 
+use MyLittle\CampaignCommander\Tests\AbstractTestCase;
+use MyLittle\CampaignCommander\Service\NotificationService;
+
 /**
  * NotificationServiceTest
  *
  * @author mylittleparis
  */
-class NotificationServiceTest
+class NotificationServiceTest extends AbstractTestCase
 {
     /**
      * @var Client
@@ -37,23 +40,6 @@ class NotificationServiceTest
         parent::tearDown();
     }
 
-    /**
-     *
-     * @param type $mockName
-     * @return type
-     * @throws \InvalidArgumentException
-     */
-    protected function getXMLFileMock($mockName)
-    {
-        $mockFile = __DIR__.'/../Fixtures/'.$mockName;
-
-        if (!is_file($mockFile) || !is_readable($mockFile)) {
-            throw new \InvalidArgumentException("Mock '$mockFile' could not be found.");
-        }
-
-        return file_get_contents($mockFile);
-    }
-
     public function testSendObject()
     {
         $response = $this->getXMLFileMock('sendObjectResponse.xml');
@@ -61,10 +47,8 @@ class NotificationServiceTest
         $uniqueIdentifier = 'uniqueId';
         $securityTag      = 'securityTag';
         $email            = 'name@email.fr';
-        $dyn              = null;
-        $content          = null;
         $type             = 'INSERT_UPDATE';
-        $sendDate         = null;
+        $sendDate         = time();
         $uidKey           = 'email';
 
         $parameters['sendrequest'] = [
@@ -74,8 +58,6 @@ class NotificationServiceTest
             'senddate'    => $sendDate,
             'synchrotype' => $type,
             'uidkey'      => $uidKey,
-            'dyn'         => $dyn,
-            'content'     => $content,
         ];
 
         $this->client
@@ -85,7 +67,7 @@ class NotificationServiceTest
                 ->will($this->returnValue($response))
         ;
 
-        $service = new MemberExportService($this->client);
+        $service = new NotificationService($this->client);
 
         $this->assertEquals(
             $response,
@@ -93,8 +75,8 @@ class NotificationServiceTest
                 $uniqueIdentifier,
                 $securityTag,
                 $email,
-                $dyn,
-                $content,
+                null,
+                null,
                 $type,
                 $sendDate,
                 $uidKey

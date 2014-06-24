@@ -91,6 +91,6 @@ class NotificationService extends AbstractService
             }
         }
 
-        return $this->soapClient->doCall('sendObject', $parameters);
+        return (string) $this->soapClient->doCall('sendObject', $parameters);
     }
 }

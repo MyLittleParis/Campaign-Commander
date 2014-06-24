@@ -1,6 +1,6 @@
 <?php
 
-namespace MyLittle\CampaignCommander\API\Exceptions;
+namespace MyLittle\CampaignCommander\Exceptions;
 
 /**
  * Web service error

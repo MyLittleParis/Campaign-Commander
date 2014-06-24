@@ -2,12 +2,15 @@
 
 namespace MyLittle\CampaignCommander\Tests\API\SOAP;
 
+use MyLittle\CampaignCommander\Tests\AbstractTestCase;
+use MyLittle\CampaignCommander\Exceptions\WebServiceError;
+
 /**
  * ApiSoapClientTest
  *
  * @author mylittleparis
  */
-class ClientTest extends \PHPUnit_Framework_TestCase
+class ClientTest extends AbstractTestCase
 {
     /**
      * @var Client
@@ -39,25 +42,33 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
     public function testOpenApiConnection()
     {
+        $response = $this->getXMLFileMock('openApiConnectionResponse.xml');
+
         $this->client
-            ->expects($this->once())
-            ->method('openApiConnection')
-            ->will($this->returnValue(__DIR__.'../../Fixtures/openApiConnectionResponse.xml'))
+                ->expects($this->once())
+                ->method('openApiConnection')
+                ->will($this->returnValue($response))
         ;
 
-        $response = $this->client->openApiConnection();
-        $this->assertEquals(__DIR__.'../../Fixtures/openApiConnectionResponse.xml', $response);
+        $this->assertEquals(
+            $response,
+            $this->client->openApiConnection()
+        );
     }
 
     public function testCloseApiConnection()
     {
+        $response = $this->getXMLFileMock('openApiConnectionResponse.xml');
+
         $this->client
-            ->expects($this->once())
-            ->method('closeApiConnection')
-            ->will($this->returnValue(__DIR__.'../../Fixtures/closeApiConnectionResponse.xml'))
+                ->expects($this->once())
+                ->method('closeApiConnection')
+                ->will($this->returnValue($response))
         ;
 
-        $response = $this->client->closeApiConnection();
-        $this->assertEquals(__DIR__.'../../Fixtures/closeApiConnectionResponse.xml', $response);
+        $this->assertEquals(
+            $response,
+            $this->client->closeApiConnection()
+        );
     }
 }

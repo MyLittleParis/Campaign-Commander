@@ -2,6 +2,7 @@
 
 namespace MyLittle\CampaignCommander\Tests\Service;
 
+use MyLittle\CampaignCommander\Tests\AbstractTestCase;
 use MyLittle\CampaignCommander\Service\MemberExportService;
 
 /**
@@ -9,7 +10,7 @@ use MyLittle\CampaignCommander\Service\MemberExportService;
  *
  * @author mylittleparis
  */
-class MemberExportServiceTest extends \PHPUnit_Framework_TestCase
+class MemberExportServiceTest extends AbstractTestCase
 {
     /**
      * @var Client
@@ -37,23 +38,6 @@ class MemberExportServiceTest extends \PHPUnit_Framework_TestCase
         $this->client = null;
 
         parent::tearDown();
-    }
-
-    /**
-     *
-     * @param type $mockName
-     * @return type
-     * @throws \InvalidArgumentException
-     */
-    protected function getXMLFileMock($mockName)
-    {
-        $mockFile = __DIR__.'/../Fixtures/'.$mockName;
-
-        if (!is_file($mockFile) || !is_readable($mockFile)) {
-            throw new \InvalidArgumentException("Mock '$mockFile' could not be found.");
-        }
-
-        return file_get_contents($mockFile);
     }
 
     public function testCreateDownloadByMailinglist()

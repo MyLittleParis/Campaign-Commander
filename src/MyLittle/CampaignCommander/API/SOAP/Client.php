@@ -188,9 +188,7 @@ class Client implements ClientInterface
 
             $this->token = (string) $response->return;
         } catch (\SoapFault $fault) {
-            throw  new WebServiceError('Campaign commander API return Soap fault exception');
-        } catch (Exception $e) {
-            throw new \Exception($e->getMessage());
+            throw  new WebServiceError('Campaign commander API return an error');
         }
     }
 
@@ -223,8 +221,6 @@ class Client implements ClientInterface
             return $response->return;
         } catch (\SoapFault $fault) {
             throw  new WebServiceError('Campaign commander API return an error');
-        } catch (Exception $e) {
-            throw new \Exception($e->getMessage());
         }
     }
 
