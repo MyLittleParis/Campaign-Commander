@@ -39,6 +39,7 @@
 namespace MyLittle\CampaignCommander\API\SOAP;
 
 use MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface;
+use MyLittle\CampaignCommander\API\Exceptions\WebServiceError;
 use BeSimple\SoapClient;
 
 /**
@@ -184,16 +185,13 @@ class Client implements ClientInterface
 
         try {
             $response = $this->soapClient->openApiConnection($loginParameters);
+
+            $this->token = (string) $response->return;
         } catch (\SoapFault $fault) {
-            trigger_error(
-                "SOAP Fault: (faultcode: {$fault->faultcode}, faultstring: {$fault->faultstring})",
-                E_USER_ERROR
-            );
+            throw  new WebServiceError('Campaign commander API return Soap fault exception');
         } catch (Exception $e) {
             throw new \Exception($e->getMessage());
         }
-
-        $this->token = (string) $response->return;
     }
 
     /**
@@ -217,20 +215,17 @@ class Client implements ClientInterface
 
         try {
             $response = $this->soapClient->__soapCall($method, array($parameters));
+
+            if (!isset($response->return)) {
+                return null;
+            }
+
+            return $response->return;
         } catch (\SoapFault $fault) {
-            trigger_error(
-                "SOAP Fault: (faultcode: {$fault->faultcode}, faultstring: {$fault->faultstring})",
-                E_USER_ERROR
-            );
+            throw  new WebServiceError('Campaign commander API return an error');
         } catch (Exception $e) {
             throw new \Exception($e->getMessage());
         }
-
-        if (!isset($response->return)) {
-            return null;
-        }
-
-        return $response->return;
     }
 
     /**
