@@ -2,7 +2,10 @@
     <soap:Body>
         <ns2:getDownloadFileResponse xmlns:ns2="http://api.service.apiexport.emailvision.com/">
             <return>
-                <fileContent>CAMPAGNE_ID|EMAIL|FIRSTNAME|LASTNAME670|johnsmith@smartfocus.com|John|Smith671|harrythomson@smartfocus.de|Harry|Thomson</fileContent>
+                <fileContent>CAMPAGNE_ID|EMAIL|FIRSTNAME|LASTNAME
+                670|johnsmith@smartfocus.com|John|Smith
+                671|harrythomson@smartfocus.de|Harry|Thomson
+                </fileContent>
                 <fileStatus>OK</fileStatus>
             </return>
         </ns2:getDownloadFileResponse>
