@@ -2,7 +2,7 @@
 
 namespace MyLittle\CampaignCommander\Service;
 
-use MyLittle\CampaignCommander\API\SOAP\Model\SoapClientFactoryInterface;
+use MyLittle\CampaignCommander\API\SOAP\Model\ClientFactoryInterface;
 use MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface;
 
 /**
@@ -24,18 +24,18 @@ class MemberExportService
     const EXPORT_DELETED = 'DELETED';
 
     /**
-     * @var SoapClient
+     * @var APIClient
      */
-    private $soapClient;
+    private $apiClient;
 
     /**
      * Constructor
      *
-     * @param \MyLittle\CampaignCommander\API\SOAP\Model\SoapClientFactoryInterface $soapClientFactory
+     * @param \MyLittle\CampaignCommander\API\SOAP\Model\ClientFactoryInterface $clientFactory
      */
-    public function __construct(SoapClientFactoryInterface $soapClientFactory)
+    public function __construct(ClientFactoryInterface $clientFactory)
     {
-        $this->soapClient = $soapClientFactory->createClient(ClientInterface::WSDL_URL_EXPORT);
+        $this->apiClient = $clientFactory->createClient(ClientInterface::WSDL_URL_EXPORT);
     }
 
     /**
@@ -101,7 +101,7 @@ class MemberExportService
             'keepFirst' => (string) $keepFirst,
         ];
 
-        return (string) $this->soapClient->doCall('createDownloadByMailinglist', $parameters);
+        return (string) $this->apiClient->doCall('createDownloadByMailinglist', $parameters);
     }
 
     /**
@@ -115,7 +115,7 @@ class MemberExportService
     {
         $parameters = ['id' => (string) $fileID];
 
-        return (string) $this->soapClient->doCall('getDownloadStatus', $parameters);
+        return (string) $this->apiClient->doCall('getDownloadStatus', $parameters);
     }
 
     /**
@@ -129,6 +129,6 @@ class MemberExportService
     {
         $parameters = ['id' => (string) $fileID];
 
-        return (string) $this->soapClient->doCall('getDownloadFile', $parameters);
+        return (string) $this->apiClient->doCall('getDownloadFile', $parameters);
     }
 }

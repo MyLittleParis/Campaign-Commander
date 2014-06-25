@@ -2,7 +2,7 @@
 
 namespace MyLittle\CampaignCommander\Service;
 
-use MyLittle\CampaignCommander\API\SOAP\Model\SoapClientFactoryInterface;
+use MyLittle\CampaignCommander\API\SOAP\Model\ClientFactoryInterface;
 use MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface;
 
 /**
@@ -13,18 +13,18 @@ use MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface;
 class NotificationService
 {
     /**
-     * @var SoapClient
+     * @var APIClient
      */
-    private $soapClient;
+    private $apiClient;
 
     /**
      * Constructor
      *
-     * @param \MyLittle\CampaignCommander\API\SOAP\Model\SoapClientFactoryInterface $soapClientFactory
+     * @param \MyLittle\CampaignCommander\API\SOAP\Model\ClientFactoryInterface $clientFactory
      */
-    public function __construct(SoapClientFactoryInterface $soapClientFactory)
+    public function __construct(ClientFactoryInterface $clientFactory)
     {
-        $this->soapClient = $soapClientFactory->createClient(ClientInterface::WSDL_URL_NOTIFICATION);
+        $this->apiClient = $clientFactory->createClient(ClientInterface::WSDL_URL_NOTIFICATION);
     }
 
     /**
@@ -96,6 +96,6 @@ class NotificationService
             }
         }
 
-        return (string) $this->soapClient->doCall('sendObject', $parameters);
+        return (string) $this->apiClient->doCall('sendObject', $parameters);
     }
 }

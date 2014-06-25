@@ -38,7 +38,7 @@
 
 namespace MyLittle\CampaignCommander\API\SOAP;
 
-use MyLittle\CampaignCommander\API\SOAP\Model\SoapClientFactoryInterface;
+use BeSimple\SoapClient\SoapClient;
 use MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface;
 use MyLittle\CampaignCommander\API\Exceptions\WebServiceError;
 
@@ -94,13 +94,13 @@ class APIClient implements ClientInterface
     /**
      * Default constructor
      *
-     * @param SoapClientFactoryInterface $soapClient    BeSimple SoapClient
-     * @param string                     $login         Login provided for API access.
-     * @param string                     $password      The password.
-     * @param string                     $key           Manager Key copied from the CCMD web application.
-     * @param string                     $server        The server to use. Ask your account-manager.
+     * @param SoapClient    $soapClient    BeSimple SoapClient
+     * @param string        $login         Login provided for API access.
+     * @param string        $password      The password.
+     * @param string        $key           Manager Key copied from the CCMD web application.
+     * @param string        $server        The server to use. Ask your account-manager.
      */
-    public function __construct(SoapClientFactoryInterface $soapClient, $login, $password, $key, $server)
+    public function __construct(SoapClient $soapClient, $login, $password, $key, $server)
     {
         $this->soapClient  = $soapClient;
         $this->login       = $login;

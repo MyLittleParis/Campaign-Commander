@@ -2,7 +2,7 @@
 
 namespace MyLittle\CampaignCommander\Service;
 
-use MyLittle\CampaignCommander\API\SOAP\Model\SoapClientFactoryInterface;
+use MyLittle\CampaignCommander\API\SOAP\Model\ClientFactoryInterface;
 use MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface;
 
 /**
@@ -13,18 +13,18 @@ use MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface;
 class CcmdURLService
 {
     /**
-     * @var SoapClient
+     * @var APIClient
      */
-    private $soapClient;
+    private $apiClient;
 
     /**
      * Constructor
      *
-     * @param \MyLittle\CampaignCommander\API\SOAP\Model\SoapClientFactoryInterface $soapClientFactory
+     * @param \MyLittle\CampaignCommander\API\SOAP\Model\ClientFactoryInterface $clientFactory
      */
-    public function __construct(SoapClientFactoryInterface $soapClientFactory)
+    public function __construct(ClientFactoryInterface $clientFactory)
     {
-        $this->soapClient = $soapClientFactory->createClient(ClientInterface::WSDL_URL_CCMD);
+        $this->apiClient = $clientFactory->createClient(ClientInterface::WSDL_URL_CCMD);
     }
 
     /**
@@ -44,7 +44,7 @@ class CcmdURLService
             'url' => (string) $url
         ];
 
-        return (int) $this->soapClient->doCall('createStandardUrl', $parameters);
+        return (int) $this->apiClient->doCall('createStandardUrl', $parameters);
     }
 
     /**
@@ -66,7 +66,7 @@ class CcmdURLService
             'url' => (string) $url
         ];
 
-        return (int) $this->soapClient->doCall('createAndAddStandardUrl', $parameters);
+        return (int) $this->apiClient->doCall('createAndAddStandardUrl', $parameters);
     }
 
     /**
@@ -107,7 +107,7 @@ class CcmdURLService
             $parameters['messageError'] = (string) $messageError;
         }
 
-        return (int) $this->soapClient->doCall('createUnsubscribeUrl', $parameters);
+        return (int) $this->apiClient->doCall('createUnsubscribeUrl', $parameters);
     }
 
     /**
@@ -150,7 +150,7 @@ class CcmdURLService
             $parameters['messageError'] = (string) $messageError;
         }
 
-        return (int) $this->soapClient->doCall('createAndAddUnsubscribeUrl', $parameters);
+        return (int) $this->apiClient->doCall('createAndAddUnsubscribeUrl', $parameters);
     }
 
     /**
@@ -170,7 +170,7 @@ class CcmdURLService
             'url' => (string) $url
         ];
 
-        return (int) $this->soapClient->doCall('createPersonalisedUrl', $parameters);
+        return (int) $this->apiClient->doCall('createPersonalisedUrl', $parameters);
     }
 
     /**
@@ -192,7 +192,7 @@ class CcmdURLService
             'url' => (string) $url
         ];
 
-        return (int) $this->soapClient->doCall('createAndAddPersonalisedUrl', $parameters);
+        return (int) $this->apiClient->doCall('createAndAddPersonalisedUrl', $parameters);
     }
 
     /**
@@ -220,7 +220,7 @@ class CcmdURLService
             'messageError' => (string) $messageError
         ];
 
-        return (int) $this->soapClient->doCall('createUpdateUrl', $parameters);
+        return (int) $this->apiClient->doCall('createUpdateUrl', $parameters);
     }
 
     /**
@@ -257,7 +257,7 @@ class CcmdURLService
             'messageError' => (string) $messageError
         ];
 
-        return (int) $this->soapClient->doCall('createAndAddUpdateUrl', $parameters);
+        return (int) $this->apiClient->doCall('createAndAddUpdateUrl', $parameters);
     }
 
     /**
@@ -301,7 +301,7 @@ class CcmdURLService
             $parameters['messageError'] = (string) $messageError;
         }
 
-        return (int) $this->soapClient->doCall('createActionUrl', $parameters);
+        return (int) $this->apiClient->doCall('createActionUrl', $parameters);
     }
 
     /**
@@ -347,7 +347,7 @@ class CcmdURLService
             $parameters['messageError'] = (string) $messageError;
         }
 
-        return (int) $this->soapClient->doCall('createdAndAddActionUrl', $parameters);
+        return (int) $this->apiClient->doCall('createdAndAddActionUrl', $parameters);
     }
 
     /**
@@ -365,7 +365,7 @@ class CcmdURLService
             'name' => (string) $name
         ];
 
-        return (int) $this->soapClient->doCall('createMirrorUrl', $parameters);
+        return (int) $this->apiClient->doCall('createMirrorUrl', $parameters);
     }
 
     /**
@@ -385,7 +385,7 @@ class CcmdURLService
             'name' => (string) $name
         ];
 
-        return (int) $this->soapClient->doCall('createAndAddMirrorUrl', $parameters);
+        return (int) $this->apiClient->doCall('createAndAddMirrorUrl', $parameters);
     }
 
     /**
@@ -445,7 +445,7 @@ class CcmdURLService
             $parameters['language'] = (string) $language;
         }
 
-        return (bool) $this->soapClient->doCall('addShareLink', $parameters);
+        return (bool) $this->apiClient->doCall('addShareLink', $parameters);
     }
 
     /**
@@ -467,7 +467,7 @@ class CcmdURLService
             'value' => $value
         ];
 
-        return (bool) $this->soapClient->doCall('updateUrlByField', $parameters);
+        return (bool) $this->apiClient->doCall('updateUrlByField', $parameters);
     }
 
     /**
@@ -485,7 +485,7 @@ class CcmdURLService
             'order' => (int) $order
         ];
 
-        return (bool) $this->soapClient->doCall('deleteUrl', $parameters);
+        return (bool) $this->apiClient->doCall('deleteUrl', $parameters);
     }
 
     /**
@@ -503,6 +503,6 @@ class CcmdURLService
             'order' => (int) $order
         ];
 
-        return (array) $this->soapClient->doCall('getUrlByOrder', $parameters);
+        return (array) $this->apiClient->doCall('getUrlByOrder', $parameters);
     }
 }

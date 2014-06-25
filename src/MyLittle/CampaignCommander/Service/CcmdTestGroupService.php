@@ -2,7 +2,7 @@
 
 namespace MyLittle\CampaignCommander\Service;
 
-use MyLittle\CampaignCommander\API\SOAP\Model\SoapClientFactoryInterface;
+use MyLittle\CampaignCommander\API\SOAP\Model\ClientFactoryInterface;
 use MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface;
 
 /**
@@ -13,18 +13,18 @@ use MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface;
 class CcmdTestGroupService
 {
     /**
-     * @var SoapClient
+     * @var APIClient
      */
-    private $soapClient;
+    private $apiClient;
 
     /**
      * Constructor
      *
-     * @param \MyLittle\CampaignCommander\API\SOAP\Model\SoapClientFactoryInterface $soapClientFactory
+     * @param \MyLittle\CampaignCommander\API\SOAP\Model\ClientFactoryInterface $clientFactory
      */
-    public function __construct(SoapClientFactoryInterface $soapClientFactory)
+    public function __construct(ClientFactoryInterface $clientFactory)
     {
-        $this->soapClient = $soapClientFactory->createClient(ClientInterface::WSDL_URL_CCMD);
+        $this->apiClient = $clientFactory->createClient(ClientInterface::WSDL_URL_CCMD);
     }
 
     /**
@@ -38,7 +38,7 @@ class CcmdTestGroupService
     {
         $parameters = ['Name' => (string) $name];
 
-        return (string) $this->soapClient->doCall('createTestGroup', $parameters);
+        return (string) $this->apiClient->doCall('createTestGroup', $parameters);
     }
 
     /**
@@ -52,7 +52,7 @@ class CcmdTestGroupService
     {
         $parameters = ['testGroup' => $testGroup];
 
-        return (string) $this->soapClient->doCall('createTestGroupByObj', $parameters);
+        return (string) $this->apiClient->doCall('createTestGroupByObj', $parameters);
     }
 
     /**
@@ -70,7 +70,7 @@ class CcmdTestGroupService
             'groupId' => (string) $groupId
         ];
 
-        return (bool) $this->soapClient->doCall('addTestMember', $parameters);
+        return (bool) $this->apiClient->doCall('addTestMember', $parameters);
     }
 
     /**
@@ -88,7 +88,7 @@ class CcmdTestGroupService
             'groupId' => (string) $groupId
         ];
 
-        return (bool) $this->soapClient->doCall('removeTestMember', $parameters);
+        return (bool) $this->apiClient->doCall('removeTestMember', $parameters);
     }
 
     /**
@@ -102,7 +102,7 @@ class CcmdTestGroupService
     {
         $parameters = ['id' => (string) $groupId];
 
-        return (bool) $this->soapClient->doCall('deleteTestGroup', $parameters);
+        return (bool) $this->apiClient->doCall('deleteTestGroup', $parameters);
     }
 
     /**
@@ -116,7 +116,7 @@ class CcmdTestGroupService
     {
         $parameters = ['testGroup' => $testGroup];
 
-        return (bool) $this->soapClient->doCall('updateTestGroupByObj', $parameters);
+        return (bool) $this->apiClient->doCall('updateTestGroupByObj', $parameters);
     }
 
     /**
@@ -130,7 +130,7 @@ class CcmdTestGroupService
     {
         $parameters = ['id' => (string) $groupId];
 
-        return (array) $this->soapClient->doCall('getTestGroup', $parameters);
+        return (array) $this->apiClient->doCall('getTestGroup', $parameters);
     }
 
     /**
@@ -140,6 +140,6 @@ class CcmdTestGroupService
      */
     public function getClientTestGroups()
     {
-        return (array) $this->soapClient->doCall('getClientTestGroups');
+        return (array) $this->apiClient->doCall('getClientTestGroups');
     }
 }

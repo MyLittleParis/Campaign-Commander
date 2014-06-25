@@ -2,7 +2,7 @@
 
 namespace MyLittle\CampaignCommander\Service;
 
-use MyLittle\CampaignCommander\API\SOAP\Model\SoapClientFactoryInterface;
+use MyLittle\CampaignCommander\API\SOAP\Model\ClientFactoryInterface;
 use MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface;
 
 /**
@@ -13,18 +13,18 @@ use MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface;
 class CcmdSegmentService
 {
     /**
-     * @var SoapClient
+     * @var APIClient
      */
-    private $soapClient;
+    private $apiClient;
 
     /**
      * Constructor
      *
-     * @param \MyLittle\CampaignCommander\API\SOAP\Model\SoapClientFactoryInterface $soapClientFactory
+     * @param \MyLittle\CampaignCommander\API\SOAP\Model\ClientFactoryInterface $clientFactory
      */
-    public function __construct(SoapClientFactoryInterface $soapClientFactory)
+    public function __construct(ClientFactoryInterface $clientFactory)
     {
-        $this->soapClient = $soapClientFactory->createClient(ClientInterface::WSDL_URL_CCMD);
+        $this->apiClient = $clientFactory->createClient(ClientInterface::WSDL_URL_CCMD);
     }
 
     /**
@@ -72,7 +72,7 @@ class CcmdSegmentService
             $parameters['apiSegmentation']['description'] = (string) $description;
         }
 
-        return (string) $this->soapClient->doCall('segmentationCreateSegment', $parameters);
+        return (string) $this->apiClient->doCall('segmentationCreateSegment', $parameters);
     }
 
     /**
@@ -86,7 +86,7 @@ class CcmdSegmentService
     {
         $parameters = ['difflistId' => (string) $id];
 
-        return (bool) $this->soapClient->doCall('segmentationDeleteSegment', $parameters);
+        return (bool) $this->apiClient->doCall('segmentationDeleteSegment', $parameters);
     }
 
     /**
@@ -134,7 +134,7 @@ class CcmdSegmentService
             $parameters['apiSegmentation']['sampleRate'] = (float) $sampleRate;
         }
 
-        return (bool) $this->soapClient->doCall('segmentationUpdateSegment', $parameters);
+        return (bool) $this->apiClient->doCall('segmentationUpdateSegment', $parameters);
     }
 
     /**
@@ -148,7 +148,7 @@ class CcmdSegmentService
     {
         $parameters = ['stringDemographicCriteria' => $stringDemographicCriteria];
 
-        return (bool) $this->soapClient->doCall('segmentationAddStringDemographicCriteriaByObj', $parameters);
+        return (bool) $this->apiClient->doCall('segmentationAddStringDemographicCriteriaByObj', $parameters);
     }
 
     /**
@@ -162,7 +162,7 @@ class CcmdSegmentService
     {
         $parameters = ['numericDemographicCriteria' => $numericDemographicCriteria];
 
-        return (bool) $this->soapClient->doCall('segmentationAddNumericDemographicCriteriaByObj', $parameters);
+        return (bool) $this->apiClient->doCall('segmentationAddNumericDemographicCriteriaByObj', $parameters);
     }
 
     /**
@@ -176,7 +176,7 @@ class CcmdSegmentService
     {
         $parameters = ['dateDemographicCriteria' => $dateDemographicCriteria];
 
-        return (bool) $this->soapClient->doCall('segmentationAddDateDemographicCriteriaByObj', $parameters);
+        return (bool) $this->apiClient->doCall('segmentationAddDateDemographicCriteriaByObj', $parameters);
     }
 
     /**
@@ -190,7 +190,7 @@ class CcmdSegmentService
     {
         $parameters = ['actionCriteria' => $actionCriteria];
 
-        return (bool) $this->soapClient->doCall('segmentationAddCampaignActionCriteriaByObj', $parameters);
+        return (bool) $this->apiClient->doCall('segmentationAddCampaignActionCriteriaByObj', $parameters);
     }
 
     /**
@@ -204,7 +204,7 @@ class CcmdSegmentService
     {
         $parameters = ['trackableLinkCriteria' => $trackableLinkCriteria];
 
-        return (bool) $this->soapClient->doCall('segmentationAddCampaignTrackableLinkCriteriaByObj', $parameters);
+        return (bool) $this->apiClient->doCall('segmentationAddCampaignTrackableLinkCriteriaByObj', $parameters);
     }
 
     /**
@@ -218,7 +218,7 @@ class CcmdSegmentService
     {
         $parameters = ['actionCriteria' => $actionCriteria];
 
-        return (bool) $this->soapClient->doCall('segmentationAddSerieActionCriteriaByObj', $parameters);
+        return (bool) $this->apiClient->doCall('segmentationAddSerieActionCriteriaByObj', $parameters);
     }
 
     /**
@@ -232,7 +232,7 @@ class CcmdSegmentService
     {
         $parameters = ['trackableLinkCriteria' => $trackableLinkCriteria];
 
-        return (bool) $this->soapClient->doCall('segmentationAddSerieTrackableLinkCriteriaByObj', $parameters);
+        return (bool) $this->apiClient->doCall('segmentationAddSerieTrackableLinkCriteriaByObj', $parameters);
     }
 
     /**
@@ -246,7 +246,7 @@ class CcmdSegmentService
     {
         $parameters = ['socialNetworkCriteria' => $socialNetworkCriteria];
 
-        return (bool) $this->soapClient->doCall('segmentationAddSocialNetworkCriteriaByObj', $parameters);
+        return (bool) $this->apiClient->doCall('segmentationAddSocialNetworkCriteriaByObj', $parameters);
     }
 
     /**
@@ -260,7 +260,7 @@ class CcmdSegmentService
     {
         $parameters = ['recencyCriteria' => $recencyCriteria];
 
-        return (bool) $this->soapClient->doCall('segmentationAddRecencyCriteriaByObj', $parameters);
+        return (bool) $this->apiClient->doCall('segmentationAddRecencyCriteriaByObj', $parameters);
     }
 
     /**
@@ -274,7 +274,7 @@ class CcmdSegmentService
     {
         $parameters = ['dataMartCriteria' => $dataMartCriteria];
 
-        return (bool) $this->soapClient->doCall('segmentationAddDataMartCriteriaByObj', $parameters);
+        return (bool) $this->apiClient->doCall('segmentationAddDataMartCriteriaByObj', $parameters);
     }
 
     /**
@@ -288,7 +288,7 @@ class CcmdSegmentService
     {
         $parameters = ['difflistId' => (string) $id];
 
-        return $this->soapClient->doCall('segmentationGetSegmentById', $parameters);
+        return $this->apiClient->doCall('segmentationGetSegmentById', $parameters);
     }
 
     /**
@@ -306,7 +306,7 @@ class CcmdSegmentService
             'nbItemsPerPage' => (int) $itemsPerPage
         ];
 
-        return (array) $this->soapClient->doCall('segmentationGetSegmentList', $parameters);
+        return (array) $this->apiClient->doCall('segmentationGetSegmentList', $parameters);
     }
 
     /**
@@ -320,7 +320,7 @@ class CcmdSegmentService
     {
         $parameters = ['difflistId' => (string) $id];
 
-        return (array) $this->soapClient->doCall('segmentationGetSegmentCriterias', $parameters);
+        return (array) $this->apiClient->doCall('segmentationGetSegmentCriterias', $parameters);
     }
 
     /**
@@ -338,7 +338,7 @@ class CcmdSegmentService
             'nbItemPerPage' => (int) $itemsPerPage
         ];
 
-        return (array) $this->soapClient->doCall('segmentationGetPersoFragList', $parameters);
+        return (array) $this->apiClient->doCall('segmentationGetPersoFragList', $parameters);
     }
 
     /**
@@ -356,7 +356,7 @@ class CcmdSegmentService
             'orderCriteria' => (int) $orderCriteria
         ];
 
-        return (bool) $this->soapClient->doCall('segmentationDeleteCriteria', $parameters);
+        return (bool) $this->apiClient->doCall('segmentationDeleteCriteria', $parameters);
     }
 
     /**
@@ -370,7 +370,7 @@ class CcmdSegmentService
     {
         $parameters = ['stringDemographicCriteria' => $stringDemographicCriteria];
 
-        return (bool) $this->soapClient->doCall('segmentationUpdateStringDemographicCriteriaByObj', $parameters);
+        return (bool) $this->apiClient->doCall('segmentationUpdateStringDemographicCriteriaByObj', $parameters);
     }
 
     /**
@@ -384,7 +384,7 @@ class CcmdSegmentService
     {
         $parameters = ['numericDemographicCriteria' => $numericDemographicCriteria];
 
-        return (bool) $this->soapClient->doCall('segmentationUpdateNumericDemographicCriteriaByObj', $parameters);
+        return (bool) $this->apiClient->doCall('segmentationUpdateNumericDemographicCriteriaByObj', $parameters);
     }
 
     /**
@@ -398,7 +398,7 @@ class CcmdSegmentService
     {
         $parameters = ['dateDemographicCriteria' => $dateDemographicCriteria];
 
-        return (bool) $this->soapClient->doCall('segmentationUpdateDateDemographicCriteriaByObj', $parameters);
+        return (bool) $this->apiClient->doCall('segmentationUpdateDateDemographicCriteriaByObj', $parameters);
     }
 
     /**
@@ -412,7 +412,7 @@ class CcmdSegmentService
     {
         $parameters = ['actionCriteria' => $actionCriteria];
 
-        return (bool) $this->soapClient->doCall('segmentationUpdateCampaignActionCriteriaByObj', $parameters);
+        return (bool) $this->apiClient->doCall('segmentationUpdateCampaignActionCriteriaByObj', $parameters);
     }
 
     /**
@@ -426,7 +426,7 @@ class CcmdSegmentService
     {
         $parameters = ['trackableLinkCriteria' => $trackableLinkCriteria];
 
-        return (bool) $this->soapClient->doCall('segmentationUpdateCampaignTrackableLinkCriteriaByObj', $parameters);
+        return (bool) $this->apiClient->doCall('segmentationUpdateCampaignTrackableLinkCriteriaByObj', $parameters);
     }
 
     /**
@@ -440,7 +440,7 @@ class CcmdSegmentService
     {
         $parameters = ['actionCriteria' => $actionCriteria];
 
-        return (bool) $this->soapClient->doCall('segmentationUpdateSerieActionCriteriaByObj', $parameters);
+        return (bool) $this->apiClient->doCall('segmentationUpdateSerieActionCriteriaByObj', $parameters);
     }
 
     /**
@@ -454,7 +454,7 @@ class CcmdSegmentService
     {
         $parameters = ['trackableLinkCriteria' => $trackableLinkCriteria];
 
-        return (bool) $this->soapClient->doCall('segmentationUpdateSerieTrackableLinkCriteriaByObj', $parameters);
+        return (bool) $this->apiClient->doCall('segmentationUpdateSerieTrackableLinkCriteriaByObj', $parameters);
     }
 
     /**
@@ -468,7 +468,7 @@ class CcmdSegmentService
     {
         $parameters = ['socialNetworkCriteria' => $socialNetworkCriteria];
 
-        return (bool) $this->soapClient->doCall('segmentationUpdateSocialNetworkCriteriaByObj', $parameters);
+        return (bool) $this->apiClient->doCall('segmentationUpdateSocialNetworkCriteriaByObj', $parameters);
     }
 
     /**
@@ -482,7 +482,7 @@ class CcmdSegmentService
     {
         $parameters = ['recencyCriteria' => $recencyCriteria];
 
-        return (bool) $this->soapClient->doCall('segmentationUpdateRecencyCriteriaByObj', $parameters);
+        return (bool) $this->apiClient->doCall('segmentationUpdateRecencyCriteriaByObj', $parameters);
     }
 
     /**
@@ -496,7 +496,7 @@ class CcmdSegmentService
     {
         $parameters = ['dataMartCriteria' => $dataMartCriteria];
 
-        return (bool) $this->soapClient->doCall('segmentationUpdateDataMartCriteriaByObj', $parameters);
+        return (bool) $this->apiClient->doCall('segmentationUpdateDataMartCriteriaByObj', $parameters);
     }
 
     /**
@@ -510,7 +510,7 @@ class CcmdSegmentService
     {
         $parameters = ['id' => (string) $id];
 
-        return (string) $this->soapClient->doCall('segmentationCount', $parameters);
+        return (string) $this->apiClient->doCall('segmentationCount', $parameters);
     }
 
     /**
@@ -524,6 +524,6 @@ class CcmdSegmentService
     {
         $parameters = ['id' => (string) $id];
 
-        return (string) $this->soapClient->doCall('segmentationDistinctCount', $parameters);
+        return (string) $this->apiClient->doCall('segmentationDistinctCount', $parameters);
     }
 }

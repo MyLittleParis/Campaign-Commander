@@ -2,7 +2,7 @@
 
 namespace MyLittle\CampaignCommander\Service;
 
-use MyLittle\CampaignCommander\API\SOAP\Model\SoapClientFactoryInterface;
+use MyLittle\CampaignCommander\API\SOAP\Model\ClientFactoryInterface;
 use MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface;
 
 /**
@@ -13,18 +13,18 @@ use MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface;
 class CcmdDynamicContentBlockLinkService
 {
     /**
-     * @var SoapClient
+     * @var APIClient
      */
-    private $soapClient;
+    private $apiClient;
 
     /**
      * Constructor
      *
-     * @param \MyLittle\CampaignCommander\API\SOAP\Model\SoapClientFactoryInterface $soapClientFactory
+     * @param \MyLittle\CampaignCommander\API\SOAP\Model\ClientFactoryInterface $clientFactory
      */
-    public function __construct(SoapClientFactoryInterface $soapClientFactory)
+    public function __construct(ClientFactoryInterface $clientFactory)
     {
-        $this->soapClient = $soapClientFactory->createClient(ClientInterface::WSDL_URL_CCMD);
+        $this->apiClient = $clientFactory->createClient(ClientInterface::WSDL_URL_CCMD);
     }
 
     /**
@@ -44,7 +44,7 @@ class CcmdDynamicContentBlockLinkService
             'url' => (string) $url
         ];
 
-        return (int) $this->soapClient->doCall('createStandardBannerLink', $parameters);
+        return (int) $this->apiClient->doCall('createStandardBannerLink', $parameters);
     }
 
     /**
@@ -64,7 +64,7 @@ class CcmdDynamicContentBlockLinkService
             'url' => (string) $url
         ];
 
-        return (int) $this->soapClient->doCall('createAndAddStandardBannerLink', $parameters);
+        return (int) $this->apiClient->doCall('createAndAddStandardBannerLink', $parameters);
     }
 
     /**
@@ -108,7 +108,7 @@ class CcmdDynamicContentBlockLinkService
             $parameters['messageError'] = (string) $messageError;
         }
 
-        return (int) $this->soapClient->doCall('createUnsubscribeBannerLink', $parameters);
+        return (int) $this->apiClient->doCall('createUnsubscribeBannerLink', $parameters);
     }
 
     /**
@@ -152,7 +152,7 @@ class CcmdDynamicContentBlockLinkService
             $parameters['messageError'] = (string) $messageError;
         }
 
-        return (int) $this->soapClient->doCall('createAndAddUnsubscribeBannerLink', $parameters);
+        return (int) $this->apiClient->doCall('createAndAddUnsubscribeBannerLink', $parameters);
     }
 
     /**
@@ -172,7 +172,7 @@ class CcmdDynamicContentBlockLinkService
             'url' => (string) $url
         ];
 
-        return (int) $this->soapClient->doCall('createPersonalisedBannerLink', $parameters);
+        return (int) $this->apiClient->doCall('createPersonalisedBannerLink', $parameters);
     }
 
     /**
@@ -192,7 +192,7 @@ class CcmdDynamicContentBlockLinkService
             'url' => (string) $url
         ];
 
-        return (int) $this->soapClient->doCall('createAndAddPersonalisedBannerLink', $parameters);
+        return (int) $this->apiClient->doCall('createAndAddPersonalisedBannerLink', $parameters);
     }
 
     /**
@@ -239,7 +239,7 @@ class CcmdDynamicContentBlockLinkService
             $parameters['messageError'] = (string) $messageError;
         }
 
-        return (int) $this->soapClient->doCall('createUpdateBannerLink', $parameters);
+        return (int) $this->apiClient->doCall('createUpdateBannerLink', $parameters);
     }
 
     /**
@@ -286,7 +286,7 @@ class CcmdDynamicContentBlockLinkService
             $parameters['messageError'] = (string) $messageError;
         }
 
-        return (int) $this->soapClient->doCall('createAndAddUpdateBannerLink', $parameters);
+        return (int) $this->apiClient->doCall('createAndAddUpdateBannerLink', $parameters);
     }
 
     /**
@@ -333,7 +333,7 @@ class CcmdDynamicContentBlockLinkService
             $parameters['messageError'] = (string) $messageError;
         }
 
-        return (int) $this->soapClient->doCall('createActionBannerLink', $parameters);
+        return (int) $this->apiClient->doCall('createActionBannerLink', $parameters);
     }
 
     /**
@@ -380,7 +380,7 @@ class CcmdDynamicContentBlockLinkService
             $parameters['messageError'] = (string) $messageError;
         }
 
-        return (int) $this->soapClient->doCall('createAndAddActionBannerLink', $parameters);
+        return (int) $this->apiClient->doCall('createAndAddActionBannerLink', $parameters);
     }
 
     /**
@@ -398,7 +398,7 @@ class CcmdDynamicContentBlockLinkService
             'name' => (string) $name
         ];
 
-        return (int) $this->soapClient->doCall('createMirrorBannerLink', $parameters);
+        return (int) $this->apiClient->doCall('createMirrorBannerLink', $parameters);
     }
 
     /**
@@ -416,7 +416,7 @@ class CcmdDynamicContentBlockLinkService
             'name' => (string) $name
         ];
 
-        return (int) $this->soapClient->doCall('createAndAddMirrorBannerLink', $parameters);
+        return (int) $this->apiClient->doCall('createAndAddMirrorBannerLink', $parameters);
     }
 
     /**
@@ -441,7 +441,7 @@ class CcmdDynamicContentBlockLinkService
             $parameters['value'] = $value;
         }
 
-        return (bool) $this->soapClient->doCall('updateBannerLinkByField', $parameters);
+        return (bool) $this->apiClient->doCall('updateBannerLinkByField', $parameters);
     }
 
     /**
@@ -459,6 +459,6 @@ class CcmdDynamicContentBlockLinkService
             'order' => (string) $order
         ];
 
-        return (array) $this->soapClient->doCall('getBannerLinkByOrder', $parameters);
+        return (array) $this->apiClient->doCall('getBannerLinkByOrder', $parameters);
     }
 }
