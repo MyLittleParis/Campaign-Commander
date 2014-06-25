@@ -70,7 +70,7 @@ class MTOMAttachmentsClientFactory implements ClientFactoryInterface
      *
      * @return \MyLittle\CampaignCommander\API\SOAP\APIClient
      */
-    protected function createClient($wsdl)
+    public function createClient($wsdl)
     {
         $soapClient = $this->builder
             ->withEncoding('UTF-8')

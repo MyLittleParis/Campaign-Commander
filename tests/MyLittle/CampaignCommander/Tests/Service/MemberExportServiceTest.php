@@ -13,9 +13,9 @@ use MyLittle\CampaignCommander\Service\MemberExportService;
 class MemberExportServiceTest extends AbstractTestCase
 {
     /**
-     * @var Client
+     * @var ClientFactoryInterface
      */
-    private $client;
+    private $clientFactory;
 
     /**
      * Prepares the environment before running a test.
@@ -24,9 +24,9 @@ class MemberExportServiceTest extends AbstractTestCase
     {
         parent::setUp();
 
-        $this->client = $this->getMockBuilder('MyLittle\CampaignCommander\API\SOAP\Client')
-                ->disableOriginalConstructor()
-                ->getMock()
+        $this->clientFactory = $this->getMockBuilder('\MyLittle\CampaignCommander\API\SOAP\Model\ClientFactoryInterface')
+            ->disableOriginalConstructor()
+            ->getMock()
         ;
     }
 
@@ -35,7 +35,7 @@ class MemberExportServiceTest extends AbstractTestCase
      */
     protected function tearDown()
     {
-        $this->client = null;
+        $this->clientFactory = null;
 
         parent::tearDown();
     }
@@ -62,14 +62,25 @@ class MemberExportServiceTest extends AbstractTestCase
             'keepFirst'      => $keepFirst,
         ];
 
-        $this->client
-                ->expects($this->once())
-                ->method('doCall')
-                ->with('createDownloadByMailinglist', $parameters)
-                ->will($this->returnValue($response))
+        $apiClient = $this->getMockBuilder('\MyLittle\CampaignCommander\API\SOAP\APIClient')
+            ->disableOriginalConstructor()
+            ->getMock()
         ;
 
-        $service = new MemberExportService($this->client);
+        $apiClient
+            ->expects($this->once())
+            ->method('doCall')
+            ->with('createDownloadByMailinglist', $parameters)
+            ->will($this->returnValue($response))
+        ;
+
+        $this->clientFactory
+                ->expects($this->any())
+                ->method('createClient')
+                ->will($this->returnValue($apiClient))
+        ;
+
+        $service = new MemberExportService($this->clientFactory);
 
         $this->assertEquals(
             $response,
@@ -89,14 +100,26 @@ class MemberExportServiceTest extends AbstractTestCase
     {
         $response = $this->getXMLFileMock('getDownloadStatusResponse.xml');
 
-        $this->client
-                ->expects($this->once())
-                ->method('doCall')
-                ->with('getDownloadStatus', ['id' => '1234'])
-                ->will($this->returnValue($response))
+
+        $apiClient = $this->getMockBuilder('\MyLittle\CampaignCommander\API\SOAP\APIClient')
+            ->disableOriginalConstructor()
+            ->getMock()
         ;
 
-        $service = new MemberExportService($this->client);
+        $apiClient
+            ->expects($this->once())
+            ->method('doCall')
+            ->with('getDownloadStatus', ['id' => '1234'])
+            ->will($this->returnValue($response))
+        ;
+
+        $this->clientFactory
+                ->expects($this->any())
+                ->method('createClient')
+                ->will($this->returnValue($apiClient))
+        ;
+
+        $service = new MemberExportService($this->clientFactory);
 
         $this->assertEquals(
             $response,
@@ -108,14 +131,25 @@ class MemberExportServiceTest extends AbstractTestCase
     {
         $response = $this->getXMLFileMock('getDownloadFileResponse.xml');
 
-        $this->client
-                ->expects($this->once())
-                ->method('doCall')
-                ->with('getDownloadFile', ['id' => '1234'])
-                ->will($this->returnValue($response))
+        $apiClient = $this->getMockBuilder('\MyLittle\CampaignCommander\API\SOAP\APIClient')
+            ->disableOriginalConstructor()
+            ->getMock()
         ;
 
-        $service = new MemberExportService($this->client);
+        $apiClient
+            ->expects($this->once())
+            ->method('doCall')
+            ->with('getDownloadFile', ['id' => '1234'])
+            ->will($this->returnValue($response))
+        ;
+
+        $this->clientFactory
+                ->expects($this->any())
+                ->method('createClient')
+                ->will($this->returnValue($apiClient))
+        ;
+
+        $service = new MemberExportService($this->clientFactory);
 
         $this->assertEquals(
             $response,

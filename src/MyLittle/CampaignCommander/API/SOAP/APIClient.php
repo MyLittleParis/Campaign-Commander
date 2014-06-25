@@ -40,7 +40,7 @@ namespace MyLittle\CampaignCommander\API\SOAP;
 
 use BeSimple\SoapClient\SoapClient;
 use MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface;
-use MyLittle\CampaignCommander\API\Exceptions\WebServiceError;
+use MyLittle\CampaignCommander\Exceptions\WebServiceError;
 
 /**
  * client
@@ -52,7 +52,7 @@ class APIClient implements ClientInterface
     /**
      * The SOAP-client
      *
-     * @var SoapClientFactoryInterface
+     * @var BeSimple\SoapClient\SoapClient
      */
     protected $soapClient;
 
@@ -102,25 +102,11 @@ class APIClient implements ClientInterface
      */
     public function __construct(SoapClient $soapClient, $login, $password, $key, $server)
     {
-        $this->soapClient  = $soapClient;
-        $this->login       = $login;
-        $this->password    = $password;
-        $this->key         = $key;
-        $this->server      = $server;
-    }
-
-    /**
-     * Destructor
-     *
-     * if the connection is open then
-     *  close it and reset variables.
-     */
-    public function __destruct()
-    {
-        if ($this->soapClient !== null && !$this->closeApiConnection()) {
-            $this->soapClient = null;
-            $this->token = null;
-        }
+        $this->soapClient = $soapClient;
+        $this->login      = $login;
+        $this->password   = $password;
+        $this->key        = $key;
+        $this->server     = $server;
     }
 
     /**
@@ -130,14 +116,10 @@ class APIClient implements ClientInterface
     {
         $response = $this->doCall('closeApiConnection');
 
-        if ($response == 'connection closed') {
-            $this->soapClient = null;
-            $this->token = null;
+        $this->soapClient = null;
+        $this->token = null;
 
-            return true;
-        }
-
-        return false;
+        return !empty($response);
     }
 
     /**
@@ -145,9 +127,11 @@ class APIClient implements ClientInterface
      */
     public function openApiConnection()
     {
-        $loginParameters['login'] = $this->login;
-        $loginParameters['pwd'] = $this->password;
-        $loginParameters['key'] = $this->key;
+        $loginParameters = [
+            'login' => $this->login,
+            'pwd'   => $this->password,
+            'key'   => $this->key,
+        ];
 
         try {
             $response = $this->soapClient->openApiConnection($loginParameters);
