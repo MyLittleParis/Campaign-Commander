@@ -2,6 +2,7 @@
 
 namespace MyLittle\CampaignCommander\Service;
 
+use MyLittle\CampaignCommander\API\SOAP\Model\SoapClientFactoryInterface;
 use MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface;
 
 /**
@@ -9,7 +10,7 @@ use MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface;
  *
  * @author mylittleparis
  */
-class MemberExportService extends AbstractService
+class MemberExportService
 {
     const DOWNLOAD_SUCCESS = 'OK';
     const DOWNLOAD_EMPTY = 'NO_DATA';
@@ -23,14 +24,18 @@ class MemberExportService extends AbstractService
     const EXPORT_DELETED = 'DELETED';
 
     /**
+     * @var SoapClient
+     */
+    private $soapClient;
+
+    /**
      * Constructor
      *
-     * @param ClientInterface $client
+     * @param \MyLittle\CampaignCommander\API\SOAP\Model\SoapClientFactoryInterface $soapClientFactory
      */
-    public function __construct(ClientInterface $client)
+    public function __construct(SoapClientFactoryInterface $soapClientFactory)
     {
-        $this->soapClient = $client;
-        $this->soapClient->setWsdl(ClientInterface::WSDL_URL_EXPORT);
+        $this->soapClient = $soapClientFactory->createClient(ClientInterface::WSDL_URL_EXPORT);
     }
 
     /**

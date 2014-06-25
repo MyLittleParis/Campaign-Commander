@@ -2,6 +2,7 @@
 
 namespace MyLittle\CampaignCommander\Service;
 
+use MyLittle\CampaignCommander\API\SOAP\Model\SoapClientFactoryInterface;
 use MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface;
 
 /**
@@ -9,17 +10,22 @@ use MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface;
  *
  * @author mylittleparis
  */
-class CcmdCampaignService extends AbstractService
+class CcmdCampaignService
 {
+
+    /**
+     * @var SoapClient
+     */
+    private $soapClient;
+
     /**
      * Constructor
      *
-     * @param \MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface $client
+     * @param \MyLittle\CampaignCommander\API\SOAP\Model\SoapClientFactoryInterface $soapClientFactory
      */
-    public function __construct(ClientInterface $client)
+    public function __construct(SoapClientFactoryInterface $soapClientFactory)
     {
-        $this->soapClient = $client;
-        $this->soapClient->setWsdl(ClientInterface::WSDL_URL_CCMD);
+        $this->soapClient = $soapClientFactory->createClient(ClientInterface::WSDL_URL_CCMD);
     }
 
     /**
@@ -37,15 +43,9 @@ class CcmdCampaignService extends AbstractService
      * @return string           The ID of the campaign.
      */
     public function createCampaign(
-        $name,
-        $sendDate,
-        $messageId,
-        $mailingListId,
-        $description = null,
-        $notifProgress = false,
-        $postClickTracking = false,
-        $emaildedupfig = false
-    ) {
+    $name, $sendDate, $messageId, $mailingListId, $description = null, $notifProgress = false, $postClickTracking = false, $emaildedupfig = false
+    )
+    {
         $parameters = [
             'name' => (string) $name,
             'sendDate' => date('Y-m-d H:i:s', (int) $sendDate),
@@ -78,15 +78,9 @@ class CcmdCampaignService extends AbstractService
      * @return string           The ID of the campaign.
      */
     public function createCampaignWithAnalytics(
-        $name,
-        $sendDate,
-        $messageId,
-        $mailingListId,
-        $description = null,
-        $notifProgress = false,
-        $postClickTracking = false,
-        $emaildedupfig = false
-    ) {
+    $name, $sendDate, $messageId, $mailingListId, $description = null, $notifProgress = false, $postClickTracking = false, $emaildedupfig = false
+    )
+    {
         $parameters = [
             'name' => (string) $name,
             'sendDate' => date('Y-m-d H:i:s', (int) $sendDate),
@@ -254,7 +248,7 @@ class CcmdCampaignService extends AbstractService
         // Check if status is valid
         if (!in_array($status, $allowedStatus)) {
             throw new \Exception(
-                'Invalid status ('. $status .'), allowed values are: '. implode(', ', $allowedStatus) .'.'
+            'Invalid status (' . $status . '), allowed values are: ' . implode(', ', $allowedStatus) . '.'
             );
         }
 
@@ -386,4 +380,5 @@ class CcmdCampaignService extends AbstractService
 
         return (array) $this->soapClient->doCall('getCampaignSnapshotReport', $parameters);
     }
+
 }

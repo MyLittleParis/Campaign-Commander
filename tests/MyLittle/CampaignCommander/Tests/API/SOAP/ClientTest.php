@@ -13,6 +13,11 @@ use MyLittle\CampaignCommander\Exceptions\WebServiceError;
 class ClientTest extends AbstractTestCase
 {
     /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    private $soapClient;
+
+    /**
      * @var Client
      */
     private $client;
@@ -24,10 +29,12 @@ class ClientTest extends AbstractTestCase
     {
         parent::setUp();
 
-        $this->client = $this->getMockBuilder('MyLittle\CampaignCommander\API\SOAP\Client')
-                ->disableOriginalConstructor()
-                ->getMock()
+        $this->soapClient = $this->getMockBuilder('\SoapClient')
+            ->disableOriginalConstructor()
+            ->getMock()
         ;
+
+        $this->client = new \MyLittle\CampaignCommander\API\SOAP\Client();
     }
 
     /**
@@ -54,6 +61,20 @@ class ClientTest extends AbstractTestCase
             $response,
             $this->client->openApiConnection()
         );
+    }
+
+    public function testOpenApiConnectionWrongCases()
+    {
+        $soapClient
+            ->expects($this->any())
+            ->method('openApiConnection')
+            ->will($this->throwException(new \SoapFault('SoapError', 0)))
+        ;
+
+        $this->setExpectedException('MyLittle\CampaignCommander\Exceptions\WebServiceError');
+
+        $this->client->openApiConnection();
+
     }
 
     public function testCloseApiConnection()

@@ -2,6 +2,7 @@
 
 namespace MyLittle\CampaignCommander\Service;
 
+use MyLittle\CampaignCommander\API\SOAP\Model\SoapClientFactoryInterface;
 use MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface;
 
 /**
@@ -9,17 +10,21 @@ use MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface;
  *
  * @author mylittleparis
  */
-class MemberService extends AbstractService
+class MemberService
 {
+    /**
+     * @var SoapClient
+     */
+    private $soapClient;
+
     /**
      * Constructor
      *
-     * @param \MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface $client
+     * @param \MyLittle\CampaignCommander\API\SOAP\Model\SoapClientFactoryInterface $soapClientFactory
      */
-    public function __construct(ClientInterface $client)
+    public function __construct(SoapClientFactoryInterface $soapClientFactory)
     {
-        $this->soapClient = $client;
-        $this->soapClient->setWsdl(ClientInterface::WSDL_URL_MEMBER);
+        $this->soapClient = $soapClientFactory->createClient(ClientInterface::WSDL_URL_MEMBER);
     }
 
     /**
@@ -464,5 +469,30 @@ class MemberService extends AbstractService
         }
 
         return (string) $response;
+    }
+
+    /**
+     * Get the attributes entry of the response
+     *
+     * @param mixed $response
+     *
+     * @return array
+     */
+    protected function getAttributesEntry($response)
+    {
+        $AttributesEntry = [];
+        foreach ($response->attributes->entry as $entry) {
+            $key = (string) $entry->key;
+            $value = (isset($entry->value)) ? $entry->value : null;
+
+            // convert the DATEJOIN key to timestamp UNIX
+            if ($key == 'DATEJOIN' && $value !== null) {
+                $value = (int) strtotime($value);
+            }
+
+            $AttributesEntry[$key] = $value;
+        }
+
+        return $AttributesEntry;
     }
 }

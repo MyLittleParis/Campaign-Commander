@@ -1,7 +1,8 @@
-<?php
+g<?php
 
 namespace MyLittle\CampaignCommander\Service;
 
+use MyLittle\CampaignCommander\API\SOAP\Model\SoapClientFactoryInterface;
 use MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface;
 
 /**
@@ -9,17 +10,21 @@ use MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface;
  *
  * @author mylittleparis
  */
-class BatchMemberService extends AbstractService
+class BatchMemberService
 {
+    /**
+     * @var SoapClient
+     */
+    private $soapClient;
+
     /**
      * Constructor
      *
-     * @param \MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface $client
+     * @param \MyLittle\CampaignCommander\API\SOAP\Model\SoapClientFactoryInterface $soapClientFactory
      */
-    public function __construct(ClientInterface $client)
+    public function __construct(SoapClientFactoryInterface $soapClientFactory)
     {
-        $this->soapClient = $client;
-        $this->soapClient->setWsdl(ClientInterface::WSDL_URL_BATCH_MEMBER);
+        $this->soapClient = $soapClientFactory->createClient(ClientInterface::WSDL_URL_BATCH_MEMBER);
     }
 
     /**

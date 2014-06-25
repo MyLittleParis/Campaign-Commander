@@ -38,26 +38,23 @@
 
 namespace MyLittle\CampaignCommander\API\SOAP;
 
+use MyLittle\CampaignCommander\API\SOAP\Model\SoapClientFactoryInterface;
 use MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface;
 use MyLittle\CampaignCommander\API\Exceptions\WebServiceError;
-use BeSimple\SoapClient;
 
 /**
- * Abstract client class
+ * client
  *
  * @author mylittleparis
  */
-class Client implements ClientInterface
+class APIClient implements ClientInterface
 {
-    // current version
-    const VERSION = '1.0';
-
     /**
-     * The API-key that will be used for authenticating
+     * The SOAP-client
      *
-     * @var string
+     * @var SoapClientFactoryInterface
      */
-    protected $key;
+    protected $soapClient;
 
     /**
      * The login that will be used for authenticating
@@ -74,25 +71,18 @@ class Client implements ClientInterface
     protected $password;
 
     /**
+     * The API-key that will be used for authenticating
+     *
+     * @var string
+     */
+    protected $key;
+
+    /**
      * The server to use
      *
      * @var string
      */
     protected $server;
-
-    /**
-     * Url api
-     *
-     * @var string
-     */
-    protected $wsdl;
-
-    /**
-     * The SOAP-client
-     *
-     * @var SoapClient
-     */
-    protected $soapClient;
 
     /**
      * The token
@@ -102,26 +92,21 @@ class Client implements ClientInterface
     protected $token = null;
 
     /**
-     * The user agent
-     *
-     * @var string
-     */
-    protected $userAgent;
-
-    /**
      * Default constructor
      *
-     * @param string    $login    Login provided for API access.
-     * @param string    $password The password.
-     * @param string    $key      Manager Key copied from the CCMD web application.
-     * @param string    $server   The server to use. Ask your account-manager.
+     * @param SoapClientFactoryInterface $soapClient    BeSimple SoapClient
+     * @param string                     $login         Login provided for API access.
+     * @param string                     $password      The password.
+     * @param string                     $key           Manager Key copied from the CCMD web application.
+     * @param string                     $server        The server to use. Ask your account-manager.
      */
-    public function __construct($login, $password, $key, $server)
+    public function __construct(SoapClientFactoryInterface $soapClient, $login, $password, $key, $server)
     {
-        $this->login    = $login;
-        $this->password = $password;
-        $this->key      = $key;
-        $this->server   = $server;
+        $this->soapClient  = $soapClient;
+        $this->login       = $login;
+        $this->password    = $password;
+        $this->key         = $key;
+        $this->server      = $server;
     }
 
     /**
@@ -136,23 +121,6 @@ class Client implements ClientInterface
             $this->soapClient = null;
             $this->token = null;
         }
-    }
-
-    /**
-     * Build the soap client
-     */
-    protected function buildSoapClient()
-    {
-        $builder = SoapClient\SoapClientBuilder::createWithDefaults();
-        $builder
-                ->withSoapVersion11()
-                ->withTrace()
-                ->withExceptions()
-                ->withWsdlCacheNone()
-                ->withWsdl($this->wsdl)
-        ;
-
-        $this->soapClient = $builder->build();
     }
 
     /**
@@ -177,8 +145,6 @@ class Client implements ClientInterface
      */
     public function openApiConnection()
     {
-        $this->buildSoapClient();
-
         $loginParameters['login'] = $this->login;
         $loginParameters['pwd'] = $this->password;
         $loginParameters['key'] = $this->key;
@@ -188,7 +154,7 @@ class Client implements ClientInterface
 
             $this->token = (string) $response->return;
         } catch (\SoapFault $fault) {
-            throw  new WebServiceError('Campaign commander API return an error');
+            throw new WebServiceError('Campaign commander API return an error', 0, $fault);
         }
     }
 
@@ -220,41 +186,7 @@ class Client implements ClientInterface
 
             return $response->return;
         } catch (\SoapFault $fault) {
-            throw  new WebServiceError('Campaign commander API return an error');
+            throw new WebServiceError('Campaign commander API return an error', 0, $fault);
         }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getUserAgent()
-    {
-        return (string) 'PHP Campaign Commander/' . self::VERSION . ' ' . $this->userAgent;
-    }
-
-    /**
-     * Set the user-agent for you application
-     * It will be appended to ours, the result will look like:
-     * "PHP Campaign Commander Member/<version> <your-user-agent>"
-     *
-     * @param string $userAgent	The user-agent, it should look like <app-name>/<app-version>.
-     */
-    public function setUserAgent($userAgent)
-    {
-        $this->userAgent = (string) $userAgent;
-
-        return $this;
-    }
-
-    /**
-     * Set the wsdl url
-     *
-     * @param string $wsdl
-     */
-    public function setWsdl($wsdl)
-    {
-        $this->wsdl = $wsdl;
-
-        return $this;
     }
 }
