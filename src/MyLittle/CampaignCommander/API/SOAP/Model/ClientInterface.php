@@ -37,28 +37,4 @@ interface ClientInterface
      * @return mixed
      */
     public function doCall($method, array $parameters = []);
-
-    /**
-     * Get the useragent that will be used. Our version will be prepended to yours.
-     * It will look like: "PHP Campaign Commander Member/<version> <your-user-agent>"
-     *
-     * @return string
-     */
-    public function getUserAgent();
-
-    /**
-     * Set the user-agent for you application
-     * It will be appended to ours, the result will look like:
-     * "PHP Campaign Commander Member/<version> <your-user-agent>"
-     *
-     * @param string $userAgent	The user-agent, it should look like <app-name>/<app-version>.
-     */
-    public function setUserAgent($userAgent);
-
-    /**
-     * Set the wsdl url
-     *
-     * @param string $wsdl
-     */
-    public function setWsdl($wsdl);
 }

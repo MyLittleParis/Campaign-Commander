@@ -2,6 +2,7 @@
 
 namespace MyLittle\CampaignCommander\Service;
 
+use MyLittle\CampaignCommander\API\SOAP\Model\ClientFactoryInterface;
 use MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface;
 
 /**
@@ -9,7 +10,7 @@ use MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface;
  *
  * @author mylittleparis
  */
-class MemberExportService extends AbstractService
+class MemberExportService
 {
     const DOWNLOAD_SUCCESS = 'OK';
     const DOWNLOAD_EMPTY = 'NO_DATA';
@@ -23,14 +24,18 @@ class MemberExportService extends AbstractService
     const EXPORT_DELETED = 'DELETED';
 
     /**
+     * @var APIClient
+     */
+    private $apiClient;
+
+    /**
      * Constructor
      *
-     * @param ClientInterface $client
+     * @param \MyLittle\CampaignCommander\API\SOAP\Model\ClientFactoryInterface $clientFactory
      */
-    public function __construct(ClientInterface $client)
+    public function __construct(ClientFactoryInterface $clientFactory)
     {
-        $this->soapClient = $client;
-        $this->soapClient->setWsdl(ClientInterface::WSDL_URL_EXPORT);
+        $this->apiClient = $clientFactory->createClient(ClientInterface::WSDL_URL_EXPORT);
     }
 
     /**
@@ -96,7 +101,7 @@ class MemberExportService extends AbstractService
             'keepFirst' => (string) $keepFirst,
         ];
 
-        return (string) $this->soapClient->doCall('createDownloadByMailinglist', $parameters);
+        return (string) $this->apiClient->doCall('createDownloadByMailinglist', $parameters);
     }
 
     /**
@@ -110,7 +115,7 @@ class MemberExportService extends AbstractService
     {
         $parameters = ['id' => (string) $fileID];
 
-        return (string) $this->soapClient->doCall('getDownloadStatus', $parameters);
+        return (string) $this->apiClient->doCall('getDownloadStatus', $parameters);
     }
 
     /**
@@ -124,6 +129,6 @@ class MemberExportService extends AbstractService
     {
         $parameters = ['id' => (string) $fileID];
 
-        return (string) $this->soapClient->doCall('getDownloadFile', $parameters);
+        return (string) $this->apiClient->doCall('getDownloadFile', $parameters);
     }
 }

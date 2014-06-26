@@ -2,6 +2,7 @@
 
 namespace MyLittle\CampaignCommander\Service;
 
+use MyLittle\CampaignCommander\API\SOAP\Model\ClientFactoryInterface;
 use MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface;
 
 /**
@@ -9,17 +10,21 @@ use MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface;
  *
  * @author mylittleparis
  */
-class CcmdDynamicContentService extends AbstractService
+class CcmdDynamicContentService
 {
+    /**
+     * @var APIClient
+     */
+    private $apiClient;
+
     /**
      * Constructor
      *
-     * @param \MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface $client
+     * @param \MyLittle\CampaignCommander\API\SOAP\Model\ClientFactoryInterface $clientFactory
      */
-    public function __construct(ClientInterface $client)
+    public function __construct(ClientFactoryInterface $clientFactory)
     {
-        $this->soapClient = $client;
-        $this->soapClient->setWsdl(ClientInterface::WSDL_URL_CCMD);
+        $this->apiClient = $clientFactory->createClient(ClientInterface::WSDL_URL_CCMD);
     }
 
     /**
@@ -58,7 +63,7 @@ class CcmdDynamicContentService extends AbstractService
             $parameters['banner']['description'] = (string) $description;
         }
 
-        return (string) $this->soapClient->doCall('createBanner', $parameters);
+        return (string) $this->apiClient->doCall('createBanner', $parameters);
     }
 
     /**
@@ -73,7 +78,7 @@ class CcmdDynamicContentService extends AbstractService
     {
         $parameters = ['banner' => $banner];
 
-        return (string) $this->soapClient->doCall('createBannerByObj', $parameters);
+        return (string) $this->apiClient->doCall('createBannerByObj', $parameters);
     }
 
     /**
@@ -87,7 +92,7 @@ class CcmdDynamicContentService extends AbstractService
     {
         $parameters = ['id' => (string) $id];
 
-        return (bool) $this->soapClient->doCall('deleteBanner', $parameters);
+        return (bool) $this->apiClient->doCall('deleteBanner', $parameters);
     }
 
     /**
@@ -110,7 +115,7 @@ class CcmdDynamicContentService extends AbstractService
             $parameters['value'] = $value;
         }
 
-        return (bool) $this->soapClient->doCall('updateBanner', $parameters);
+        return (bool) $this->apiClient->doCall('updateBanner', $parameters);
     }
 
     /**
@@ -124,7 +129,7 @@ class CcmdDynamicContentService extends AbstractService
     {
         $parameters = ['banner' => $banner];
 
-        return (bool) $this->soapClient->doCall('updateBannerByObj', $parameters);
+        return (bool) $this->apiClient->doCall('updateBannerByObj', $parameters);
     }
 
     /**
@@ -142,7 +147,7 @@ class CcmdDynamicContentService extends AbstractService
             'newName' => (string) $name
         ];
 
-        return (string) $this->soapClient->doCall('cloneBanner', $parameters);
+        return (string) $this->apiClient->doCall('cloneBanner', $parameters);
     }
 
     /**
@@ -156,7 +161,7 @@ class CcmdDynamicContentService extends AbstractService
     {
         $parameters = ['id' => (string) $id];
 
-        return (string) $this->soapClient->doCall('getBannerPreview', $parameters);
+        return (string) $this->apiClient->doCall('getBannerPreview', $parameters);
     }
 
     /**
@@ -170,7 +175,7 @@ class CcmdDynamicContentService extends AbstractService
     {
         $parameters = ['id' => (string) $id];
 
-        return $this->soapClient->doCall('getBanner', $parameters);
+        return $this->apiClient->doCall('getBanner', $parameters);
     }
 
     /**
@@ -196,7 +201,7 @@ class CcmdDynamicContentService extends AbstractService
             'limit' => (int) $limit
         ];
 
-        return (array) $this->soapClient->doCall('getBannersByField', $parameters);
+        return (array) $this->apiClient->doCall('getBannersByField', $parameters);
     }
 
     /**
@@ -214,7 +219,7 @@ class CcmdDynamicContentService extends AbstractService
             'dateEnd' => date('Y-m-d H:i:s', (int) $dateEnd)
         ];
 
-        return (array) $this->soapClient->doCall('getBannersByPeriod', $parameters);
+        return (array) $this->apiClient->doCall('getBannersByPeriod', $parameters);
     }
 
     /**
@@ -234,7 +239,7 @@ class CcmdDynamicContentService extends AbstractService
 
         $parameters = ['limit' => (int) $limit];
 
-        return (array) $this->soapClient->doCall('getLastBanners', $parameters);
+        return (array) $this->apiClient->doCall('getLastBanners', $parameters);
     }
 
     /**
@@ -248,7 +253,7 @@ class CcmdDynamicContentService extends AbstractService
     {
         $parameters = ['id' => (string) $id];
 
-        return (int) $this->soapClient->doCall('trackAllBannerLinks', $parameters);
+        return (int) $this->apiClient->doCall('trackAllBannerLinks', $parameters);
     }
 
     /**
@@ -262,7 +267,7 @@ class CcmdDynamicContentService extends AbstractService
     {
         $parameters = ['id' => (string) $id];
 
-        return (int) $this->soapClient->doCall('untrackAllBannerLinks', $parameters);
+        return (int) $this->apiClient->doCall('untrackAllBannerLinks', $parameters);
     }
 
     /**
@@ -280,7 +285,7 @@ class CcmdDynamicContentService extends AbstractService
             'position' => (int) $position
         ];
 
-        return (int) $this->soapClient->doCall('trackBannerLinkByPosition', $parameters);
+        return (int) $this->apiClient->doCall('trackBannerLinkByPosition', $parameters);
     }
 
     /**
@@ -298,7 +303,7 @@ class CcmdDynamicContentService extends AbstractService
             'order' => (int) $order
         ];
 
-        return (bool) $this->soapClient->doCall('untrackBannerLinkByOrder', $parameters);
+        return (bool) $this->apiClient->doCall('untrackBannerLinkByOrder', $parameters);
     }
 
     /**
@@ -312,7 +317,7 @@ class CcmdDynamicContentService extends AbstractService
     {
         $parameters = ['id' => (string) $id];
 
-        return (array) $this->soapClient->doCall('getAllBannerTrackedLinks', $parameters);
+        return (array) $this->apiClient->doCall('getAllBannerTrackedLinks', $parameters);
     }
 
     /**
@@ -326,7 +331,7 @@ class CcmdDynamicContentService extends AbstractService
     {
         $parameters = ['id' => (string) $id];
 
-        return (array) $this->soapClient->doCall('getAllUnusedBannerTrackedLinks', $parameters);
+        return (array) $this->apiClient->doCall('getAllUnusedBannerTrackedLinks', $parameters);
     }
 
     /**
@@ -340,6 +345,6 @@ class CcmdDynamicContentService extends AbstractService
     {
         $parameters = ['id' => (string) $id];
 
-        return (array) $this->soapClient->doCall('getAllBannerTrackableLinks', $parameters);
+        return (array) $this->apiClient->doCall('getAllBannerTrackableLinks', $parameters);
     }
 }

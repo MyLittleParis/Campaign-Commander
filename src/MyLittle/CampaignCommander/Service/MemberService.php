@@ -2,6 +2,7 @@
 
 namespace MyLittle\CampaignCommander\Service;
 
+use MyLittle\CampaignCommander\API\SOAP\Model\ClientFactoryInterface;
 use MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface;
 
 /**
@@ -9,17 +10,21 @@ use MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface;
  *
  * @author mylittleparis
  */
-class MemberService extends AbstractService
+class MemberService
 {
+    /**
+     * @var APIClient
+     */
+    private $apiClient;
+
     /**
      * Constructor
      *
-     * @param \MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface $client
+     * @param \MyLittle\CampaignCommander\API\SOAP\Model\ClientFactoryInterface $clientFactory
      */
-    public function __construct(ClientInterface $client)
+    public function __construct(ClientFactoryInterface $clientFactory)
     {
-        $this->soapClient = $client;
-        $this->soapClient->setWsdl(ClientInterface::WSDL_URL_MEMBER);
+        $this->apiClient = $clientFactory->createClient(ClientInterface::WSDL_URL_MEMBER);
     }
 
     /**
@@ -32,7 +37,7 @@ class MemberService extends AbstractService
      */
     public function descMemberTable()
     {
-        $response = $this->soapClient->doCall('descMemberTable');
+        $response = $this->apiClient->doCall('descMemberTable');
 
         // if response is not valid
         if (!isset($response->fields)) {
@@ -62,7 +67,7 @@ class MemberService extends AbstractService
     public function getMemberByEmail($email)
     {
         $parameters = ['email' => (string) $email];
-        $response = $this->soapClient->doCall('getMemberByEmail', $parameters);
+        $response = $this->apiClient->doCall('getMemberByEmail', $parameters);
 
         // sometimes this will return a hash, so grab the first one
         if (is_array($response)) {
@@ -89,7 +94,7 @@ class MemberService extends AbstractService
     public function getMemberById($id)
     {
         $parameters = ['id' => (string) $id];
-        $response = $this->soapClient->doCall('getMemberById', $parameters);
+        $response = $this->apiClient->doCall('getMemberById', $parameters);
 
         // if response is not valid
         if (!isset($response->attributes->entry)) {
@@ -111,7 +116,7 @@ class MemberService extends AbstractService
     public function getListMembersByObj(array $member)
     {
         $parameters = ['member' => $member];
-        $response = $this->soapClient->doCall('getListMembersByObj', $parameters);
+        $response = $this->apiClient->doCall('getListMembersByObj', $parameters);
 
         // no results
         if (null === $response) {
@@ -149,7 +154,7 @@ class MemberService extends AbstractService
     public function getListMembersByPage($page)
     {
         $parameters = ['page' => (int) $page];
-        $response = $this->soapClient->doCall('getListMembersByPage', $parameters);
+        $response = $this->apiClient->doCall('getListMembersByPage', $parameters);
 
         if ($response === null) {
             return array();
@@ -185,7 +190,7 @@ class MemberService extends AbstractService
     public function insertMember($email)
     {
         $parameters = ['email' => (string) $email];
-        $response = (int) $this->soapClient->doCall('insertMember', $parameters);
+        $response = (int) $this->apiClient->doCall('insertMember', $parameters);
 
         // if response is not valid
         if ($response == 0) {
@@ -215,7 +220,7 @@ class MemberService extends AbstractService
             'value' => $value,
         ];
 
-        $response = $this->soapClient->doCall('updateMember', $parameters);
+        $response = $this->apiClient->doCall('updateMember', $parameters);
 
         // if response is not valid
         if ($response == 0) {
@@ -260,7 +265,7 @@ class MemberService extends AbstractService
             $parameters['member']['memberUID'] = (string) $id;
         }
 
-        $response = $this->soapClient->doCall('insertOrUpdateMemberByObj', $parameters);
+        $response = $this->apiClient->doCall('insertOrUpdateMemberByObj', $parameters);
 
         // if response is not valid
         if ($response == 0) {
@@ -304,7 +309,7 @@ class MemberService extends AbstractService
             $parameters['member']['memberUID'] = (string) $id;
         }
 
-        $response = $this->soapClient->doCall('updateMemberByObj', $parameters);
+        $response = $this->apiClient->doCall('updateMemberByObj', $parameters);
 
         // if response is not valid
         if ($response == 0) {
@@ -340,7 +345,7 @@ class MemberService extends AbstractService
         ];
 
         $parameters = ['synchroId' => (string) $id];
-        $response = $this->soapClient->doCall('getMemberJobStatus', $parameters);
+        $response = $this->apiClient->doCall('getMemberJobStatus', $parameters);
 
         // if response is not valid
         if (!isset($response->status)) {
@@ -365,7 +370,7 @@ class MemberService extends AbstractService
     public function unjoinMemberByEmail($email)
     {
         $parameters =['email'=> (string) $email];
-        $response = $this->soapClient->doCall('unjoinMemberByEmail', $parameters);
+        $response = $this->apiClient->doCall('unjoinMemberByEmail', $parameters);
 
         // if response is not valid
         if ($response == 0) {
@@ -387,7 +392,7 @@ class MemberService extends AbstractService
     public function unjoinMemberById($id)
     {
         $parameters = ['memberId' => (string) $id];
-        $response = $this->soapClient->doCall('unjoinMemberById', $parameters);
+        $response = $this->apiClient->doCall('unjoinMemberById', $parameters);
 
         // if response is not valid
         if ($response == 0) {
@@ -409,7 +414,7 @@ class MemberService extends AbstractService
     public function unjoinMemberByObj(array $member)
     {
         $parameters = ['member' => $member];
-        $response = $this->soapClient->doCall('unjoinMemberByObj', $parameters);
+        $response = $this->apiClient->doCall('unjoinMemberByObj', $parameters);
 
         // if response is not valid
         if ($response == 0) {
@@ -433,7 +438,7 @@ class MemberService extends AbstractService
     public function rejoinMemberByEmail($email)
     {
         $parameters = ['email' => (string) $email];
-        $response = $this->soapClient->doCall('rejoinMemberByEmail', $parameters);
+        $response = $this->apiClient->doCall('rejoinMemberByEmail', $parameters);
 
         // if response is not valid
         if ($response == 0) {
@@ -456,7 +461,7 @@ class MemberService extends AbstractService
     public function rejoinMemberById($id)
     {
         $parameters = ['memberId' => (string) $id];
-        $response = $this->soapClient->doCall('rejoinMemberById', $parameters);
+        $response = $this->apiClient->doCall('rejoinMemberById', $parameters);
 
         // if response is not valid
         if ($response == 0) {
@@ -464,5 +469,30 @@ class MemberService extends AbstractService
         }
 
         return (string) $response;
+    }
+
+    /**
+     * Get the attributes entry of the response
+     *
+     * @param mixed $response
+     *
+     * @return array
+     */
+    protected function getAttributesEntry($response)
+    {
+        $AttributesEntry = [];
+        foreach ($response->attributes->entry as $entry) {
+            $key = (string) $entry->key;
+            $value = (isset($entry->value)) ? $entry->value : null;
+
+            // convert the DATEJOIN key to timestamp UNIX
+            if ($key == 'DATEJOIN' && $value !== null) {
+                $value = (int) strtotime($value);
+            }
+
+            $AttributesEntry[$key] = $value;
+        }
+
+        return $AttributesEntry;
     }
 }

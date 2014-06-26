@@ -2,6 +2,7 @@
 
 namespace MyLittle\CampaignCommander\Service;
 
+use MyLittle\CampaignCommander\API\SOAP\Model\ClientFactoryInterface;
 use MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface;
 
 /**
@@ -9,17 +10,22 @@ use MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface;
  *
  * @author mylittleparis
  */
-class CcmdCampaignService extends AbstractService
+class CcmdCampaignService
 {
+
+    /**
+     * @var APIClient
+     */
+    private $apiClient;
+
     /**
      * Constructor
      *
-     * @param \MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface $client
+     * @param \MyLittle\CampaignCommander\API\SOAP\Model\ClientFactoryInterface $clientFactory
      */
-    public function __construct(ClientInterface $client)
+    public function __construct(ClientFactoryInterface $clientFactory)
     {
-        $this->soapClient = $client;
-        $this->soapClient->setWsdl(ClientInterface::WSDL_URL_CCMD);
+        $this->apiClient = $clientFactory->createClient(ClientInterface::WSDL_URL_CCMD);
     }
 
     /**
@@ -37,15 +43,9 @@ class CcmdCampaignService extends AbstractService
      * @return string           The ID of the campaign.
      */
     public function createCampaign(
-        $name,
-        $sendDate,
-        $messageId,
-        $mailingListId,
-        $description = null,
-        $notifProgress = false,
-        $postClickTracking = false,
-        $emaildedupfig = false
-    ) {
+    $name, $sendDate, $messageId, $mailingListId, $description = null, $notifProgress = false, $postClickTracking = false, $emaildedupfig = false
+    )
+    {
         $parameters = [
             'name' => (string) $name,
             'sendDate' => date('Y-m-d H:i:s', (int) $sendDate),
@@ -60,7 +60,7 @@ class CcmdCampaignService extends AbstractService
             $parameters['desc'] = (string) $description;
         }
 
-        return (string) $this->soapClient->doCall('createCampaign', $parameters);
+        return (string) $this->apiClient->doCall('createCampaign', $parameters);
     }
 
     /**
@@ -78,15 +78,9 @@ class CcmdCampaignService extends AbstractService
      * @return string           The ID of the campaign.
      */
     public function createCampaignWithAnalytics(
-        $name,
-        $sendDate,
-        $messageId,
-        $mailingListId,
-        $description = null,
-        $notifProgress = false,
-        $postClickTracking = false,
-        $emaildedupfig = false
-    ) {
+    $name, $sendDate, $messageId, $mailingListId, $description = null, $notifProgress = false, $postClickTracking = false, $emaildedupfig = false
+    )
+    {
         $parameters = [
             'name' => (string) $name,
             'sendDate' => date('Y-m-d H:i:s', (int) $sendDate),
@@ -101,7 +95,7 @@ class CcmdCampaignService extends AbstractService
             $parameters['desc'] = (string) $description;
         }
 
-        return (string) $this->soapClient->doCall('createCampaignWithAnalytics', $parameters);
+        return (string) $this->apiClient->doCall('createCampaignWithAnalytics', $parameters);
     }
 
     /**
@@ -115,7 +109,7 @@ class CcmdCampaignService extends AbstractService
     {
         $parameters = ['campaign' => $campaign];
 
-        return (string) $this->soapClient->doCall('createCampaignByObj', $parameters);
+        return (string) $this->apiClient->doCall('createCampaignByObj', $parameters);
     }
 
     /**
@@ -129,7 +123,7 @@ class CcmdCampaignService extends AbstractService
     {
         $parameters = ['id' => (string) $id];
 
-        return (bool) $this->soapClient->doCall('deleteCampaign', $parameters);
+        return (bool) $this->apiClient->doCall('deleteCampaign', $parameters);
     }
 
     /**
@@ -149,7 +143,7 @@ class CcmdCampaignService extends AbstractService
             'value' => $value
         ];
 
-        return (bool) $this->soapClient->doCall('updateCampaign', $parameters);
+        return (bool) $this->apiClient->doCall('updateCampaign', $parameters);
     }
 
     /**
@@ -163,7 +157,7 @@ class CcmdCampaignService extends AbstractService
     {
         $parameters = ['campaign' => $campaign];
 
-        return (bool) $this->soapClient->doCall('updateCampaignByObj', $parameters);
+        return (bool) $this->apiClient->doCall('updateCampaignByObj', $parameters);
     }
 
     /**
@@ -177,7 +171,7 @@ class CcmdCampaignService extends AbstractService
     {
         $parameters = ['id' => (string) $id];
 
-        return (bool) $this->soapClient->doCall('postCampaign', $parameters);
+        return (bool) $this->apiClient->doCall('postCampaign', $parameters);
     }
 
     /**
@@ -191,7 +185,7 @@ class CcmdCampaignService extends AbstractService
     {
         $parameters = ['id' => (string) $id];
 
-        return (bool) $this->soapClient->doCall('unpostCampaign', $parameters);
+        return (bool) $this->apiClient->doCall('unpostCampaign', $parameters);
     }
 
     /**
@@ -205,7 +199,7 @@ class CcmdCampaignService extends AbstractService
     {
         $parameters = ['id' => (string) $id];
 
-        return $this->soapClient->doCall('getCampaign', $parameters);
+        return $this->apiClient->doCall('getCampaign', $parameters);
     }
 
     /**
@@ -225,7 +219,7 @@ class CcmdCampaignService extends AbstractService
             'limit' => (int) $limit
         ];
 
-        return (array) $this->soapClient->doCall('getCampaignsByField', $parameters);
+        return (array) $this->apiClient->doCall('getCampaignsByField', $parameters);
     }
 
     /**
@@ -254,13 +248,13 @@ class CcmdCampaignService extends AbstractService
         // Check if status is valid
         if (!in_array($status, $allowedStatus)) {
             throw new \Exception(
-                'Invalid status ('. $status .'), allowed values are: '. implode(', ', $allowedStatus) .'.'
+            'Invalid status (' . $status . '), allowed values are: ' . implode(', ', $allowedStatus) . '.'
             );
         }
 
         $parameters = ['status' => (string) $status];
 
-        return (array) $this->soapClient->doCall('getCampaignsByStatus', $parameters);
+        return (array) $this->apiClient->doCall('getCampaignsByStatus', $parameters);
     }
 
     /**
@@ -278,7 +272,7 @@ class CcmdCampaignService extends AbstractService
             'dateEnd' => date('Y-m-d H:i:s', (int) $dateEnd)
         ];
 
-        return (array) $this->soapClient->doCall('getCampaignsByPeriod', $parameters);
+        return (array) $this->apiClient->doCall('getCampaignsByPeriod', $parameters);
     }
 
     /**
@@ -292,7 +286,7 @@ class CcmdCampaignService extends AbstractService
     {
         $parameters = ['id' => (string) $id];
 
-        return (string) $this->soapClient->doCall('getCampaignStatus', $parameters);
+        return (string) $this->apiClient->doCall('getCampaignStatus', $parameters);
     }
 
     /**
@@ -306,7 +300,7 @@ class CcmdCampaignService extends AbstractService
     {
         $parameters = ['limit' => (int) $limit];
 
-        return (array) $this->soapClient->doCall('getLastCampaigns', $parameters);
+        return (array) $this->apiClient->doCall('getLastCampaigns', $parameters);
     }
 
     /**
@@ -324,7 +318,7 @@ class CcmdCampaignService extends AbstractService
             'groupId' => (string) $groupId
         ];
 
-        return (bool) $this->soapClient->doCall('testCampaignByGroup', $parameters);
+        return (bool) $this->apiClient->doCall('testCampaignByGroup', $parameters);
     }
 
     /**
@@ -342,7 +336,7 @@ class CcmdCampaignService extends AbstractService
             'memberId' => (string) $memberId
         ];
 
-        return (bool) $this->soapClient->doCall('testCampaignByMember', $parameters);
+        return (bool) $this->apiClient->doCall('testCampaignByMember', $parameters);
     }
 
     /**
@@ -356,7 +350,7 @@ class CcmdCampaignService extends AbstractService
     {
         $parameters = ['id' => (string) $id];
 
-        return (bool) $this->soapClient->doCall('pauseCampaign', $parameters);
+        return (bool) $this->apiClient->doCall('pauseCampaign', $parameters);
     }
 
     /**
@@ -370,7 +364,7 @@ class CcmdCampaignService extends AbstractService
     {
         $parameters = ['id' => (string) $id];
 
-        return (bool) $this->soapClient->doCall('unpauseCampaign', $parameters);
+        return (bool) $this->apiClient->doCall('unpauseCampaign', $parameters);
     }
 
     /**
@@ -384,6 +378,7 @@ class CcmdCampaignService extends AbstractService
     {
         $parameters = ['campaignId' => (string) $id];
 
-        return (array) $this->soapClient->doCall('getCampaignSnapshotReport', $parameters);
+        return (array) $this->apiClient->doCall('getCampaignSnapshotReport', $parameters);
     }
+
 }

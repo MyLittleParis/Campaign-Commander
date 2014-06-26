@@ -2,6 +2,7 @@
 
 namespace MyLittle\CampaignCommander\Tests\Service;
 
+use MyLittle\CampaignCommander\Tests\AbstractTestCase;
 use MyLittle\CampaignCommander\Service\CcmdSegmentService;
 
 /**
@@ -9,12 +10,12 @@ use MyLittle\CampaignCommander\Service\CcmdSegmentService;
  *
  * @author mylittleparis
  */
-class CcmdSegmentServiceTest extends \PHPUnit_Framework_TestCase
+class CcmdSegmentServiceTest extends AbstractTestCase
 {
     /**
-     * @var Client
+     * @var ClientFactoryInterface
      */
-    private $client;
+    private $clientFactory;
 
     /**
      * Prepares the environment before running a test.
@@ -23,9 +24,9 @@ class CcmdSegmentServiceTest extends \PHPUnit_Framework_TestCase
     {
         parent::setUp();
 
-        $this->client = $this->getMockBuilder('MyLittle\CampaignCommander\API\SOAP\Client')
-                ->disableOriginalConstructor()
-                ->getMock()
+        $this->clientFactory = $this->getMockBuilder('\MyLittle\CampaignCommander\API\SOAP\Model\ClientFactoryInterface')
+            ->disableOriginalConstructor()
+            ->getMock()
         ;
     }
 
@@ -34,40 +35,34 @@ class CcmdSegmentServiceTest extends \PHPUnit_Framework_TestCase
      */
     protected function tearDown()
     {
-        $this->client = null;
+        $this->clientFactory = null;
 
         parent::tearDown();
-    }
-
-    /**
-     *
-     * @param type $mockName
-     * @return type
-     * @throws \InvalidArgumentException
-     */
-    protected function getXMLFileMock($mockName)
-    {
-        $mockFile = __DIR__.'/../Fixtures/'.$mockName;
-
-        if (!is_file($mockFile) || !is_readable($mockFile)) {
-            throw new \InvalidArgumentException("Mock '$mockFile' could not be found.");
-        }
-
-        return file_get_contents($mockFile);
     }
 
     public function testSegmentationCount()
     {
         $response = $this->getXMLFileMock('segmentationCountResponse.xml');
 
-        $this->client
-                ->expects($this->once())
-                ->method('doCall')
-                ->with('segmentationCount', ['id' => '1234'])
-                ->will($this->returnValue($response))
+        $apiClient = $this->getMockBuilder('\MyLittle\CampaignCommander\API\SOAP\APIClient')
+            ->disableOriginalConstructor()
+            ->getMock()
         ;
 
-        $service = new CcmdSegmentService($this->client);
+        $apiClient
+            ->expects($this->once())
+            ->method('doCall')
+            ->with('segmentationCount', ['id' => '1234'])
+            ->will($this->returnValue($response))
+        ;
+
+        $this->clientFactory
+                ->expects($this->any())
+                ->method('createClient')
+                ->will($this->returnValue($apiClient))
+        ;
+
+        $service = new CcmdSegmentService($this->clientFactory);
 
         $this->assertEquals(
             $response,
@@ -79,14 +74,25 @@ class CcmdSegmentServiceTest extends \PHPUnit_Framework_TestCase
     {
         $response = $this->getXMLFileMock('segmentationDistinctCountResponse.xml');
 
-        $this->client
-                ->expects($this->once())
-                ->method('doCall')
-                ->with('segmentationDistinctCount', ['id' => '1234'])
-                ->will($this->returnValue($response))
+        $apiClient = $this->getMockBuilder('\MyLittle\CampaignCommander\API\SOAP\APIClient')
+            ->disableOriginalConstructor()
+            ->getMock()
         ;
 
-        $service = new CcmdSegmentService($this->client);
+        $apiClient
+            ->expects($this->once())
+            ->method('doCall')
+            ->with('segmentationDistinctCount', ['id' => '1234'])
+            ->will($this->returnValue($response))
+        ;
+
+        $this->clientFactory
+                ->expects($this->any())
+                ->method('createClient')
+                ->will($this->returnValue($apiClient))
+        ;
+
+        $service = new CcmdSegmentService($this->clientFactory);
 
         $this->assertEquals(
             $response,

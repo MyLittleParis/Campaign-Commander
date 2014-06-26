@@ -2,6 +2,7 @@
 
 namespace MyLittle\CampaignCommander\Tests\Service;
 
+use MyLittle\CampaignCommander\Tests\AbstractTestCase;
 use MyLittle\CampaignCommander\Service\BatchMemberService;
 
 /**
@@ -9,12 +10,12 @@ use MyLittle\CampaignCommander\Service\BatchMemberService;
  *
  * @author mylittleparis
  */
-class BatchMemberServiceTest extends \PHPUnit_Framework_TestCase
+class BatchMemberServiceTest extends AbstractTestCase
 {
     /**
-     * @var Client
+     * @var ClientFactoryInterface
      */
-    private $client;
+    private $clientFactory;
 
     /**
      * Prepares the environment before running a test.
@@ -23,9 +24,9 @@ class BatchMemberServiceTest extends \PHPUnit_Framework_TestCase
     {
         parent::setUp();
 
-        $this->client = $this->getMockBuilder('MyLittle\CampaignCommander\API\SOAP\ClientWithMTOMAttachments')
-                ->disableOriginalConstructor()
-                ->getMock()
+        $this->clientFactory = $this->getMockBuilder('\MyLittle\CampaignCommander\API\SOAP\Model\ClientFactoryInterface')
+            ->disableOriginalConstructor()
+            ->getMock()
         ;
     }
 
@@ -34,26 +35,9 @@ class BatchMemberServiceTest extends \PHPUnit_Framework_TestCase
      */
     protected function tearDown()
     {
-        $this->client = null;
+        $this->clientFactory = null;
 
         parent::tearDown();
-    }
-
-    /**
-     *
-     * @param type $mockName
-     * @return type
-     * @throws \InvalidArgumentException
-     */
-    protected function getXMLFileMock($mockName)
-    {
-        $mockFile = __DIR__.'/../Fixtures/'.$mockName;
-
-        if (!is_file($mockFile) || !is_readable($mockFile)) {
-            throw new \InvalidArgumentException("Mock '$mockFile' could not be found.");
-        }
-
-        return file_get_contents($mockFile);
     }
 
     public function testUploadFileMerge()
@@ -90,14 +74,25 @@ class BatchMemberServiceTest extends \PHPUnit_Framework_TestCase
             'file'          => $fileContent,
         ];
 
-        $this->client
-                ->expects($this->once())
-                ->method('doCall')
-                ->with('uploadFileMerge', $parameters)
-                ->will($this->returnValue($response))
+        $apiClient = $this->getMockBuilder('\MyLittle\CampaignCommander\API\SOAP\APIClient')
+            ->disableOriginalConstructor()
+            ->getMock()
         ;
 
-        $service = new BatchMemberService($this->client);
+        $apiClient
+            ->expects($this->once())
+            ->method('doCall')
+            ->with('uploadFileMerge', $parameters)
+            ->will($this->returnValue($response))
+        ;
+
+        $this->clientFactory
+                ->expects($this->any())
+                ->method('createClient')
+                ->will($this->returnValue($apiClient))
+        ;
+
+        $service = new BatchMemberService($this->clientFactory);
 
         $this->assertEquals(
             $response,

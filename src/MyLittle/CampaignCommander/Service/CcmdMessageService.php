@@ -2,6 +2,7 @@
 
 namespace MyLittle\CampaignCommander\Service;
 
+use MyLittle\CampaignCommander\API\SOAP\Model\ClientFactoryInterface;
 use MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface;
 
 /**
@@ -9,17 +10,21 @@ use MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface;
  *
  * @author mylittleparis
  */
-class CcmdMessageService extends AbstractService
+class CcmdMessageService
 {
+    /**
+     * @var APIClient
+     */
+    private $apiClient;
+
     /**
      * Constructor
      *
-     * @param \MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface $client
+     * @param \MyLittle\CampaignCommander\API\SOAP\Model\ClientFactoryInterface $clientFactory
      */
-    public function __construct(ClientInterface $client)
+    public function __construct(ClientFactoryInterface $clientFactory)
     {
-        $this->soapClient = $client;
-        $this->soapClient->setWsdl(ClientInterface::WSDL_URL_CCMD);
+        $this->apiClient = $clientFactory->createClient(ClientInterface::WSDL_URL_CCMD);
     }
 
     /**
@@ -76,7 +81,7 @@ class CcmdMessageService extends AbstractService
             $parameters['hotmailUnsubUrl'] = (string) $unsublinkpage;
         }
 
-        return (string) $this->soapClient->doCall('createEmailMessage', $parameters);
+        return (string) $this->apiClient->doCall('createEmailMessage', $parameters);
     }
 
     /**
@@ -91,7 +96,7 @@ class CcmdMessageService extends AbstractService
     {
         $parameters = ['message' => $message ];
 
-        return (string) $this->soapClient->doCall('createEmailMessageByObj', $parameters);
+        return (string) $this->apiClient->doCall('createEmailMessageByObj', $parameters);
     }
 
     /**
@@ -113,7 +118,7 @@ class CcmdMessageService extends AbstractService
             'body' => (string) $body
         ];
 
-        return (string) $this->soapClient->doCall('createSMSMessage', $parameters);
+        return (string) $this->apiClient->doCall('createSMSMessage', $parameters);
     }
 
     /**
@@ -128,7 +133,7 @@ class CcmdMessageService extends AbstractService
     {
         $parameters = ['message' => $message ];
 
-        return (string) $this->soapClient->doCall('createSmsMessageByObj', $parameters);
+        return (string) $this->apiClient->doCall('createSmsMessageByObj', $parameters);
     }
 
     /**
@@ -142,7 +147,7 @@ class CcmdMessageService extends AbstractService
     {
         $parameters = ['id' => $id];
 
-        return (bool) $this->soapClient->doCall('deleteMessage', $parameters);
+        return (bool) $this->apiClient->doCall('deleteMessage', $parameters);
     }
 
     /**
@@ -162,7 +167,7 @@ class CcmdMessageService extends AbstractService
             'value' => $value
         ];
 
-        return (bool) $this->soapClient->doCall('updateMessage', $parameters);
+        return (bool) $this->apiClient->doCall('updateMessage', $parameters);
     }
 
     /**
@@ -176,7 +181,7 @@ class CcmdMessageService extends AbstractService
     {
         $parameters = ['message' => $message];
 
-        return (bool) $this->soapClient->doCall('updateMessageByObj', $parameters);
+        return (bool) $this->apiClient->doCall('updateMessageByObj', $parameters);
     }
 
     /**
@@ -194,7 +199,7 @@ class CcmdMessageService extends AbstractService
             'newName' => (string) $newName
         ];
 
-        return (string) $this->soapClient->doCall('cloneMessage', $parameters);
+        return (string) $this->apiClient->doCall('cloneMessage', $parameters);
     }
 
     /**
@@ -208,7 +213,7 @@ class CcmdMessageService extends AbstractService
     {
         $parameters = ['id' => (string) $id];
 
-        return $this->soapClient->doCall('getMessage', $parameters);
+        return $this->apiClient->doCall('getMessage', $parameters);
     }
 
     /**
@@ -222,7 +227,7 @@ class CcmdMessageService extends AbstractService
     {
         $parameters = ['limit' => (int) $limit];
 
-        return (array) $this->soapClient->doCall('getLastEmailMessages', $parameters);
+        return (array) $this->apiClient->doCall('getLastEmailMessages', $parameters);
     }
 
     /**
@@ -236,7 +241,7 @@ class CcmdMessageService extends AbstractService
     {
         $parameters = ['limit' => (int) $limit];
 
-        return (array) $this->soapClient->doCall('getLastSmsMessages', $parameters);
+        return (array) $this->apiClient->doCall('getLastSmsMessages', $parameters);
     }
 
     /**
@@ -256,7 +261,7 @@ class CcmdMessageService extends AbstractService
             'limit' => (int) $limit
         ];
 
-        return (array) $this->soapClient->doCall('getEmailMessagesByField', $parameters);
+        return (array) $this->apiClient->doCall('getEmailMessagesByField', $parameters);
     }
 
     /**
@@ -276,7 +281,7 @@ class CcmdMessageService extends AbstractService
             'limit' => (int) $limit
         ];
 
-        return (array) $this->soapClient->doCall('getSmsMessagesByField', $parameters);
+        return (array) $this->apiClient->doCall('getSmsMessagesByField', $parameters);
     }
 
     /**
@@ -294,7 +299,7 @@ class CcmdMessageService extends AbstractService
             'dateEnd' => date('Y-m-d H:i:s', (int) $dateEnd)
         ];
 
-        return (array) $this->soapClient->doCall('getMessagesByPeriod', $parameters);
+        return (array) $this->apiClient->doCall('getMessagesByPeriod', $parameters);
     }
 
     /**
@@ -322,7 +327,7 @@ class CcmdMessageService extends AbstractService
             'part' => $part
         ];
 
-        return (string) $this->soapClient->doCall('getEmailMessagePreview', $parameters);
+        return (string) $this->apiClient->doCall('getEmailMessagePreview', $parameters);
     }
 
     /**
@@ -336,7 +341,7 @@ class CcmdMessageService extends AbstractService
     {
         $parameters = ['id' => (string) $messageId];
 
-        return (string) $this->soapClient->doCall('getSmsMessagePreview', $parameters);
+        return (string) $this->apiClient->doCall('getSmsMessagePreview', $parameters);
     }
 
     /**
@@ -350,7 +355,7 @@ class CcmdMessageService extends AbstractService
     {
         $parameters = ['id' => (string) $id];
 
-        return (string) $this->soapClient->doCall('trackAllLinks', $parameters);
+        return (string) $this->apiClient->doCall('trackAllLinks', $parameters);
     }
 
     /**
@@ -364,7 +369,7 @@ class CcmdMessageService extends AbstractService
     {
         $parameters = ['id' => (string) $id];
 
-        return (bool) $this->soapClient->doCall('untrackAllLinks', $parameters);
+        return (bool) $this->apiClient->doCall('untrackAllLinks', $parameters);
     }
 
     /**
@@ -394,7 +399,7 @@ class CcmdMessageService extends AbstractService
             'part' => (string) $part
         ];
 
-        return (string) $this->soapClient->doCall('trackLinkByPosition', $parameters);
+        return (string) $this->apiClient->doCall('trackLinkByPosition', $parameters);
     }
 
     /**
@@ -408,7 +413,7 @@ class CcmdMessageService extends AbstractService
     {
         $parameters = ['id' => (string) $id];
 
-        return (array) $this->soapClient->doCall('getAllTrackedLinks', $parameters);
+        return (array) $this->apiClient->doCall('getAllTrackedLinks', $parameters);
     }
 
     /**
@@ -422,7 +427,7 @@ class CcmdMessageService extends AbstractService
     {
         $parameters = ['id' => (string) $id];
 
-        return (array) $this->soapClient->doCall('getAllUnusedTrackedLinks', $parameters);
+        return (array) $this->apiClient->doCall('getAllUnusedTrackedLinks', $parameters);
     }
 
     /**
@@ -436,7 +441,7 @@ class CcmdMessageService extends AbstractService
     {
         $parameters = ['id' => (string) $id];
 
-        return (array) $this->soapClient->doCall('getAllTrackableLinks', $parameters);
+        return (array) $this->apiClient->doCall('getAllTrackableLinks', $parameters);
     }
 
     /**
@@ -470,7 +475,7 @@ class CcmdMessageService extends AbstractService
             'part' => (string) $part
         ];
 
-        return (bool) $this->soapClient->doCall('testEmailMessageByGroup', $parameters);
+        return (bool) $this->apiClient->doCall('testEmailMessageByGroup', $parameters);
     }
 
     /**
@@ -504,7 +509,7 @@ class CcmdMessageService extends AbstractService
             'part' => (string) $part
         ];
 
-        return (bool) $this->soapClient->doCall('testEmailMessageByMember', $parameters);
+        return (bool) $this->apiClient->doCall('testEmailMessageByMember', $parameters);
     }
 
     /**
@@ -524,7 +529,7 @@ class CcmdMessageService extends AbstractService
             'campaignName' => (string) $campaignName
         ];
 
-        return (bool) $this->soapClient->doCall('testSmsMessage', $parameters);
+        return (bool) $this->apiClient->doCall('testSmsMessage', $parameters);
     }
 
     /**
@@ -534,7 +539,7 @@ class CcmdMessageService extends AbstractService
      */
     public function getDefaultSender()
     {
-        return (string) $this->soapClient->doCall('getDefaultSender');
+        return (string) $this->apiClient->doCall('getDefaultSender');
     }
 
     /**
@@ -544,7 +549,7 @@ class CcmdMessageService extends AbstractService
      */
     public function getValidatedAltSenders()
     {
-        return (array) $this->soapClient->doCall('getValidatedAltSenders');
+        return (array) $this->apiClient->doCall('getValidatedAltSenders');
     }
 
     /**
@@ -554,6 +559,6 @@ class CcmdMessageService extends AbstractService
      */
     public function getNotValidatedSenders()
     {
-        return (array) $this->soapClient->doCall('getNotValidatedSenders');
+        return (array) $this->apiClient->doCall('getNotValidatedSenders');
     }
 }

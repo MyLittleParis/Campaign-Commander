@@ -2,6 +2,7 @@
 
 namespace MyLittle\CampaignCommander\Service;
 
+use MyLittle\CampaignCommander\API\SOAP\Model\ClientFactoryInterface;
 use MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface;
 
 /**
@@ -9,17 +10,22 @@ use MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface;
  *
  * @author mylittleparis
  */
-class BatchMemberService extends AbstractService
+class BatchMemberService
 {
+    /**
+     * @var APIClient
+     */
+    private $apiClient;
+
     /**
      * Constructor
      *
-     * @param \MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface $client
+     * @param \MyLittle\CampaignCommander\API\SOAP\Model\ClientFactoryInterface $clientFactory
      */
-    public function __construct(ClientInterface $client)
+    public function __construct(ClientFactoryInterface $clientFactory)
     {
-        $this->soapClient = $client;
-        $this->soapClient->setWsdl(ClientInterface::WSDL_URL_BATCH_MEMBER);
+        $this->apiClient = $clientFactory->createClient(ClientInterface::WSDL_URL_BATCH_MEMBER);
+
     }
 
     /**
@@ -58,6 +64,6 @@ class BatchMemberService extends AbstractService
             'file' => $fileContent,
         ];
 
-        return (string) $this->soapClient->doCall('uploadFileMerge', $parameters);
+        return (string) $this->apiClient->doCall('uploadFileMerge', $parameters);
     }
 }

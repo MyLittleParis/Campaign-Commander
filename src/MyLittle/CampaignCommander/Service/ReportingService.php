@@ -2,6 +2,7 @@
 
 namespace MyLittle\CampaignCommander\Service;
 
+use MyLittle\CampaignCommander\API\SOAP\Model\ClientFactoryInterface;
 use MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface;
 
 /**
@@ -9,17 +10,21 @@ use MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface;
  *
  * @author mylittleparis
  */
-class ReportingService extends AbstractService
+class ReportingService
 {
+    /**
+     * @var APIClient
+     */
+    private $apiClient;
+
     /**
      * Constructor
      *
-     * @param \MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface $client
+     * @param \MyLittle\CampaignCommander\API\SOAP\Model\ClientFactoryInterface $clientFactory
      */
-    public function __construct(ClientInterface $client)
+    public function __construct(ClientFactoryInterface $clientFactory)
     {
-        $this->soapClient = $client;
-        $this->soapClient->setWsdl(ClientInterface::WSDL_URL_REPORTING);
+        $this->apiClient = $clientFactory->createClient(ClientInterface::WSDL_URL_REPORTING);
     }
 
     /**
@@ -33,7 +38,7 @@ class ReportingService extends AbstractService
     {
         $parameters = ['campaignId' => (string) $campaignId];
 
-        return (array) $this->soapClient->doCall('getGlobalReportByCampaignId', $parameters);
+        return (array) $this->apiClient->doCall('getGlobalReportByCampaignId', $parameters);
     }
 
     /**
@@ -47,7 +52,7 @@ class ReportingService extends AbstractService
     {
         $parameters = ['campaignId' => (string) $campaignId];
 
-        return (array) $this->soapClient->doCall('getSnapshotReportUrl', $parameters);
+        return (array) $this->apiClient->doCall('getSnapshotReportUrl', $parameters);
     }
 
     /**
@@ -65,6 +70,6 @@ class ReportingService extends AbstractService
             'page' => (int) $page
         ];
 
-        return (array) $this->soapClient->doCall('getLinkReport', $parameters);
+        return (array) $this->apiClient->doCall('getLinkReport', $parameters);
     }
 }

@@ -2,17 +2,20 @@
 
 namespace MyLittle\CampaignCommander\Tests\Service;
 
+use MyLittle\CampaignCommander\Tests\AbstractTestCase;
+use MyLittle\CampaignCommander\Service\NotificationService;
+
 /**
  * NotificationServiceTest
  *
  * @author mylittleparis
  */
-class NotificationServiceTest
+class NotificationServiceTest extends AbstractTestCase
 {
     /**
-     * @var Client
+     * @var ClientFactoryInterface
      */
-    private $client;
+    private $clientFactory;
 
     /**
      * Prepares the environment before running a test.
@@ -21,9 +24,9 @@ class NotificationServiceTest
     {
         parent::setUp();
 
-        $this->client = $this->getMockBuilder('MyLittle\CampaignCommander\API\SOAP\Client')
-                ->disableOriginalConstructor()
-                ->getMock()
+        $this->clientFactory = $this->getMockBuilder('\MyLittle\CampaignCommander\API\SOAP\Model\ClientFactoryInterface')
+            ->disableOriginalConstructor()
+            ->getMock()
         ;
     }
 
@@ -32,26 +35,9 @@ class NotificationServiceTest
      */
     protected function tearDown()
     {
-        $this->client = null;
+        $this->clientFactory = null;
 
         parent::tearDown();
-    }
-
-    /**
-     *
-     * @param type $mockName
-     * @return type
-     * @throws \InvalidArgumentException
-     */
-    protected function getXMLFileMock($mockName)
-    {
-        $mockFile = __DIR__.'/../Fixtures/'.$mockName;
-
-        if (!is_file($mockFile) || !is_readable($mockFile)) {
-            throw new \InvalidArgumentException("Mock '$mockFile' could not be found.");
-        }
-
-        return file_get_contents($mockFile);
     }
 
     public function testSendObject()
@@ -61,10 +47,8 @@ class NotificationServiceTest
         $uniqueIdentifier = 'uniqueId';
         $securityTag      = 'securityTag';
         $email            = 'name@email.fr';
-        $dyn              = null;
-        $content          = null;
         $type             = 'INSERT_UPDATE';
-        $sendDate         = null;
+        $sendDate         = time();
         $uidKey           = 'email';
 
         $parameters['sendrequest'] = [
@@ -74,18 +58,26 @@ class NotificationServiceTest
             'senddate'    => $sendDate,
             'synchrotype' => $type,
             'uidkey'      => $uidKey,
-            'dyn'         => $dyn,
-            'content'     => $content,
         ];
 
-        $this->client
-                ->expects($this->once())
-                ->method('doCall')
-                ->with('sendObject', $parameters)
-                ->will($this->returnValue($response))
+        $apiClient = $this->getMockBuilder('\MyLittle\CampaignCommander\API\SOAP\APIClient')
+            ->disableOriginalConstructor()
+            ->getMock()
         ;
 
-        $service = new MemberExportService($this->client);
+        $apiClient->expects($this->once())
+            ->method('doCall')
+            ->with('sendObject', $parameters)
+            ->will($this->returnValue($response))
+        ;
+
+        $this->clientFactory
+                ->expects($this->any())
+                ->method('createClient')
+                ->will($this->returnValue($apiClient))
+        ;
+
+        $service = new NotificationService($this->clientFactory);
 
         $this->assertEquals(
             $response,
@@ -93,8 +85,8 @@ class NotificationServiceTest
                 $uniqueIdentifier,
                 $securityTag,
                 $email,
-                $dyn,
-                $content,
+                null,
+                null,
                 $type,
                 $sendDate,
                 $uidKey
