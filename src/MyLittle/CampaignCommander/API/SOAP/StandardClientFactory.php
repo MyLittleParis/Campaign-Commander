@@ -3,6 +3,7 @@
 namespace MyLittle\CampaignCommander\API\SOAP;
 
 use MyLittle\CampaignCommander\API\SOAP\Model\ClientFactoryInterface;
+use BeSimple\SoapClient\SoapClientBuilder;
 
 /**
  * StandartSoapClientFactory

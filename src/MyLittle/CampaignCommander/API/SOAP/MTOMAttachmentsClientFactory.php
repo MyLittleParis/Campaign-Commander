@@ -4,6 +4,7 @@ namespace MyLittle\CampaignCommander\API\SOAP;
 
 use MyLittle\CampaignCommander\API\SOAP\Model\ClientFactoryInterface;
 use BeSimple\SoapCommon\Helper;
+use BeSimple\SoapClient\SoapClientBuilder;
 
 /**
  * Client with mtom attachments Factory
