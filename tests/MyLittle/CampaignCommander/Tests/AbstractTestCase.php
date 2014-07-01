@@ -26,6 +26,14 @@ class AbstractTestCase extends \PHPUnit_Framework_TestCase
             throw new \InvalidArgumentException("Mock '$mockFile' could not be found.");
         }
 
-        return file_get_contents($mockFile);
+        $xml = file_get_contents($mockFile);
+        $doc = new \DOMDocument();
+        $doc->loadXML($xml);
+        $return = $doc->getElementsByTagName('return')->item(0)->nodeValue;
+
+        return $return;
+
     }
+
+  
 }

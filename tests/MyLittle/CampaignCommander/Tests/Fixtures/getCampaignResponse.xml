@@ -1,0 +1,25 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"> 
+	<soap:Body>
+		<ns2:getCampaignResponse xmlns:ns2="http://api.service.apiccmd.emailvision.com/"> 
+			<return>
+				<deliverySpeed>0</deliverySpeed> 
+				<description>This is great</description> 
+				<emaildedupflg>true</emaildedupflg> 
+				<format>OTHER</format>
+				<id>2182</id> 
+				<lifeStatus>TRACKING</lifeStatus> 
+				<mailingListId>2191</mailingListId> 
+				<messageId>1945</messageId> 
+				<name>Summer Sales</name> 
+				<notification>true</notification>
+				<postClickTracking>true</postClickTracking> 
+				<sendDate>2009-12-15T00:00:00</sendDate> 
+				<status>EDITABLE</status> 
+				<strategy>OTHER</strategy> 
+				<target>OTHER</target> 
+				<valid>EDITABLE</valid> 
+				<analytics>false</analytics>
+			</return> 
+		</ns2:getCampaignResponse>
+	</soap:Body> 
+</soap:Envelope>
