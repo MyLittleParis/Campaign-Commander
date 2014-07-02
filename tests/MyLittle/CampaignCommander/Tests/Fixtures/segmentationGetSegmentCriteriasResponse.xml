@@ -1,0 +1,34 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"> 
+	<soap:Body>
+		<ns2:segmentationGetSegmentCriteriasResponse xmlns:ns2="http://api.service.apiccmd.emailvision.com/">
+			<return xsi:type="ns2:apiNumericDemographicCriteria" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<groupName>GROUP 1</groupName> 
+				<groupNumber>1</groupNumber>
+				<id>1122365</id>
+				<orderFrag>0</orderFrag>
+				<columnName>SEED</columnName> 
+				<firstValue>0.0</firstValue> 
+				<operator>OPERATOR_NUMERIC_SUPERIOR_OR_EQUAL_ID</operator> 
+				<secondValue>0.0</secondValue>
+			</return>
+			<return xsi:type="ns2:apiStringDemographicCriteria" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<groupName>GROUP 1</groupName> 
+				<groupNumber>1</groupNumber> 
+				<id>1122365</id>
+				<orderFrag>1</orderFrag> 
+				<columnName>EMAIL</columnName> 
+				<operator>OPERATOR_IS_NOT_EMPTY_ID</operator> 
+				<values xsi:nil="true"/>
+			</return>
+			<return xsi:type="ns2:apiDateDemographicCriteria" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<groupName>GROUP 1</groupName> 
+				<groupNumber>1</groupNumber> 
+				<id>1122365</id>
+				<orderFrag>2</orderFrag> 
+				<absoluteDate>false</absoluteDate> 
+				<columnName>DATEOFBIRTH</columnName> 
+				<operator>OPERATOR_IS_NOT_EMPTY_ID</operator>
+			</return> 
+		</ns2:segmentationGetSegmentCriteriasResponse>
+	</soap:Body> 
+</soap:Envelope>

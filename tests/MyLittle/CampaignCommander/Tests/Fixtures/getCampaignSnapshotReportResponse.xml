@@ -1,0 +1,21 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"> 
+	<soap:Body>
+		<ns2:getCampaignSnapshotResponse xmlns:ns2="http://api.service.apiccmd.emailvision.com/"> 
+			<return>
+				<beginDate>2009-04-03T15:40:01+02:00</beginDate> 
+				<campaignId>2001</campaignId> 
+				<endDate>2009-04-03T15:40:01+02:00</endDate> 
+				<nbBounce>0</nbBounce> <nbComplaint>0</nbComplaint> 
+				<nbConversion>0</nbConversion> 
+				<nbDelivered>100011</nbDelivered> 
+				<nbFiltered>3</nbFiltered> 
+				<nbHardBounce>0</nbHardBounce> 
+				<nbSelected>100014</nbSelected> 
+				<nbSoftBounce>0</nbSoftBounce> 
+				<nbUniqueClick>0</nbUniqueClick> 
+				<nbUniqueOpen>4</nbUniqueOpen>
+				<nbUnsubscribe>0</nbUnsubscribe> 
+			</return>
+		</ns2:getCampaignSnapshotResponse> 
+	</soap:Body>
+</soap:Envelope>

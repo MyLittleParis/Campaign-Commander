@@ -1,0 +1,14 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"> 
+	<soap:Body>
+		<ns2:segmentationGetSegmentByIdResponse xmlns:ns2="http://api.service.apiccmd.emailvision.com/">
+			<return> 
+				<dateCreate>2010-12-16T15:04:40+01:00</dateCreate> 
+				<dateModif>2010-12-16T15:18:48+01:00</dateModif> 
+				<id>1122365</id>
+				<name>Test 5 Demographic</name> 
+				<sampleRate>0.0</sampleRate> 
+				<sampleType>ALL</sampleType>
+			</return> 
+		</ns2:segmentationGetSegmentByIdResponse>
+	</soap:Body> 
+</soap:Envelope>
