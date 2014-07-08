@@ -1,9 +1,9 @@
 <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"> 
-	<soap:Body>
-		<ns2:segmentationGetSegmentListResponse xmlns:ns2="http://api.service.apiccmd.emailvision.com/">
-			<return>1122365</return> 
-			<return>1122364</return> 
-			<return>1122363</return>
-		</ns2:segmentationGetSegmentListResponse> 
-	</soap:Body>
+    <soap:Body>
+        <ns2:segmentationGetSegmentListResponse xmlns:ns2="http://api.service.apiccmd.emailvision.com/">
+            <return>1122365</return> 
+            <return>1122364</return> 
+            <return>1122363</return>
+        </ns2:segmentationGetSegmentListResponse> 
+    </soap:Body>
 </soap:Envelope>

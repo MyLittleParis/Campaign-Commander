@@ -60,12 +60,9 @@ class CcmdCampaignServiceTest extends AbstractTestCase
             'mailingListId' => (string) $mailingListId,
             'notifProgress' => (bool) $notifProgress,
             'postClickTracking' => (bool) $postClickTracking,
-            'emaildedupflg' => (bool) $emaildedupflg
+            'emaildedupflg' => (bool) $emaildedupflg,
+            'desc' => (string) $description
         ];
-
-        if (null !== $description) {
-            $parameters['desc'] = (string) $description;
-        }
 
         $apiClient = $this->getMockBuilder('\MyLittle\CampaignCommander\API\SOAP\APIClient')
             ->disableOriginalConstructor()
@@ -498,7 +495,7 @@ class CcmdCampaignServiceTest extends AbstractTestCase
 
         $this->clientFactory
                 ->expects($this->any())
-                ->method('createClient')
+                ->method('getCampaignsByStatus')
                 ->will($this->returnValue($apiClient))
         ;
 

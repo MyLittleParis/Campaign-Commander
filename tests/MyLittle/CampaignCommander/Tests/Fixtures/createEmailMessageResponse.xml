@@ -1,0 +1,9 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"> 
+    <soap:Body>
+        <ns2:createEmailMessageResponse xmlns:ns2="http://api.service.apiccmd.emailvision.com/"> 
+            <return>
+                1561
+            </return>
+        </ns2:createEmailMessageResponse> 
+    </soap:Body>
+</soap:Envelope>

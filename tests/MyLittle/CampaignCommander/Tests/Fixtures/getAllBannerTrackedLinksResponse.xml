@@ -1,0 +1,18 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"> 
+    <soap:Body>
+        <ns2:getAllBannerTrackedLinksResponse xmlns:ns2="http://api.service.apiccmd.emailvision.com/">
+            <return>
+                1
+            </return> 
+            <return>
+                2
+            </return> 
+            <return>
+                3
+            </return> 
+            <return>
+                4
+            </return>
+        </ns2:getAllBannerTrackedLinksResponse> 
+    </soap:Body>
+</soap:Envelope>

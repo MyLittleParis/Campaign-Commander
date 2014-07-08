@@ -1,0 +1,7 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"> 
+    <soap:Body>
+        <ns2:getNotValidatedSendersResponse xmlns:ns2="http://api.service.apiccmd.emailvision.com/"> 
+            <return>email4@nlo.emv2.net</return>
+        </ns2:getNotValidatedSendersResponse> 
+    </soap:Body>
+</soap:Envelope>

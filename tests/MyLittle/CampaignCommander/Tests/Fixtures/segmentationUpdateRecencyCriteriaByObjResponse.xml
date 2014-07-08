@@ -1,7 +1,7 @@
 <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"> 
-	<soap:Body>
-		<ns2:segmentationUpdateRecencyCriteriaByObjResponse xmlns:ns2="http://api.service.apiccmd.emailvision.com/">
-			<return>true</return> 
-		</ns2:segmentationUpdateRecencyCriteriaByObjResponse>
-	</soap:Body> 
+    <soap:Body>
+        <ns2:segmentationUpdateRecencyCriteriaByObjResponse xmlns:ns2="http://api.service.apiccmd.emailvision.com/">
+            <return>true</return> 
+        </ns2:segmentationUpdateRecencyCriteriaByObjResponse>
+    </soap:Body> 
 </soap:Envelope>

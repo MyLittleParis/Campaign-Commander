@@ -1,0 +1,7 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"> 
+    <soap:Body>
+        <ns2:createTestGroupResponse xmlns:ns2="http://api.service.apiccmd.emailvision.com/"> 
+            <return>75</return>
+        </ns2:createTestGroupResponse> 
+    </soap:Body>
+</soap:Envelope>

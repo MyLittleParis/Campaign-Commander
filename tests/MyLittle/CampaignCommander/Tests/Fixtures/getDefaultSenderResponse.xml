@@ -1,0 +1,7 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"> 
+    <soap:Body>
+        <ns2:getDefaultSenderResponse xmlns:ns2="http://api.service.apiccmd.emailvision.com/"> 
+            <return>email@nlochet.emv2.net</return>
+        </ns2:getDefaultSenderResponse> 
+    </soap:Body>
+</soap:Envelope>

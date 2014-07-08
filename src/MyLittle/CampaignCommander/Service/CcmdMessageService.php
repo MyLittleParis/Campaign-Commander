@@ -118,7 +118,7 @@ class CcmdMessageService
             'body' => (string) $body
         ];
 
-        return (string) $this->apiClient->doCall('createSMSMessage', $parameters);
+        return (string) $this->apiClient->doCall('createSmsMessage', $parameters);
     }
 
     /**

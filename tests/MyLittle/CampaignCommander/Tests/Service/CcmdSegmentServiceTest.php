@@ -202,7 +202,7 @@ class CcmdSegmentServiceTest extends AbstractTestCase
 
         $service = new CcmdSegmentService($this->clientFactory);
 
-        $service->segmentationCreateSegment('id', $sampleType);
+        $service->segmentationUpdateSegment('id', $sampleType);
     }
 
     public function testSegmentationUpdateSegmentWrongSampleRate ()
@@ -213,13 +213,13 @@ class CcmdSegmentServiceTest extends AbstractTestCase
 
         $this->clientFactory
                 ->expects($this->any())
-                ->method('segmentationCreateSegment')
+                ->method('segmentationUpdateSegment')
                 ->will($this->returnValue($apiClient))
         ;
 
         $service = new CcmdSegmentService($this->clientFactory);
 
-        $service->segmentationCreateSegment('id', $sampleType);
+        $service->segmentationUpdateSegment('id', $sampleType);
     }
 
     public function testSegmentationAddStringDemographicCriteriaByObj ()

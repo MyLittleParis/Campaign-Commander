@@ -1,0 +1,16 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"> 
+    <soap:Body>
+        <ns2:getLastEmailMessagesResponse xmlns:ns2="http://api.service.apiccmd.emailvision.com/"> 
+            <return>1906</return>
+            <return>1881</return>
+            <return>1843</return>
+            <return>1816</return> 
+            <return>1761</return> 
+            <return>1704</return> 
+            <return>1319</return> 
+            <return>1294</return> 
+            <return>1293</return> 
+            <return>1292</return>
+        </ns2:getLastEmailMessagesResponse> 
+    </soap:Body>
+</soap:Envelope>
