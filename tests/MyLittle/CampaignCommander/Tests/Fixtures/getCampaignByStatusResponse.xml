@@ -1,0 +1,8 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"> 
+    <soap:Body>
+        <ns2:getCampaignsByStatusResponse xmlns:ns2="http://api.service.apiccmd.emailvision.com/"> 
+            <return>468</return>
+            <return>582</return>
+        </ns2:getCampaignsByStatusResponse> 
+    </soap:Body>
+</soap:Envelope>

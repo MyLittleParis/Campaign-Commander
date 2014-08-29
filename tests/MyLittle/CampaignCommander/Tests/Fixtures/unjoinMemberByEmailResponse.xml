@@ -1,0 +1,8 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"> 
+    <soap:Body> 
+        <ns2:unjoinMemberByEmailResponse 
+            xmlns:ns2="http://api.service.apimember.emailvision.com/"> 
+            <return>210134</return> 
+        </ns2:unjoinMemberByEmailResponse> 
+    </soap:Body> 
+</soap:Envelope>

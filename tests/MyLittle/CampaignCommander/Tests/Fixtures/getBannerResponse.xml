@@ -1,0 +1,23 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"> 
+    <soap:Body>
+        <ns2:getBannerResponse xmlns:ns2="http://api.service.apiccmd.emailvision.com/"> 
+            <return>
+                <content>
+                    For more information go to: [EMV LINK]1[EMV /LINK] If you no longer wish to receive this email click: [EMV LINK]2[EMV /LINK]
+                </content>
+                <contentType>
+                    TEXT
+                </contentType> 
+                <description>
+                    Footer
+                </description> 
+                <id>
+                    1
+                </id>
+                <name>
+                    Footer Unsubscribe Txt
+                </name>
+            </return> 
+        </ns2:getBannerResponse>
+    </soap:Body> 
+</soap:Envelope>

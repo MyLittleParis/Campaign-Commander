@@ -1,0 +1,14 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"> 
+    <soap:Body>
+        <ns2:getTestGroupResponse xmlns:ns2="http://api.service.apiccmd.emailvision.com/"> 
+            <return>
+                <id>75</id>
+                <name>My test group</name> 
+                <testMembers>
+                    <memberId>357235</memberId>
+                    <memberId>367669</memberId> 
+                </testMembers>
+            </return> 
+        </ns2:getTestGroupResponse>
+    </soap:Body> 
+</soap:Envelope>

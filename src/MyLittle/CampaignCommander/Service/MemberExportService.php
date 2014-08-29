@@ -40,6 +40,7 @@ class MemberExportService
 
     /**
      * Get download file status list
+     *
      * @return array
      */
     public function getDownloadStatusList()

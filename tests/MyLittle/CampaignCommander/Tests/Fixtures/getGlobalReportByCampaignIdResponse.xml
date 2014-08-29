@@ -1,0 +1,46 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"> 
+    <soap:Body>
+        <ns2:getGlobalReportByCampaignIdResponse xmlns:ns2="http://service.apireporting.emailvision.com/">
+            <return> 
+                <averageTransactionValue>16.666666666666668</averageTransactionValue> 
+                <campaignId>1429004</campaignId>
+                <campaignName>Completed normal 1</campaignName> 
+                <nbBounces>70</nbBounces>
+                <nbClickers>2000</nbClickers>
+                <nbClicks>3000</nbClicks>
+                <nbComplaints>10</nbComplaints>
+                <nbConversion>60</nbConversion>
+                <nbDelivered>9830</nbDelivered>
+                <nbFiltered>100</nbFiltered>
+                <nbHardBounces>30</nbHardBounces>
+                <nbOpened>8000</nbOpened>
+                <nbSelected>10000</nbSelected>
+                <nbSent>9900</nbSent>
+                <nbShareClicks>750</nbShareClicks>
+                <nbShared>700</nbShared>
+                <nbSharers>690</nbSharers>
+                <nbSnOpened>650</nbSnOpened>
+                <nbSoftBounces>40</nbSoftBounces> 
+                <nbTotalOpened>9000</nbTotalOpened> 
+                <nbTransaction>30</nbTransaction>
+                <nbUnjoined>200</nbUnjoined>
+                <pctBounces>0.7070707</pctBounces> 
+                <pctClickers>20.34588</pctClickers> 
+                <pctClickersOverOpeners>25.0</pctClickersOverOpeners> 
+                <pctComplaints>0.1017294</pctComplaints> 
+                <pctConvertedOverDelivered>0.6103764</pctConvertedOverDelivered> 
+                <pctDelivered>99.29293</pctDelivered> 
+                <pctFiltered>1.0</pctFiltered> 
+                <pctHardBounces>0.3030303</pctHardBounces> 
+                <pctOpened>81.38352</pctOpened>
+                <pctSent>99.0</pctSent> 
+                <pctSharers>7.0193286</pctSharers> 
+                <pctSoftBounces>0.4040404</pctSoftBounces> 
+                <pctUnjoined>2.034588</pctUnjoined> 
+                <sendDate>2010-03-04T13:23:13+01:00</sendDate> 
+                <valConversion>1000.0</valConversion> 
+                <valTransaction>500.0</valTransaction>
+            </return> 
+        </ns2:getGlobalReportByCampaignIdResponse>
+    </soap:Body> 
+</soap:Envelope>

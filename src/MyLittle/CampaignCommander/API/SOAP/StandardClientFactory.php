@@ -49,7 +49,10 @@ class StandardClientFactory implements ClientFactoryInterface
      * Constructor
      *
      * @param \BeSimple\SoapClient\SoapClientBuilder $builder
-     * @param type $wsdl
+     * @param string $login
+     * @param string $password
+     * @param string $key
+     * @param string $server
      */
     public function __construct(SoapClientBuilder $builder, $login, $password, $key, $server)
     {

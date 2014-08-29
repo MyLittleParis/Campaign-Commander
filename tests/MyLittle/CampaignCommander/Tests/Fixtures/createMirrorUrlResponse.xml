@@ -1,0 +1,7 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"> 
+    <soap:Body>
+        <ns2:createMirrorUrlResponse xmlns:ns2="http://api.service.apiccmd.emailvision.com/"> 
+            <return>9</return>
+        </ns2:createMirrorUrlResponse> 
+    </soap:Body>
+</soap:Envelope>

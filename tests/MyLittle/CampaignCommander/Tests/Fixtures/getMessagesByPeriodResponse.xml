@@ -1,0 +1,24 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"> 
+    <soap:Body>
+        <ns2:getMessagesByPeriodResponse xmlns:ns2="http://api.service.apiccmd.emailvision.com/"> 
+            <return>1704</return>
+            <return>1761</return>
+            <return>1254</return>
+            <return>1267</return>
+            <return>1270</return> 
+            <return>1272</return> 
+            <return>1293</return> 
+            <return>1292</return> 
+            <return>1319</return> 
+            <return>1816</return> 
+            <return>1566</return> 
+            <return>1843</return> 
+            <return>1881</return> 
+            <return>1906</return> 
+            <return>1562</return> 
+            <return>1271</return> 
+            <return>1269</return> 
+            <return>1294</return>
+        </ns2:getMessagesByPeriodResponse> 
+    </soap:Body>
+</soap:Envelope>

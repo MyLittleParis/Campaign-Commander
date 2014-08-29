@@ -38,12 +38,12 @@ class CcmdCampaignService
      * @param  string[optional] $description       The description.
      * @param  bool[optional]   $notifProgress     Should you be notified of the progress of the campaign by email.
      * @param  bool[optional]   $postClickTracking Use post click tracking?
-     * @param  bool[optional]   $emaildedupfig     Deduplicate the mailing list?
+     * @param  bool[optional]   $emaildedupflg     Deduplicate the mailing list?
      *
-     * @return string           The ID of the campaign.
+     * @return int           The ID of the campaign.
      */
     public function createCampaign(
-    $name, $sendDate, $messageId, $mailingListId, $description = null, $notifProgress = false, $postClickTracking = false, $emaildedupfig = false
+    $name, $sendDate, $messageId, $mailingListId, $description = null, $notifProgress = false, $postClickTracking = false, $emaildedupflg = false
     )
     {
         $parameters = [
@@ -53,14 +53,14 @@ class CcmdCampaignService
             'mailingListId' => (string) $mailingListId,
             'notifProgress' => (bool) $notifProgress,
             'postClickTracking' => (bool) $postClickTracking,
-            'emaildedupflg' => (bool) $emaildedupfig
+            'emaildedupflg' => (bool) $emaildedupflg
         ];
 
         if (null !== $description) {
             $parameters['desc'] = (string) $description;
         }
 
-        return (string) $this->apiClient->doCall('createCampaign', $parameters);
+        return (int) $this->apiClient->doCall('createCampaign', $parameters);
     }
 
     /**
@@ -73,12 +73,12 @@ class CcmdCampaignService
      * @param  string[optional] $description       The description.
      * @param  bool[optional]   $notifProgress     Should you be notified of the progress of the campaign by email.
      * @param  bool[optional]   $postClickTracking Use post click tracking?
-     * @param  bool[optional]   $emaildedupfig     Deduplicate the mailing list?
+     * @param  bool[optional]   $emaildedupflg     Deduplicate the mailing list?
      *
-     * @return string           The ID of the campaign.
+     * @return int           The ID of the campaign.
      */
     public function createCampaignWithAnalytics(
-    $name, $sendDate, $messageId, $mailingListId, $description = null, $notifProgress = false, $postClickTracking = false, $emaildedupfig = false
+    $name, $sendDate, $messageId, $mailingListId, $description = null, $notifProgress = false, $postClickTracking = false, $emaildedupflg = false
     )
     {
         $parameters = [
@@ -88,14 +88,14 @@ class CcmdCampaignService
             'mailingListId' => (string) $mailingListId,
             'notifProgress' => (bool) $notifProgress,
             'postClickTracking' => (bool) $postClickTracking,
-            'emaildedupflg' => (bool) $emaildedupfig
+            'emaildedupflg' => (bool) $emaildedupflg
         ];
 
         if (null !== $description) {
             $parameters['desc'] = (string) $description;
         }
 
-        return (string) $this->apiClient->doCall('createCampaignWithAnalytics', $parameters);
+        return (int) $this->apiClient->doCall('createCampaignWithAnalytics', $parameters);
     }
 
     /**
@@ -103,13 +103,13 @@ class CcmdCampaignService
      *
      * @param  array  $campaign The campaign object.
      *
-     * @return string The ID of the campaign.
+     * @return int The ID of the campaign.
      */
     public function createCampaignByObj(array $campaign)
     {
         $parameters = ['campaign' => $campaign];
 
-        return (string) $this->apiClient->doCall('createCampaignByObj', $parameters);
+        return (int) $this->apiClient->doCall('createCampaignByObj', $parameters);
     }
 
     /**

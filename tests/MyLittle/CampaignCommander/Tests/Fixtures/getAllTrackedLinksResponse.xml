@@ -1,0 +1,18 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"> 
+    <soap:Body>
+        <ns2:getAllLinksResponse xmlns:ns2="http://api.service.apiccmd.emailvision.com/"> 
+            <return>1</return>
+            <return>2</return>
+            <return>3</return>
+            <return>4</return> 
+            <return>5</return> 
+            <return>6</return> 
+            <return>7</return> 
+            <return>8</return> 
+            <return>9</return> 
+            <return>10</return>
+            <return>11</return>
+            <return>12</return> 
+        </ns2:getAllLinksResponse>
+    </soap:Body> 
+</soap:Envelope>

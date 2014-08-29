@@ -1,0 +1,9 @@
+<soap:Envelope 
+    xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"> 
+    <soap:Body> 
+        <ns2:updateMemberResponse 
+            xmlns:ns2="http://api.service.apimember.emailvision.com/"> 
+            <return>314</return> 
+        </ns2:updateMemberResponse> 
+    </soap:Body> 
+</soap:Envelope>
