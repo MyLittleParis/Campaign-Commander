@@ -23,7 +23,10 @@
         "issues": "https://github.com/MyLittleParis/Campaign-Commander"
     },
     "autoload": {
-        "psr-4": { "MyLittle\\CampaignCommander\\": "src/MyLittle/CampaignCommander" }
+        "psr-4": {
+            "MyLittle\\CampaignCommander\\Tests\\": "tests/",
+            "MyLittle\\CampaignCommander\\": "src/"
+        }
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
