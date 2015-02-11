@@ -109,7 +109,7 @@ class APIClient implements ClientInterface
     public function __destruct()
     {
         try {
-            $this->soapClient->__soapCall('closeApiConnection', ['token', $this->token]);
+            $this->soapClient->__soapCall('closeApiConnection', [['token' => $this->token]]);
 
             $this->soapClient = null;
             $this->token = null;
@@ -127,7 +127,7 @@ class APIClient implements ClientInterface
         ];
 
         try {
-            $response = $this->soapClient->__soapCall('openApiConnection', $loginParameters);
+            $response = $this->soapClient->__soapCall('openApiConnection', [$loginParameters]);
 
             $this->token = (string) $response->return;
         } catch (\SoapFault $fault) {
@@ -155,7 +155,7 @@ class APIClient implements ClientInterface
         $parameters['token'] = $this->token;
 
         try {
-            $response = $this->soapClient->__soapCall($method, $parameters);
+            $response = $this->soapClient->__soapCall($method, [$parameters]);
 
             if (!isset($response->return)) {
                 return null;
