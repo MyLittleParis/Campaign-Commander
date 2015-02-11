@@ -1,0 +1,24 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"> 
+    <soap:Body>
+        <ns2:getMessageResponse xmlns:ns2="http://api.service.apiccmd.emailvision.com/"> 
+            <return>
+                <body>[EMV HTMLPART]test</body> 
+                <createDate>2009-05-04T00:00:00+02:00</createDate> 
+                <description>desc test</description> 
+                <encoding>UTF8</encoding> 
+                <from>johnsmith@smartfocus.com</from> 
+                <fromEmail>email@johnsmith.emv2.net</fromEmail> 
+                <hotmailUnsubFlg>false</hotmailUnsubFlg> 
+                <hotmailUnsubUrl>http://www.smarfocus.com</hotmailUnsubUrl> 
+                <id>1972</id>
+                <isBounceback>false</isBounceback>
+                <name>test name</name> 
+                <replyTo>janescott@smartfocus.com</replyTo> 
+                <replyToEmail>janescott@smartfocus.com</replyToEmail> 
+                <subject>test subject</subject>
+                <to>johnsmith@smartfocus.com</to>
+                <type>email</type> 
+            </return>
+        </ns2:getMessageResponse> 
+    </soap:Body>
+</soap:Envelope>

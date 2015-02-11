@@ -1,0 +1,69 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"> 
+    <soap:Body>
+        <ns2:getBannerPreviewResponse xmlns:ns2="http://api.service.apiccmd.emailvision.com/"> 
+            <return>
+                <html> 
+                    <head>
+                    </head> 
+                    <body>
+                        <table width="606" cellspacing="0" cellpadding="0" border="0">
+                            <tr>
+                                <td width="31">
+                                    <img alt="" width="31" height="1" border="0" src="http://www.smarfocus.com/images/pix.gif" />
+                                </td>
+                                <td width="532" style="font-size:11px; color:#333333;">
+                                    Available in all stores
+                                    <br /> 
+                                    <br />
+                                    <span style="font-family:Arial, Helvetica, sans-serif; font-size:15px; color:#000000;">
+                                        <b>3 gifts for you to choose from</b> 
+                                    </span>
+                                </td>
+                                <td width="43">
+                                    <img alt="" width="30" height="1" border="0" src="http://www.smarfocus.com/images/pix.gif" />
+                                </td> 
+                            </tr>
+                        </table>
+                        <img alt="" width="1" height="8" border="0" src="http://www.smarfocus.com/images/pix.gif" />
+                        <br />
+                        <table width="606" cellspacing="0" cellpadding="0" border="0">
+                            <tr>
+                                <td width="26">
+                                    <img alt="" width="26" height="1" border="0" src="http://www.smarfocus.com/images/pix.gif" />
+                                </td>
+                                <td width="166" style="font-family:Arial, Helvetica, sans-serif; font- size:10px; color:#666666;">
+                                    <img alt="5 % reduction" width="166" height="130" border="0" src="http://www.smarfocus.com/image/cadeau-1.jpg" />
+                                    <br />
+                                    <img alt="" width="1" height="8" border="0" src="http://www.smarfocus.com/images/pix.gif" />
+                                    <br />
+                                    Half price on the item of your choice.
+                                </td>
+                                <td width="20">
+                                    <img alt="" width="20" height="1" border="0" src="http://www.smarfocus.com/images/pix.gif" /> 
+                                </td>
+                                <td width="166" style="font-family:Arial, Helvetica, sans-serif; font- size:10px; color:#666666;">
+                                    <img alt="Tasty treat" width="166" height="130" border="0" src="http://www.smarfocus.com/images/gift-2.jpg" />
+                                    <br />
+                                    <img alt="" width="1" height="8" border="0" src="http://www.smarfocus.com/images/pix.gif" />
+                                    <br />Enjoy the simplicity.
+                                </td>
+                                <td width="20">
+                                    <img alt="" width="20" height="1" border="0" src="http://www.smarfocus.com/images/pix.gif" /> 
+                                </td>
+                                <td width="166" style="font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#666666;">
+                                    <img alt="50% off headphones" width="166" height="130" border="0" src="http://www.smarfocus.com/images/gift-3.jpg" />
+                                    <br />
+                                    <img alt="" width="1" height="8" border="0" src="http://www.smarfocus.com/images/pix.gif" />
+                                    <br />50% off headphones of all brands.
+                                </td>
+                                <td width="42">
+                                    <img alt="" width="42" height="1" border="0" src="http://www.smarfocus.com/images/pix.gif" /> 
+                                </td>
+                            </tr> 
+                        </table>
+                    </body> 
+                </html>
+            </return> 
+        </ns2:getBannerPreviewResponse>
+    </soap:Body> 
+</soap:Envelope>

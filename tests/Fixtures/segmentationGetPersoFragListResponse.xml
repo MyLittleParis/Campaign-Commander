@@ -1,0 +1,13 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"> 
+    <soap:Body>
+        <ns2:segmentationGetPersoFragListResponse xmlns:ns2="http://api.service.apiccmd.emailvision.com/">
+            <return> 
+                <ApiPersoFragCriteria>
+                    <persoFragId>2</persoFragId> 
+                    <persoDesc>first pero frag sql</persoDesc> 
+                    <persoName>Perso frag name</persoName>
+                </ApiPersoFragCriteria> 
+            </return>
+        </ns2:segmentationGetPersoFragListResponse> 
+    </soap:Body>
+</soap:Envelope>

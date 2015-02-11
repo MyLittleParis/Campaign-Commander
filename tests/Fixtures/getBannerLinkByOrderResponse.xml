@@ -1,0 +1,15 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"> 
+    <soap:Body>
+        <ns2:getBannerLinkByOrderResponse xmlns:ns2="http://api.service.apiccmd.emailvision.com/"> 
+            <return>
+                <bannerId>5</bannerId> 
+                <clientId>35789</clientId> 
+                <id>10</id>
+                <name>url 2</name> 
+                <order>2</order> 
+                <type>STANDARD</type>
+                <url>http://www.smarfocus.com</url> 
+            </return>
+        </ns2:getBannerLinkByOrderResponse> 
+    </soap:Body>
+</soap:Envelope>

@@ -1,0 +1,12 @@
+<soap:Envelope 
+    xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"> 
+    <soap:Body> 
+        <ns2:getMemberJobStatusResponse 
+            xmlns:ns2="http://api.service.apimember.emailvision.com/"> 
+            <return> 
+                <email>jiji@emailvision.com</email> 
+                <status>Insert</status> 
+            </return> 
+        </ns2:getMemberJobStatusResponse> 
+    </soap:Body> 
+</soap:Envelope> 

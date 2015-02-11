@@ -1,0 +1,7 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"> 
+    <soap:Body>
+        <ns2:uploadFileMergeResponse xmlns:ns2="http://api.service.apibatchmember.emailvision.com/" xmlns:ns3="http://exceptions.service.apibatchmember.emailvision.com/">
+            <return>1234</return> 
+        </ns2:uploadFileMergeResponse>
+    </soap:Body> 
+</soap:Envelope>

@@ -1,0 +1,7 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"> 
+    <soap:Body>
+        <ns2:sendObjectResponse xmlns:ns2="http://api.service.nsapi.emailvision.com/"> 
+            <return>SendRequest has been successfully saved!</return>
+        </ns2:sendObjectResponse> 
+    </soap:Body>
+</soap:Envelope>

@@ -1,0 +1,13 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"> 
+    <soap:Body>
+        <ns2:getUrlByOrderResponse xmlns:ns2="http://api.service.apiccmd.emailvision.com/"> 
+            <return>
+                <messageId>1952</messageId> 
+                <name>test URL</name> 
+                <order>3</order> 
+                <type>STANDARD</type> 
+                <url>http://www.smarfocus.com</url>
+            </return> 
+        </ns2:getUrlByOrderResponse>
+    </soap:Body> 
+</soap:Envelope>

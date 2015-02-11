@@ -1,0 +1,7 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"> 
+    <soap:Body>
+        <ns2:createActionBannerLinkResponse xmlns:ns2="http://api.service.apiccmd.emailvision.com/"> 
+            <return>11</return>
+        </ns2:createActionBannerLinkResponse> 
+    </soap:Body>
+</soap:Envelope>

@@ -4,9 +4,7 @@
 composer.lock
 
 # Test
-.atoum.php
 phpunit.xml
-behat.yml
 
 # OSX
 .DS_Store
@@ -23,7 +21,7 @@ Desktop.ini
 $RECYCLE.BIN/
 
 # Netbeans
-nbproject/private/
+nbproject
 build/
 nbbuild/
 dist/

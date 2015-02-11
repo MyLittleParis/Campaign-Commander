@@ -1,0 +1,12 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"> 
+    <soap:Body>
+        <ns2:getBannersByFieldResponse xmlns:ns2="http://api.service.apiccmd.emailvision.com/"> 
+            <return>
+                11
+            </return>
+            <return>
+                4
+            </return>
+        </ns2:getBannersByFieldResponse> 
+    </soap:Body>
+</soap:Envelope>

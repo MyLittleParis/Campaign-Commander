@@ -1,0 +1,9 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"> 
+    <soap:Body>
+        <ns2:cloneMessageResponse xmlns:ns2="http://api.service.apiccmd.emailvision.com/"> 
+            <return>
+                1906
+            </return>
+        </ns2:cloneMessageResponse> 
+    </soap:Body>
+</soap:Envelope>

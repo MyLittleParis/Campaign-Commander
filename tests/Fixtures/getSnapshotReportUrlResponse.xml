@@ -1,0 +1,9 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"> 
+    <soap:Body>
+        <ns2:getSnapshotReportUrlResponse xmlns:ns2="http://service.apireporting.emailvision.com/">
+            <return>
+                http://www.example.com/ccmdext/flex/SnapshotReport.swf?param=&#38;;lang=en
+            </return>
+        </ns2:getSnapshotReportUrlResponse> 
+    </soap:Body>
+</soap:Envelope>

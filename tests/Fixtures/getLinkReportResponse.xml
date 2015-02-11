@@ -1,0 +1,47 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"> 
+    <soap:Body>
+        <ns2:getLinkReportResponse xmlns:ns2="http://service.apireporting.emailvision.com/">
+            <return>
+                <list xsi:type="ns2:apiLinkReport" xmlns:xsi="http://www.w3.org/2001/XMLSchema--instance">
+                    <campaignId>1429010</campaignId> 
+                    <linkId>15142931</linkId> 
+                    <linkName>url2</linkName> 
+                    <linkOrder>2</linkOrder>
+                    <nbClickers>2000</nbClickers> 
+                    <nbClicks>2500</nbClicks> 
+                    <nbConversion>0</nbConversion> 
+                    <nbMultiClickers>200</nbMultiClickers> 
+                    <nbSingleClickers>1800</nbSingleClickers> 
+                    <nbTransaction>0</nbTransaction> 
+                    <pctClicksOverTotal>31.25</pctClicksOverTotal> 
+                    <pctMultiClickers>10.0</pctMultiClickers> 
+                    <pctSingleClickers>90.0</pctSingleClickers> 
+                    <url>http://www.free.fr</url> 
+                    <valTransaction>0.0</valTransaction>
+                </list>
+                <list xsi:type="ns2:apiLinkReport" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                    <campaignId>1429010</campaignId>
+                    <linkId>15142927</linkId>
+                    <linkName>Perso Link</linkName>
+                    <linkOrder>25</linkOrder>
+                    <nbClickers>1200</nbClickers>
+                    <nbClicks>1500</nbClicks>
+                    <nbConversion>20</nbConversion>
+                    <nbMultiClickers>250</nbMultiClickers> 
+                    <nbSingleClickers>950</nbSingleClickers> 
+                    <nbTransaction>30</nbTransaction> 
+                    <pctClicksOverTotal>18.75</pctClicksOverTotal> 
+                    <pctMultiClickers>20.833334</pctMultiClickers> 
+                    <pctSingleClickers>79.166664</pctSingleClickers> 
+                    <url>http://www.google.fr/search?q=[EMV FIELD]LASTNAME[EMV /FIELD]</url> 
+                    <valTransaction>50.0</valTransaction>
+                </list>
+                <currentPage>1</currentPage> 
+                <nbItemsPerPage>50</nbItemsPerPage> 
+                <nbTotalItems>2</nbTotalItems> 
+                <nbPages>1</nbPages> 
+                <nextPage>false</nextPage>
+            </return> 
+        </ns2:getLinkReportResponse>
+    </soap:Body> 
+</soap:Envelope>

@@ -1,0 +1,67 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"> 
+    <soap:Body>
+        <ns2:getMessageSummaryListResponse xmlns:ns2="http://api.service.apiccmd.emailvision.com/"> 
+            <return>
+                <messageSummaryList> 
+                    <messageSummary>
+                        <messageId>46172</messageId>
+                        <name>Message Name 1</name>
+                        <manager>John Smith</manager> 
+                        <createdDate>2012-03-28T16:53:00+02:00</createdDate> 
+                        <from>John Smith</from> 
+                        <fromEmail>email@jsmith.ccemails.net</fromEmail> 
+                        <messageType>email</messageType> 
+                        <subject>Subject</subject>
+                        <to>Jennifer</to>
+                        <replyTo>John Smith</replyTo> 
+                        <replyToEmail>jsmith@smartfocus.com</replyToEmail> 
+                        <isBounceBack>false</isBounceBack>
+                    </messageSummary> 
+                    <messageSummary>
+                        <messageId>46222</messageId>
+                        <name>Message Name 2</name>
+                        <manager>John Smith</manager> 
+                        <createdDate>2012-03-29T13:28:44+02:00</createdDate> 
+                        <fromEmail>email@jsmith.ccemails.net</fromEmail> 
+                        <messageType>email</messageType>
+                        <replyTo>John Smith</replyTo> 
+                        <replyToEmail>jsmith@smartfocus.com</replyToEmail> 
+                        <isBounceBack>false</isBounceBack>
+                    </messageSummary> 
+                    <messageSummary>
+                        <messageId>47044</messageId>
+                        <name>Message Name 3</name>
+                        <manager>John Smith</manager> 
+                        <createdDate>2012-05-15T14:58:09+02:00</createdDate> 
+                        <from>John Smith</from> 
+                        <fromEmail>email@jsmith.ccemails.net</fromEmail> 
+                        <messageType>email</messageType> 
+                        <subject>Subject</subject>
+                        <replyTo>John Smith</replyTo> 
+                        <replyToEmail>jsmith@smartfocus.com</replyToEmail> 
+                        <isBounceBack>false</isBounceBack>
+                    </messageSummary> 
+                    <messageSummary>
+                        <messageId>44510</messageId>
+                        <name>Message Name 4</name>
+                        <manager>John Smith</manager> 
+                        <createdDate>2012-03-12T09:06:24+01:00</createdDate> 
+                        <from>John Smith</from> 
+                        <fromEmail>email@jsmith.ccemails.net</fromEmail> 
+                        <messageType>email</messageType> 
+                        <subject>Subject</subject>
+                        <to>Jennifer</to>
+                        <replyTo>John Smith</replyTo> 
+                        <replyToEmail>jsmith@smartfocus.com</replyToEmail> 
+                        <isBounceBack>false</isBounceBack>
+                    </messageSummary> 
+                </messageSummaryList> 
+                <pageSize>10</pageSize> 
+                <nbTotalItems>6</nbTotalItems> 
+                <page>1</page>
+                <nextPage>false</nextPage>
+                <previousPage>false</previousPage> 
+            </return>
+        </ns2:getMessageSummaryListResponse> 
+    </soap:Body>
+</soap:Envelope>
