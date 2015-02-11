@@ -24,7 +24,7 @@ class MemberExportServiceTest extends AbstractTestCase
     {
         parent::setUp();
 
-        $this->clientFactory = $this->getMockBuilder('\MyLittle\CampaignCommander\API\SOAP\Model\ClientFactoryInterface')
+        $this->clientFactory = $this->getMockBuilder('\MyLittle\CampaignCommander\API\SOAP\ClientFactoryInterface')
             ->disableOriginalConstructor()
             ->getMock()
         ;

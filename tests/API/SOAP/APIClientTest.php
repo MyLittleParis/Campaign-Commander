@@ -33,11 +33,6 @@ class APIClientTest extends AbstractTestCase
     private $key;
 
     /**
-     * @var string
-     */
-    private $server;
-
-    /**
      * Prepares the environment before running a test.
      */
     protected function setUp()
@@ -46,14 +41,13 @@ class APIClientTest extends AbstractTestCase
 
         $this->soapClient = $this->getMockBuilder('\BeSimple\SoapClient\SoapClient')
             ->disableOriginalConstructor()
-            ->setMethods(['openApiConnection', '__soapCall'])
+            //->setMethods(['openApiConnection', '__soapCall'])
             ->getMock()
         ;
 
         $this->login    = 'LOGIN';
         $this->password = 'PASSWORD';
         $this->key      = 'KEY';
-        $this->server   = 'SERVER';
     }
 
     /**
@@ -66,109 +60,21 @@ class APIClientTest extends AbstractTestCase
         parent::tearDown();
     }
 
-    public function testOpenApiConnection()
-    {
-        $response = new \stdClass();
-        $response->return = $this->getXMLFileMock('openApiConnectionResponse.xml');
-
-        $loginParameters = [
-            'login' => $this->login,
-            'pwd'   => $this->password,
-            'key'   => $this->key,
-        ];
-
-        $this->soapClient
-            ->expects($this->once())
-            ->method('openApiConnection')
-            ->with($loginParameters)
-            ->will($this->returnValue($response))
-        ;
-
-        $apiClient = new APIClient(
-            $this->soapClient,
-            $this->login,
-            $this->password,
-            $this->key,
-            $this->server
-        );
-
-        $apiClient->openApiConnection();
-    }
-
-    public function testOpenApiConnectionWrongCases()
-    {
-        $loginParameters = [
-            'login' => $this->login,
-            'pwd'   => $this->password,
-            'key'   => $this->key,
-        ];
-
-        $this->soapClient
-            ->expects($this->once())
-            ->method('openApiConnection')
-            ->with($loginParameters)
-            ->will($this->throwException(new \SoapFault('SoapError', 0)))
-        ;
-
-        $this->setExpectedException('\MyLittle\CampaignCommander\Exceptions\WebServiceError');
-
-        $apiClient = new APIClient(
-            $this->soapClient,
-            $this->login,
-            $this->password,
-            $this->key,
-            $this->server
-        );
-
-        $apiClient->openApiConnection();
-    }
-
-    public function testCloseApiConnection()
-    {
-        $this->OpenConnection();
-
-        $response = new \stdClass();
-        $response->return = 'SUCCESS';
-
-        $method = 'closeApiConnection';
-
-        $this->soapClient
-            ->expects($this->once())
-            ->method('__soapCall')
-            ->with($method)
-            ->will($this->returnValue($response))
-        ;
-
-        $apiClient = new APIClient(
-            $this->soapClient,
-            $this->login,
-            $this->password,
-            $this->key,
-            $this->server
-        );
-
-        $apiClient->openApiConnection();
-        $apiClient->closeApiConnection();
-    }
-
-    public function testDoCallWhithCloseConnection()
-    {
-        $this->setExpectedException('\LogicException');
-
-        $apiClient = new APIClient(
-            $this->soapClient,
-            $this->login,
-            $this->password,
-            $this->key,
-            $this->server
-        );
-
-        $apiClient->doCall('methodTest', ['id' => '1234']);
-    }
-
     public function testDoCall()
     {
-        $this->OpenConnection();
+        $loginParameters = [
+            'login' => $this->login,
+            'pwd'   => $this->password,
+            'key'   => $this->key,
+        ];
+        $loginResponse = new \stdClass();
+        $loginResponse->return = 'TOKEN1234';
+        $this->soapClient
+            ->expects($this->at(0))
+            ->method('__soapCall')
+            ->with('openApiConnection', $loginParameters)
+            ->will($this->returnValue($loginResponse))
+        ;
 
         $response = new \stdClass();
         $response->return = 'SUCCESS';
@@ -177,8 +83,9 @@ class APIClientTest extends AbstractTestCase
         $parameters = ['id' => '1234'];
 
         $this->soapClient
-            ->expects($this->once())
+            ->expects($this->at(1))
             ->method('__soapCall')
+            ->with('methodTest', ['id' => '1234', 'token' => 'TOKEN1234'])
             ->will($this->returnValue($response))
         ;
 
@@ -186,57 +93,46 @@ class APIClientTest extends AbstractTestCase
             $this->soapClient,
             $this->login,
             $this->password,
-            $this->key,
-            $this->server
+            $this->key
         );
 
-        $apiClient->openApiConnection();
         $apiClient->doCall($method, $parameters);
     }
 
     public function testDoCallWithSoapFaultResponse()
     {
-        $this->OpenConnection();
-
-        $method = 'methodTest';
-        $parameters = ['id' => '1234'];
-
-        $this->soapClient
-            ->expects($this->once())
-            ->method('__soapCall')
-            ->will($this->throwException(new \SoapFault('SoapError', 0)))
-        ;
-
-        $this->setExpectedException('\MyLittle\CampaignCommander\Exceptions\WebServiceError');
-
-        $apiClient = new APIClient(
-            $this->soapClient,
-            $this->login,
-            $this->password,
-            $this->key,
-            $this->server
-        );
-
-        $apiClient->openApiConnection();
-        $apiClient->doCall($method, $parameters);
-    }
-
-    private function OpenConnection()
-    {
-        $response = new \stdClass();
-        $response->return = 'TOKEN1234';
-
         $loginParameters = [
             'login' => $this->login,
             'pwd'   => $this->password,
             'key'   => $this->key,
         ];
+        $loginResponse = new \stdClass();
+        $loginResponse->return = 'TOKEN1234';
+        $this->soapClient
+            ->expects($this->at(0))
+            ->method('__soapCall')
+            ->with('openApiConnection', $loginParameters)
+            ->will($this->returnValue($loginResponse))
+        ;
+
+        $method = 'methodTest';
+        $parameters = ['id' => '1234'];
 
         $this->soapClient
-            ->expects($this->any())
-            ->method('openApiConnection')
-            ->with($loginParameters)
-            ->will($this->returnValue($response))
+            ->expects($this->at(1))
+            ->method('__soapCall')
+            ->will($this->throwException(new \SoapFault('SoapError', 0)))
         ;
+
+        $this->setExpectedException('\MyLittle\CampaignCommander\API\SOAP\APIException');
+
+        $apiClient = new APIClient(
+            $this->soapClient,
+            $this->login,
+            $this->password,
+            $this->key
+        );
+
+        $apiClient->doCall($method, $parameters);
     }
 }

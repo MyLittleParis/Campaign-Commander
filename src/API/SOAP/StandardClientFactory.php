@@ -2,7 +2,7 @@
 
 namespace MyLittle\CampaignCommander\API\SOAP;
 
-use MyLittle\CampaignCommander\API\SOAP\Model\ClientFactoryInterface;
+use MyLittle\CampaignCommander\API\SOAP\ClientFactoryInterface;
 use BeSimple\SoapClient\SoapClientBuilder;
 
 /**
@@ -80,7 +80,7 @@ class StandardClientFactory implements ClientFactoryInterface
             ->withTrace()
             ->withExceptions()
             ->withWsdlCacheNone()
-            ->withWsdl($wsdl)
+            ->withWsdl($this->server . '/' . $wsdl)
             ->build()
         ;
 
@@ -88,8 +88,7 @@ class StandardClientFactory implements ClientFactoryInterface
             $soapClient,
             $this->login,
             $this->password,
-            $this->key,
-            $this->server
+            $this->key
         );
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace MyLittle\CampaignCommander\API\SOAP\Model;
+namespace MyLittle\CampaignCommander\API\SOAP;
 
 /**
  * SoapClientFactoryInterface

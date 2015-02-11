@@ -39,8 +39,7 @@
 namespace MyLittle\CampaignCommander\API\SOAP;
 
 use BeSimple\SoapClient\SoapClient;
-use MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface;
-use MyLittle\CampaignCommander\Exceptions\WebServiceError;
+use MyLittle\CampaignCommander\API\SOAP\ClientInterface;
 
 /**
  * client
@@ -98,34 +97,24 @@ class APIClient implements ClientInterface
      * @param string        $login         Login provided for API access.
      * @param string        $password      The password.
      * @param string        $key           Manager Key copied from the CCMD web application.
-     * @param string        $server        The server to use. Ask your account-manager.
      */
-    public function __construct(SoapClient $soapClient, $login, $password, $key, $server)
+    public function __construct(SoapClient $soapClient, $login, $password, $key)
     {
         $this->soapClient = $soapClient;
         $this->login      = $login;
         $this->password   = $password;
         $this->key        = $key;
-        $this->server     = $server;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function closeApiConnection()
+    public function __destruct()
     {
-        $response = $this->doCall('closeApiConnection');
+        $this->doCall('closeApiConnection');
 
         $this->soapClient = null;
         $this->token = null;
-
-        return !empty($response);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function openApiConnection()
+    private function openApiConnection()
     {
         $loginParameters = [
             'login' => $this->login,
@@ -134,11 +123,11 @@ class APIClient implements ClientInterface
         ];
 
         try {
-            $response = $this->soapClient->openApiConnection($loginParameters);
+            $response = $this->soapClient->__soapCall('openApiConnection', $loginParameters);
 
             $this->token = (string) $response->return;
         } catch (\SoapFault $fault) {
-            throw new WebServiceError('Campaign commander API return an error', 0, $fault);
+            throw new APIException('CampaignCommander API connection error', 0, $fault);
         }
     }
 
@@ -149,7 +138,7 @@ class APIClient implements ClientInterface
     {
         // open connection if needed
         if ($this->soapClient === null || $this->token === null) {
-            throw new \LogicException('The Api connection is not open.');
+            $this->openApiConnection();
         }
 
         // parameters strings should be UTF8
@@ -162,7 +151,7 @@ class APIClient implements ClientInterface
         $parameters['token'] = $this->token;
 
         try {
-            $response = $this->soapClient->__soapCall($method, array($parameters));
+            $response = $this->soapClient->__soapCall($method, $parameters);
 
             if (!isset($response->return)) {
                 return null;
@@ -170,7 +159,7 @@ class APIClient implements ClientInterface
 
             return $response->return;
         } catch (\SoapFault $fault) {
-            throw new WebServiceError('Campaign commander API return an error', 0, $fault);
+            throw new APIException('CampaignCommander API operation error', 0, $fault);
         }
     }
 }

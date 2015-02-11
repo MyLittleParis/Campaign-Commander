@@ -1,6 +1,6 @@
 <?php
 
-namespace MyLittle\CampaignCommander\API\SOAP\Model;
+namespace MyLittle\CampaignCommander\API\SOAP;
 
 /**
  * Client interface
@@ -15,18 +15,6 @@ interface ClientInterface
     const WSDL_URL_BATCH_MEMBER = 'apibatchmember/services/BatchMemberService?wsdl';
     const WSDL_URL_EXPORT = 'apiexport/services/ExportService?wsdl';
     const WSDL_URL_NOTIFICATION = 'NMSOAP/NotificationService?wsdl';
-
-    /**
-     * Open the connection
-     */
-    public function openApiConnection();
-
-    /**
-     * Close the connection
-     *
-     * @return bool if the connection was closes, otherwise false.
-     */
-    public function closeApiConnection();
 
     /**
      * Make the call

@@ -2,8 +2,8 @@
 
 namespace MyLittle\CampaignCommander\Service;
 
-use MyLittle\CampaignCommander\API\SOAP\Model\ClientFactoryInterface;
-use MyLittle\CampaignCommander\API\SOAP\Model\ClientInterface;
+use MyLittle\CampaignCommander\API\SOAP\ClientFactoryInterface;
+use MyLittle\CampaignCommander\API\SOAP\ClientInterface;
 
 /**
  * CcmdURLService
@@ -20,7 +20,7 @@ class CcmdURLService
     /**
      * Constructor
      *
-     * @param \MyLittle\CampaignCommander\API\SOAP\Model\ClientFactoryInterface $clientFactory
+     * @param \MyLittle\CampaignCommander\API\SOAP\ClientFactoryInterface $clientFactory
      */
     public function __construct(ClientFactoryInterface $clientFactory)
     {

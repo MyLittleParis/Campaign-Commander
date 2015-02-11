@@ -2,7 +2,7 @@
 
 namespace MyLittle\CampaignCommander\API\SOAP;
 
-use MyLittle\CampaignCommander\API\SOAP\Model\ClientFactoryInterface;
+use MyLittle\CampaignCommander\API\SOAP\ClientFactoryInterface;
 use BeSimple\SoapCommon\Helper;
 use BeSimple\SoapClient\SoapClientBuilder;
 
@@ -81,7 +81,7 @@ class MTOMAttachmentsClientFactory implements ClientFactoryInterface
             ->withTrace()
             ->withExceptions()
             ->withSoapVersion11()
-            ->withWsdl($wsdl)
+            ->withWsdl($this->server . '/' . $wsdl)
             ->withMtomAttachments()
             ->build()
         ;
@@ -94,8 +94,7 @@ class MTOMAttachmentsClientFactory implements ClientFactoryInterface
             $soapClient,
             $this->login,
             $this->password,
-            $this->key,
-            $this->server
+            $this->key
         );
     }
 }
