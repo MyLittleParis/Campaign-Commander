@@ -14,20 +14,16 @@
             "email": "ludovic.fleury@mylittleparis.com"
         },
         {
-            "name": "Jocelyn Kerbourc'h",
-            "email": "jocelyn@mylittleparis.com"
-        },
-        {
             "name": "Arnaud Lefèvre",
             "email": "arnaud.lefevre@mylittleparis.com"
         }
     ],
     "support": {
-        "email": "david.guillot@mylittleparis.com",
+        "email": "benoit.delbasso@mylittleparis.com",
         "issues": "https://github.com/MyLittleParis/Campaign-Commander"
     },
     "autoload": {
-        "psr-0": { "MyLittle\\CampaignCommander": "src/" }
+        "psr-4": { "MyLittle\\CampaignCommander\\": "src/MyLittle/CampaignCommander" }
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
