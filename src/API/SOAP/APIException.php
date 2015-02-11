@@ -14,11 +14,13 @@ class APIException extends \Exception
         parent::__construct($message, $code, $previous);
 
         if (!empty($previous->detail)) {
-            if (!empty($previous->detail->status)) {
-                $this->status = $previous->detail->status;
-            }
-            if (!empty($previous->detail->description)) {
-                $this->message .= ' : ' . $previous->detail->description;
+            foreach ($previous->detail as $detail) {
+                if (!empty($detail->status)) {
+                    $this->status = $detail->status;
+                }
+                if (!empty($detail->description)) {
+                    $this->message .= ' : ' . $detail->description;
+                }
             }
         }
     }

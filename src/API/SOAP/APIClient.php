@@ -108,10 +108,14 @@ class APIClient implements ClientInterface
 
     public function __destruct()
     {
-        $this->doCall('closeApiConnection');
+        try {
+            $this->soapClient->__soapCall('closeApiConnection', ['token', $this->token]);
 
-        $this->soapClient = null;
-        $this->token = null;
+            $this->soapClient = null;
+            $this->token = null;
+        } catch (\SoapFault $fault) {
+            throw new APIException('CampaignCommander API error on close', 0, $fault);
+        }
     }
 
     private function openApiConnection()
@@ -127,7 +131,7 @@ class APIClient implements ClientInterface
 
             $this->token = (string) $response->return;
         } catch (\SoapFault $fault) {
-            throw new APIException('CampaignCommander API connection error', 0, $fault);
+            throw new APIException('CampaignCommander API error on connect', 0, $fault);
         }
     }
 
