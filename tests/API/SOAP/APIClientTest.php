@@ -72,7 +72,7 @@ class APIClientTest extends AbstractTestCase
         $this->soapClient
             ->expects($this->at(0))
             ->method('__soapCall')
-            ->with('openApiConnection', $loginParameters)
+            ->with('openApiConnection', [$loginParameters])
             ->will($this->returnValue($loginResponse))
         ;
 
@@ -85,7 +85,7 @@ class APIClientTest extends AbstractTestCase
         $this->soapClient
             ->expects($this->at(1))
             ->method('__soapCall')
-            ->with('methodTest', ['id' => '1234', 'token' => 'TOKEN1234'])
+            ->with('methodTest', [['id' => '1234', 'token' => 'TOKEN1234']])
             ->will($this->returnValue($response))
         ;
 
@@ -111,7 +111,7 @@ class APIClientTest extends AbstractTestCase
         $this->soapClient
             ->expects($this->at(0))
             ->method('__soapCall')
-            ->with('openApiConnection', $loginParameters)
+            ->with('openApiConnection', [$loginParameters])
             ->will($this->returnValue($loginResponse))
         ;
 
