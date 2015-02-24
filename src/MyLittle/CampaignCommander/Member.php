@@ -177,7 +177,7 @@ class Member
 			);
 
 			// create client
-			$this->soapClient = new SoapClient($this->getServer() . '/' . self::WSDL_URL, $options);
+			$this->soapClient = new \SoapClient($this->getServer() . '/' . self::WSDL_URL, $options);
 
 			// build login parameters
 			$loginParameters['login'] = $this->getLogin();
