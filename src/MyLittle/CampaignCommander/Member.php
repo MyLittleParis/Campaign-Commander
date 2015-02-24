@@ -513,7 +513,7 @@ class Member
 		if(is_array($response)) $response = $response[0];
 
 		// validate response
-		if(!isset($response->attributes->entry)) throw new CampaignCommanderMemberException('Invalid response');
+		if(!isset($response->attributes->entry)) return false;
 
 		// init var
 		$return = array();
