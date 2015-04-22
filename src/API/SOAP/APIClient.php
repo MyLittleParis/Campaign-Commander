@@ -110,7 +110,7 @@ class APIClient implements ClientInterface
     {
         try {
             // close connection if needed
-            if (!empty($this->login)) {
+            if ($this->login !== null) {
                 $this->soapClient->__soapCall('closeApiConnection', [['token' => $this->token]]);
             }
 
@@ -144,7 +144,7 @@ class APIClient implements ClientInterface
     public function doCall($method, array $parameters = [])
     {
         // open connection if needed
-        if ($this->soapClient === null || $this->token === null || !empty($this->login)) {
+        if (($this->soapClient === null || $this->token === null) && $this->login !== null) {
             $this->openApiConnection();
         }
 
