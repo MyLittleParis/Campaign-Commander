@@ -2,6 +2,7 @@
 
 namespace MyLittle\CampaignCommander\Service;
 
+use MyLittle\CampaignCommander\API\SOAP\APIClient;
 use MyLittle\CampaignCommander\API\SOAP\ClientFactoryInterface;
 use MyLittle\CampaignCommander\API\SOAP\ClientInterface;
 
@@ -17,6 +18,7 @@ class NotificationService
      */
     private $apiClient;
 
+    
     /**
      * Constructor
      *
@@ -29,10 +31,12 @@ class NotificationService
 
     /**
      * Send object
+     * 
      * This method is used to send a Transactional Message to an email address.
      * The response indicates whether the send was successful.
      *
-     * @param string $uniqueIdentifier
+     * @param int $uniqueIdentifier
+     * @param string $random
      * @param string $securityTag
      * @param string $email
      * @param array $dyn
@@ -41,12 +45,12 @@ class NotificationService
      * @param string $sendDate
      * @param string $uidKey
      *
+     * @throws \Exception
      * @return string
-     *
-     * @throws Exception
      */
     public function sendObject(
         $uniqueIdentifier,
+        $random,
         $securityTag,
         $email,
         array $dyn = null,
@@ -63,19 +67,21 @@ class NotificationService
             throw new \Exception('Invalid type ('. $type .'), allowed values are: '.implode(', ', $allowedTypes).'.');
         }
 
-        $parameters['sendrequest'] = [
+        $parameters['arg0'] = [
             'email' => (string) $email,
             'encrypt' => (string) $securityTag,
-            'random' => (string) $uniqueIdentifier,
+            'random' => (string) $random,
+            'notificationId' => (int) $uniqueIdentifier,
             'senddate' => (null !== $sendDate) ? (int) $sendDate : time(),
             'synchrotype' => (string) $type,
             'uidkey' => (string) $uidKey,
         ];
 
         // Dynamic Personalization Parameters
+        $parameters['arg0']['dyn'] = array();
         if (null !== $dyn) {
             foreach ($dyn as $key => $value) {
-                $parameters['sendrequest']['dyn'] = [
+                $parameters['arg0']['dyn'] = [
                     'entry' => [
                         'key' => $key,
                         'value' => "<![CDATA[$value]]",
@@ -85,9 +91,10 @@ class NotificationService
         }
 
         // Content Parameters
+        $parameters['arg0']['content'] = array();
         if (null !== $content) {
             foreach ($content as $key => $value) {
-                $parameters['sendrequest']['content'] = [
+                $parameters['arg0']['content'] = [
                     'entry' => [
                         'key' => $key,
                         'value' => "<![CDATA[$value]]",
