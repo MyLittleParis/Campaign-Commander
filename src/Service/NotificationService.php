@@ -84,7 +84,7 @@ class NotificationService
                 $parameters['arg0']['dyn'] = [
                     'entry' => [
                         'key' => $key,
-                        'value' => "<![CDATA[$value]]",
+                        'value' => $value,
                     ]
                 ];
             }
@@ -97,7 +97,7 @@ class NotificationService
                 $parameters['arg0']['content'] = [
                     'entry' => [
                         'key' => $key,
-                        'value' => "<![CDATA[$value]]",
+                        'value' => $value,
                     ]
                 ];
             }
