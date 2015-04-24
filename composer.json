@@ -1,5 +1,5 @@
 {
-    "name": "mylittleparis/campaign-commander",
+    "name": "craklabs/campaign-commander",
     "type": "library",
     "license": "BSD-3-Clause",
     "description": "Client for the Campaign Commander API (wrapper)",
