@@ -38,7 +38,7 @@ class BatchMemberService
      * @param string $mapping
      * @param string $fileEncoding
      * @param string $separator
-     * @param boolean $skipFirsLine
+     * @param boolean $skipFirstLine
      * @param string $dateFormat
      *
      * @return string The ID of the upload job
@@ -50,19 +50,19 @@ class BatchMemberService
         $mapping,
         $fileEncoding = 'UTF-8',
         $separator = '|',
-        $skipFirsLine = false,
+        $skipFirstLine = false,
         $dateFormat = 'mm/dd/yyyy'
     ) {
-        $parameters['mergeUpload'] = [
+        $parameters['file'] = $fileContent;
+        $parameters['mergeUpload'] = array(
             'fileName' => (string) $filename,
             'fileEncoding' => (string) $fileEncoding,
             'separator' => (string) $separator,
-            'skipFirstLine' => $skipFirsLine,
+            'skipFirstLine' => $skipFirstLine,
             'dateFormat' => (string) $dateFormat,
             'criteria' => (string) $criteria,
             'mapping' => $mapping,
-            'file' => $fileContent,
-        ];
+        );
 
         return (string) $this->apiClient->doCall('uploadFileMerge', $parameters);
     }
