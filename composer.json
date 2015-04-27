@@ -33,7 +33,7 @@
     "require": {
         "php": ">=5.4.4",
         "ext-soap": "*",
-        "besimple/soap-client": "0.2.*"
+        "craklabs/soap-client": "dev-master"
     },
     "require-dev": {
         "phpunit/phpunit": "3.7.*",
