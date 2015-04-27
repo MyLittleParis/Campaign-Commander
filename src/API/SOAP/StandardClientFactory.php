@@ -80,6 +80,7 @@ class StandardClientFactory implements ClientFactoryInterface
             ->withTrace()
             ->withExceptions()
             ->withWsdlCacheNone()
+            ->withMtomAttachments()
             ->withWsdl($this->server . '/' . $wsdl)
             ->build()
         ;
