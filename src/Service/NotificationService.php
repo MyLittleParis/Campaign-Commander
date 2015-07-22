@@ -80,29 +80,43 @@ class NotificationService
         // Dynamic Personalization Parameters
         $parameters['arg0']['dyn'] = array();
         if (null !== $dyn) {
+
+            $contentEntry = array();
+
             foreach ($dyn as $key => $value) {
-                $parameters['arg0']['dyn'] = [
-                    'entry' => [
-                        'key' => $key,
-                        'value' => $value,
-                    ]
+                $contentEntry[] = [
+                    'key' => $key,
+                    'value' => $value,
                 ];
             }
+
+            $parameters['arg0']['dyn'] = [
+                'entry' => $contentEntry
+            ];
+
         }
 
         // Content Parameters
         $parameters['arg0']['content'] = array();
         if (null !== $content) {
+
+            $contentEntry = array();
+
             foreach ($content as $key => $value) {
-                $parameters['arg0']['content'] = [
-                    'entry' => [
-                        'key' => $key,
-                        'value' => $value,
-                    ]
+                $contentEntry[] = [
+                    'key' => $key,
+                    'value' => $value,
                 ];
             }
-        }
 
+            if(!empty($contentEntry)) {
+                $parameters['arg0']['content'] = [
+                    'entry' => $contentEntry
+                ];
+            }
+
+        }
+        //print_r($parameters['arg0']['content']);die;
         return (string) $this->apiClient->doCall('sendObject', $parameters);
     }
 }
