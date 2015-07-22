@@ -6,37 +6,17 @@ use MyLittle\CampaignCommander\API\SOAP\ClientFactoryInterface;
 use BeSimple\SoapClient\SoapClientBuilder;
 
 /**
- * StandartSoapClientFactory
+ * Class StandardClientFactory
  *
- * @author mylittleparis
+ * @package  MyLittle\CampaignCommander\API\SOAP
+ * @author   Olivier Beauchemin <obeauchemin@crakmedia.com>
  */
-class StandardClientFactory implements ClientFactoryInterface
+class StandardNoAuthClientFactory implements ClientFactoryInterface
 {
     /**
      * @var SoapClientBuilder
      */
     protected $builder;
-
-    /**
-     * The login that will be used for authenticating
-     *
-     * @var string
-     */
-    protected $login;
-
-    /**
-     * The password that will be used for authenticating
-     *
-     * @var string
-     */
-    protected $password;
-
-    /**
-     * The API-key that will be used for authenticating
-     *
-     * @var string
-     */
-    protected $key;
 
     /**
      * The server to use
@@ -49,18 +29,12 @@ class StandardClientFactory implements ClientFactoryInterface
      * Constructor
      *
      * @param \BeSimple\SoapClient\SoapClientBuilder $builder
-     * @param string $login
-     * @param string $password
-     * @param string $key
      * @param string $server
      */
-    public function __construct(SoapClientBuilder $builder, $login, $password, $key, $server)
+    public function __construct(SoapClientBuilder $builder, $server)
     {
-        $this->builder  = $builder;
-        $this->login    = $login;
-        $this->password = $password;
-        $this->key      = $key;
-        $this->server   = $server;
+        $this->builder = $builder;
+        $this->server = $server;
     }
 
     /**
@@ -80,16 +54,15 @@ class StandardClientFactory implements ClientFactoryInterface
             ->withTrace()
             ->withExceptions()
             ->withWsdlCacheNone()
-            ->withMtomAttachments()
             ->withWsdl($this->server . '/' . $wsdl)
             ->build()
         ;
 
         return new APIClient(
             $soapClient,
-            $this->login,
-            $this->password,
-            $this->key
+            null,
+            null,
+            null
         );
     }
 }
