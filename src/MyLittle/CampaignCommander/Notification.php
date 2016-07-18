@@ -131,7 +131,8 @@ class Notification
 		$responseXML = @simplexml_load_string($response);
 
 		// validate
-		if($responseXML === false) throw new CampaignCommanderNotificationMessagingException('Invalid body.');
+		// this exception do some bad side effects.
+		//if($responseXML === false) throw new CampaignCommanderNotificationMessagingException('Invalid body.');
 
 		// status?
 		if((string) $responseXML->element['responseStatus'] == 'failed')
